@@ -40,20 +40,6 @@ const projects = [
     },
   },
   {
-    slug: "frostbyte",
-    record: "frostbyte",
-    type: "CNAME",
-    name: "Frostbyte",
-    status: "live",
-    route: "frostbyte.com.co",
-    href: "https://frostbyte.com.co/landing",
-    tags: "LangChain · Django · WhatsApp",
-    line: {
-      es: "El sistema operativo de un bar, con un agente que vende por WhatsApp.",
-      en: "A bar's operating system, with an agent that sells on WhatsApp.",
-    },
-  },
-  {
     slug: "keyduelo",
     record: "keyduelo",
     type: "A",
@@ -89,8 +75,7 @@ const copy = {
     lang: "es",
     title: "jato · Mi zona",
     description:
-      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, Frostbyte, Keyduelo y sus skills para agentes.",
-    eyebrow: (n) => `Zona jato.run · ${n} registros`,
+      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, Keyduelo y sus skills para agentes.",
     h1: ["Mi", "zona."],
     sub: "",
     ctaPrimary: "Ver la zona",
@@ -106,8 +91,7 @@ const copy = {
     lang: "en",
     title: "jato · My zone",
     description:
-      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, Frostbyte, Keyduelo and his agent skills.",
-    eyebrow: (n) => `jato.run zone · ${n} records`,
+      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, Keyduelo and his agent skills.",
     h1: ["My", "zone."],
     sub: "",
     ctaPrimary: "See the zone",
