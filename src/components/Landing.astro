@@ -69,10 +69,9 @@ const jsonLd = {
         {t.listHint && <p class="font-mono text-xs text-dim">{t.listHint}</p>}
       </div>
 
-      <div class="border border-line bg-ink/60 font-mono text-xs">
-        <div class="hidden grid-cols-[minmax(0,15rem)_4.5rem_9rem_1fr] gap-x-6 border-b border-line px-4 py-2.5 uppercase tracking-widest text-dim md:grid">
+      <div class="border border-line bg-ink/60 text-sm">
+        <div class="hidden grid-cols-[minmax(0,14rem)_1fr] gap-x-6 border-b border-line px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-dim md:grid">
           {t.cols.map((c) => <span>{c}</span>)}
-          <span />
         </div>
         <ul class="divide-y divide-line">
           {
@@ -82,29 +81,16 @@ const jsonLd = {
                   href={p.href}
                   target="_blank"
                   rel="noopener"
-                  class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 px-4 py-4 transition-colors hover:bg-panel md:grid-cols-[minmax(0,15rem)_4.5rem_9rem_1fr] md:items-center"
+                  class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 px-4 py-4 transition-colors hover:bg-panel md:grid-cols-[minmax(0,14rem)_1fr_auto] md:items-center"
                 >
-                  <span class="truncate text-sm">
-                    <span class="text-fg">{p.record}</span><span class="text-dim">.jato.run</span>
-                  </span>
-                  <span class="text-dim md:order-none">{p.type}</span>
-                  <span class="flex items-center gap-2 uppercase tracking-widest" style={`color: ${p.statusColor}`}>
-                    <span class={`relative inline-block size-1.5 ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
-                    {p.statusLabel}
-                  </span>
-                  <span class="col-span-2 flex items-center justify-between gap-4 font-sans text-sm text-muted md:col-span-1">
-                    <span><span class="text-fg">{p.name}</span> · {p.line}</span>
-                    <span class="font-mono text-dim transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg">↗</span>
-                  </span>
+                  <span class="font-medium text-fg">{p.name}</span>
+                  <span class="col-span-2 row-start-2 text-muted md:col-span-1 md:row-start-auto">{p.line}</span>
+                  <span class="col-start-2 row-start-1 font-mono text-dim transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg md:col-start-auto md:row-start-auto">↗</span>
                 </a>
                 <span class="pointer-events-none absolute left-0 top-1/2 h-0 w-px -translate-y-1/2 bg-gradient-to-b from-cyan to-violet transition-all duration-300 group-hover:h-3/5" />
               </li>
             ))
           }
-          <li class="flex items-center gap-3 px-4 py-4 text-dim">
-            <span class="inline-block size-3 border border-dashed border-dim" />
-            <span>*.jato.run</span>
-          </li>
         </ul>
       </div>
     </section>

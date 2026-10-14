@@ -1,20 +1,10 @@
 // Todo el texto de la landing en los dos idiomas, con la misma forma.
 // Los proyectos viven aquí también: son una sola lista para la UI y el JSON-LD.
 
-const STATUS = {
-  live: { color: "var(--color-cyan)", es: "En producción", en: "Live" },
-  open: { color: "var(--color-violet)", es: "Código abierto", en: "Open source" },
-  beta: { color: "var(--color-sun)", es: "Beta privada", en: "Private beta" },
-  lab: { color: "var(--color-dim)", es: "Experimento", en: "Experiment" },
-};
-
 const projects = [
   {
     slug: "hf-studio",
-    record: "hf-studio",
-    type: "A",
     name: "HF Studio",
-    status: "open",
     route: "hf-studio.jato.run",
     href: "https://hf-studio.jato.run",
     repo: "https://github.com/Jjat00/hf-studio",
@@ -26,10 +16,7 @@ const projects = [
   },
   {
     slug: "parkboard",
-    record: "parkboard",
-    type: "A",
     name: "Parkboard",
-    status: "beta",
     route: "parkboard.jato.run",
     href: "https://parkboard.jato.run",
     repo: "https://github.com/Jjat00/parkboard",
@@ -41,10 +28,7 @@ const projects = [
   },
   {
     slug: "keyduelo",
-    record: "keyduelo",
-    type: "A",
     name: "Keyduelo",
-    status: "lab",
     route: "keyduelo.jato.run",
     href: "https://keyduelo.jato.run",
     repo: "https://github.com/Jjat00/keyduelo",
@@ -56,10 +40,7 @@ const projects = [
   },
   {
     slug: "skills",
-    record: "skills",
-    type: "CNAME",
     name: "Skills",
-    status: "open",
     route: "skills.jato.run",
     href: "https://skills.jato.run",
     tags: "Claude Code · Codex",
@@ -80,9 +61,9 @@ const copy = {
     sub: "",
     ctaPrimary: "Ver la zona",
     ctaSecondary: "GitHub",
-    listTitle: "Registros",
+    listTitle: "Proyectos",
     listHint: "",
-    cols: ["registro", "tipo", "estado"],
+    cols: ["proyecto", "descripción"],
     code: "Código",
     by: "Un taller de",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
@@ -97,9 +78,9 @@ const copy = {
     sub: "",
     ctaPrimary: "See the zone",
     ctaSecondary: "GitHub",
-    listTitle: "Records",
+    listTitle: "Projects",
     listHint: "",
-    cols: ["record", "type", "status"],
+    cols: ["project", "description"],
     code: "Code",
     by: "A workshop by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
@@ -109,4 +90,4 @@ const copy = {
 
 export const getCopy = (locale) => copy[locale];
 export const getProjects = (locale) =>
-  projects.map((p) => ({ ...p, line: p.line[locale], statusLabel: STATUS[p.status][locale], statusColor: STATUS[p.status].color }));
+  projects.map((p) => ({ ...p, line: p.line[locale] }));
