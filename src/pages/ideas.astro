@@ -1,0 +1,194 @@
+---
+// Página interna de propuestas: varias formas de presentar jato.run, para elegir una.
+// No va al sitemap ni se enlaza desde la landing.
+import Base from "../layouts/Base.astro";
+
+const projects = ["parkboard", "hf-studio", "frostbyte", "keyduelo", "skills"];
+
+const ideas = [
+  {
+    id: "comando",
+    name: "El dominio es un comando",
+    tie: "jato.run se lee como `jato run`: cada proyecto es algo que se ejecuta. Es el guiño técnico más directo sin decir «correr».",
+    eyebrow: "jato.run",
+    kind: "terminal",
+    sub: "Cada proyecto es un comando. Escríbelo y úsalo.",
+  },
+  {
+    id: "comodin",
+    name: "El comodín *.jato.run",
+    tie: "El concepto es el DNS: un dominio y cada proyecto en su subdominio. El asterisco es la marca.",
+    eyebrow: "Un dominio · cinco direcciones",
+    kind: "wildcard",
+    sub: "Todo lo que construyo tiene dirección propia. Elige una.",
+  },
+  {
+    id: "salidas",
+    name: "Tablero de salidas",
+    tie: "Un tablero de aeropuerto de fichas cuadradas: cada proyecto es una salida con su estado. Geométrico y vivo, y conecta con la idea de lanzar.",
+    eyebrow: "Salidas",
+    kind: "flap",
+    sub: "Proyectos que ya despegaron, con su estado al minuto.",
+  },
+  {
+    id: "enviado",
+    name: "Hecho, no prometido",
+    tie: "Lo opuesto a una lista de ideas: aquí solo entra lo que ya se puede usar. Es la promesa del sitio.",
+    eyebrow: "Taller de producto",
+    kind: "text",
+    h1: ["Hecho,", "no prometido."],
+    sub: "Aquí solo entra lo que ya se puede abrir y usar.",
+  },
+  {
+    id: "agentes",
+    name: "Construido con agentes",
+    tie: "Lo que tienen en común los proyectos: están hechos con Claude Code y Codex, y varios son herramientas para agentes. Es el diferencial frente a otro portafolio.",
+    eyebrow: "Software hecho con agentes",
+    kind: "text",
+    h1: ["Hecho con agentes.", "Para agentes."],
+    sub: "Herramientas, estudios y productos que nacieron en una sesión de Claude Code o Codex.",
+  },
+  {
+    id: "pendiente",
+    name: "Del pendiente al producto",
+    tie: "Cuenta el camino: la tarjeta que se parquea en Parkboard y termina con subdominio propio. Une el sitio con tu forma de trabajar.",
+    eyebrow: "Del pendiente al producto",
+    kind: "pipeline",
+    sub: "Toda idea empieza como una tarjeta. Algunas terminan aquí.",
+  },
+  {
+    id: "baldosas",
+    name: "Una baldosa por proyecto",
+    tie: "La retícula cuadrada deja de ser fondo y se vuelve el contenido: cada baldosa encendida es un proyecto y las apagadas son lo que viene.",
+    eyebrow: "5 encendidas · las demás, en camino",
+    kind: "tiles",
+    sub: "Cada cuadro encendido es un proyecto que ya puedes usar.",
+  },
+  {
+    id: "version",
+    name: "v1.0 de cada idea",
+    tie: "Habla en el idioma del software: la idea vale cuando tiene versión publicada. Cada fila de la lista muestra su versión y su fecha.",
+    eyebrow: "Changelog público",
+    kind: "text",
+    h1: ["Cada idea,", "con versión."],
+    sub: "Lo que sale de este taller tiene número de versión, fecha y dirección.",
+  },
+];
+---
+
+<Base lang="es" title="jato · propuestas de hero" description="Propuestas internas para el hero de jato.run">
+  <meta name="robots" content="noindex" slot="head" />
+  <style>
+    .tiles-bg {
+      background-image:
+        linear-gradient(to right, rgb(237 237 237 / 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(237 237 237 / 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    @keyframes caret { 50% { opacity: 0 } }
+    .caret { animation: caret 1s steps(1) infinite; }
+    @keyframes flip { 0%, 40% { transform: rotateX(0) } 50% { transform: rotateX(90deg) } 60%, 100% { transform: rotateX(0) } }
+    .flap { animation: flip 3.2s ease-in-out infinite; transform-origin: center; }
+    @keyframes blink { 0%, 100% { opacity: .25 } 50% { opacity: 1 } }
+    .blink { animation: blink 2.4s ease-in-out infinite; }
+  </style>
+
+  <header class="mx-auto max-w-6xl px-4 pt-10 pb-6 sm:px-8">
+    <a href="/" class="font-mono text-xs text-dim hover:text-fg">← jato.run</a>
+    <h1 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Propuestas de hero</h1>
+    <p class="mt-2 max-w-2xl text-muted">
+      Ocho formas de presentar jato.run. Todas son cuadradas y geométricas, y ninguna dice «correr». Cada tarjeta trae el hero en miniatura y cómo se ata al dominio. Dime el número o mezcla dos.
+    </p>
+  </header>
+
+  <main class="mx-auto grid max-w-6xl gap-6 px-4 pb-24 sm:px-8 lg:grid-cols-2">
+    {
+      ideas.map((idea, i) => (
+        <article class="border border-line bg-panel">
+          <div class="tiles-bg relative flex aspect-[16/10] flex-col items-center justify-center overflow-hidden border-b border-line bg-ink px-6 text-center">
+            <p class="mb-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+              <span class="inline-block size-1.5 bg-cyan" />
+              {idea.eyebrow}
+            </p>
+
+            {idea.kind === "text" && (
+              <p class="text-3xl font-semibold leading-tight tracking-tighter sm:text-4xl">
+                {idea.h1[0]} <span class="grad">{idea.h1[1]}</span>
+              </p>
+            )}
+
+            {idea.kind === "terminal" && (
+              <div class="w-full max-w-sm border border-line bg-ink/90 text-left font-mono text-sm">
+                <div class="flex gap-1.5 border-b border-line px-3 py-2">
+                  <span class="size-2 bg-line" /><span class="size-2 bg-line" /><span class="size-2 bg-line" />
+                </div>
+                <div class="space-y-1 px-4 py-3">
+                  {projects.slice(0, 3).map((p, k) => (
+                    <p class={k === 2 ? "text-fg" : "text-dim"}>
+                      <span class="text-cyan">$</span> jato run <span class={k === 2 ? "grad" : ""}>{p}</span>
+                      {k === 2 && <span class="caret ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-fg" />}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {idea.kind === "wildcard" && (
+              <p class="font-mono text-4xl font-medium tracking-tight sm:text-5xl">
+                <span class="grad">*</span>.jato.run
+              </p>
+            )}
+
+            {idea.kind === "flap" && (
+              <div class="w-full max-w-md space-y-1.5 font-mono text-xs">
+                {[["HF-STUDIO", "ABIERTO"], ["PARKBOARD", "BETA"], ["FROSTBYTE", "EN VIVO"]].map(([n, st], k) => (
+                  <div class="flex items-center gap-1">
+                    {n.split("").map((ch, j) => (
+                      <span class={`flap inline-flex h-6 w-5 items-center justify-center border border-line bg-panel text-fg`} style={`animation-delay:${(k * 9 + j) * 0.08}s`}>{ch}</span>
+                    ))}
+                    <span class="ml-auto border border-line px-2 py-1 text-[10px] text-cyan">{st}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {idea.kind === "pipeline" && (
+              <div class="flex items-center gap-2 font-mono text-[11px] text-muted sm:gap-3">
+                <span class="border border-line bg-panel px-2.5 py-2">tarjeta</span>
+                <span class="text-dim">→</span>
+                <span class="border border-line bg-panel px-2.5 py-2">rama</span>
+                <span class="text-dim">→</span>
+                <span class="border border-line bg-panel px-2.5 py-2">deploy</span>
+                <span class="text-dim">→</span>
+                <span class="border border-cyan/60 bg-panel px-2.5 py-2 text-fg">x.jato.run</span>
+              </div>
+            )}
+
+            {idea.kind === "tiles" && (
+              <div class="grid grid-cols-8 gap-1.5">
+                {Array.from({ length: 24 }, (_, k) => {
+                  const on = [2, 5, 9, 14, 20].indexOf(k);
+                  return on >= 0 ? (
+                    <span class="flex size-9 items-end border border-cyan/50 bg-cyan/10 p-1 font-mono text-[7px] text-fg sm:size-10">{projects[on]}</span>
+                  ) : (
+                    <span class={`size-9 border border-line sm:size-10 ${k % 7 === 3 ? "blink border-dashed" : ""}`} />
+                  );
+                })}
+              </div>
+            )}
+
+            <p class="mt-5 max-w-sm text-sm text-muted">{idea.sub}</p>
+          </div>
+
+          <div class="p-5">
+            <p class="flex items-baseline gap-3">
+              <span class="font-mono text-xs text-dim">{String(i + 1).padStart(2, "0")}</span>
+              <span class="text-lg font-medium">{idea.name}</span>
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{idea.tie}</p>
+          </div>
+        </article>
+      ))
+    }
+  </main>
+</Base>
