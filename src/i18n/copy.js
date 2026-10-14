@@ -68,7 +68,7 @@ const copy = {
     by: "Un taller de",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
-    snake: { play: "jugar", score: "puntos", hint: "flechas, WASD o desliza · Esc para salir", over: "fin · Enter o toca para jugar otra vez" },
+    snake: { play: "jugar", score: "puntos", hint: "flechas, WASD o desliza · Esc para salir", hintTouch: "usa las flechas o desliza el dedo", over: "fin · Enter o toca para jugar otra vez", quit: "salir", dirs: ["arriba", "izquierda", "abajo", "derecha"] },
   },
   en: {
     lang: "en",
@@ -86,7 +86,7 @@ const copy = {
     by: "A workshop by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },
-    snake: { play: "play", score: "score", hint: "arrows, WASD or swipe · Esc to quit", over: "game over · Enter or tap to play again" },
+    snake: { play: "play", score: "score", hint: "arrows, WASD or swipe · Esc to quit", hintTouch: "use the arrows or swipe", over: "game over · Enter or tap to play again", quit: "quit", dirs: ["up", "left", "down", "right"] },
   },
 };
 

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  labels: { play: string; score: string; hint: string; over: string };
+  labels: { play: string; score: string; hint: string; hintTouch: string; over: string; quit: string; dirs: string[] };
 }
 const { labels } = Astro.props;
 ---
@@ -16,10 +16,41 @@ const { labels } = Astro.props;
   class="pointer-events-none absolute inset-x-0 bottom-8 z-10 hidden flex-col items-center gap-1.5 font-mono text-xs uppercase tracking-widest"
   data-score={labels.score}
   data-hint={labels.hint}
+  data-hint-touch={labels.hintTouch}
   data-over={labels.over}
 >
   <span class="text-fg"><span id="snake-score">0</span> <span class="text-dim">{labels.score}</span></span>
   <span id="snake-msg" class="text-dim">{labels.hint}</span>
+</div>
+
+<button
+  id="snake-quit"
+  type="button"
+  data-snake-ui
+  class="absolute right-4 top-4 z-20 hidden items-center gap-2 border border-line bg-panel/80 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted backdrop-blur transition hover:border-cyan hover:text-cyan sm:right-8"
+>
+  ✕ {labels.quit}
+</button>
+
+<!-- Cruceta para pantallas táctiles: solo se muestra jugando y con puntero grueso. -->
+<div id="snake-pad" data-snake-ui class="absolute bottom-20 right-4 z-20 hidden grid-cols-3 gap-1.5 select-none">
+  {
+    [
+      { dir: "0,-1", label: labels.dirs[0], arrow: "▲", cls: "col-start-2" },
+      { dir: "-1,0", label: labels.dirs[1], arrow: "◀", cls: "col-start-1 row-start-2" },
+      { dir: "0,1", label: labels.dirs[2], arrow: "▼", cls: "col-start-2 row-start-2" },
+      { dir: "1,0", label: labels.dirs[3], arrow: "▶", cls: "col-start-3 row-start-2" },
+    ].map((b) => (
+      <button
+        type="button"
+        data-dir={b.dir}
+        aria-label={b.label}
+        class={`${b.cls} flex size-14 items-center justify-center border border-line bg-panel/80 text-lg text-cyan backdrop-blur active:border-cyan active:bg-cyan/20`}
+      >
+        {b.arrow}
+      </button>
+    ))
+  }
 </div>
 
 <script>
@@ -33,6 +64,7 @@ const { labels } = Astro.props;
 
   if (canvas && ctx) {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = matchMedia("(pointer: coarse)").matches;
     const dpr = Math.min(devicePixelRatio || 1, 1.5);
     const CELL = 44;
     const GAP = 6;
@@ -86,7 +118,9 @@ const { labels } = Astro.props;
       const c0 = Math.ceil((0 - ox - GAP / 2) / CELL);
       const c1 = Math.floor((w - ox - CELL + GAP / 2) / CELL);
       const r0 = Math.ceil((0 - oy - GAP / 2) / CELL);
-      const r1 = Math.floor((h - 150 - oy - CELL + GAP / 2) / CELL);
+      // En táctil la cruceta ocupa la esquina inferior: el tablero termina más arriba.
+      const bottom = coarse ? 260 : 150;
+      const r1 = Math.floor((h - bottom - oy - CELL + GAP / 2) / CELL);
       game.b = { c0, c1, r0, r1 };
     };
 
@@ -101,6 +135,9 @@ const { labels } = Astro.props;
     const setScore = () => (scoreEl.textContent = String(game.score));
 
     const startGame = () => {
+      // Primero el hero toma su tamaño de juego (en el celular, toda la pantalla) y luego se mide el tablero.
+      section.dataset.playing = "";
+      resize();
       board();
       const { c0, c1, r0, r1 } = game.b;
       const mc = Math.floor((c0 + c1) / 2);
@@ -115,9 +152,9 @@ const { labels } = Astro.props;
       game.next = performance.now() + 300;
       placeFood();
       setScore();
-      msgEl.textContent = hud.dataset.hint ?? "";
-      section.dataset.playing = "";
+      msgEl.textContent = (coarse ? hud.dataset.hintTouch : hud.dataset.hint) ?? "";
       section.style.touchAction = "none";
+      if (coarse) section.scrollIntoView({ block: "start" });
       hud.classList.replace("hidden", "flex");
       start();
     };
@@ -125,6 +162,7 @@ const { labels } = Astro.props;
     const quitGame = () => {
       game.on = false;
       delete section.dataset.playing;
+      resize();
       section.style.touchAction = "";
       hud.classList.replace("flex", "hidden");
       if (reduce) {
@@ -311,6 +349,16 @@ const { labels } = Astro.props;
       startGame();
     });
 
+    document.getElementById("snake-quit")?.addEventListener("click", quitGame);
+    for (const b of document.querySelectorAll<HTMLButtonElement>("#snake-pad [data-dir]")) {
+      // pointerdown en vez de click: responde al instante, sin esperar a soltar.
+      b.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        const [c, r] = (b.dataset.dir ?? "0,0").split(",").map(Number);
+        turn(c, r);
+      });
+    }
+
     const KEYS: Record<string, [number, number]> = {
       ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0],
       w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0], W: [0, -1], S: [0, 1], A: [-1, 0], D: [1, 0],
@@ -331,12 +379,13 @@ const { labels } = Astro.props;
 
     // Deslizar en pantallas táctiles; tocar tras perder vuelve a empezar.
     let touch: { x: number; y: number } | null = null;
+    const onControls = (e: Event) => (e.target as Element | null)?.closest("[data-snake-ui]");
     section.addEventListener("pointerdown", (e) => {
-      if (!game.on || e.pointerType === "mouse") return;
+      if (!game.on || e.pointerType === "mouse" || onControls(e)) return;
       touch = { x: e.clientX, y: e.clientY };
     });
     section.addEventListener("pointerup", (e) => {
-      if (!game.on) return;
+      if (!game.on || onControls(e)) return;
       if (e.pointerType === "mouse") {
         if (game.over) startGame();
         return;
@@ -374,6 +423,19 @@ const { labels } = Astro.props;
   section[data-playing] .hero-ui {
     opacity: 0 !important;
     pointer-events: none;
+  }
+  @media (pointer: coarse) {
+    section[data-playing] {
+      min-height: 100dvh;
+    }
+  }
+  section[data-playing] #snake-quit {
+    display: flex;
+  }
+  @media (pointer: coarse) {
+    section[data-playing] #snake-pad {
+      display: grid;
+    }
   }
   section[data-playing] .grid-vignette {
     opacity: 0.35;
