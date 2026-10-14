@@ -1,12 +1,32 @@
+---
+interface Props {
+  labels: { play: string; score: string; hint: string; over: string };
+}
+const { labels } = Astro.props;
+---
+
 <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
   <canvas id="grid" class="block h-full w-full"></canvas>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_0%,transparent_60%,var(--color-ink)_100%)]"></div>
+  <div class="grid-vignette absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_0%,transparent_60%,var(--color-ink)_100%)] transition-opacity duration-300"></div>
   <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink"></div>
+</div>
+
+<div
+  id="snake-hud"
+  class="pointer-events-none absolute inset-x-0 bottom-8 z-10 hidden flex-col items-center gap-1.5 font-mono text-xs uppercase tracking-widest"
+  data-score={labels.score}
+  data-hint={labels.hint}
+  data-over={labels.over}
+>
+  <span class="text-fg"><span id="snake-score">0</span> <span class="text-dim">{labels.score}</span></span>
+  <span id="snake-msg" class="text-dim">{labels.hint}</span>
 </div>
 
 <script>
   // Retícula de baldosas cuadradas: una barrida diagonal enciende celdas en cian y violeta,
   // y algunas celdas se encienden solas y se apagan, como procesos que arrancan.
+  // Con el mouse encima, las baldosas cerca del cursor se encienden y las que pisa dejan una estela.
+  // El botón «play» del hero convierte la misma retícula en un tablero de Snake.
   // Barato a propósito: ~30 fps, DPR acotado y pausa fuera de pantalla o con la pestaña oculta.
   const canvas = document.getElementById("grid") as HTMLCanvasElement | null;
   const ctx = canvas?.getContext("2d");
@@ -24,6 +44,11 @@
     let visible = true;
     let raf = 0;
     let last = 0;
+    const RADIUS = 170;
+    const pointer = { x: 0, y: 0, on: false, c: -1, r: -1 };
+
+    const offset = () => ({ ox: (w % CELL) / 2 - CELL / 2, oy: (h % CELL) / 2 - CELL / 2 });
+    const hueAt = (c: number) => 190 + (c / cols) * 63;
 
     const resize = () => {
       w = canvas.clientWidth;
@@ -35,27 +60,175 @@
       rows = Math.ceil(h / CELL) + 1;
     };
 
+    // ---------- Snake ----------
+    type Cell = { c: number; r: number };
+    const section = canvas.closest("section")!;
+    const hud = document.getElementById("snake-hud")!;
+    const scoreEl = document.getElementById("snake-score")!;
+    const msgEl = document.getElementById("snake-msg")!;
+    const game = {
+      on: false,
+      over: false,
+      snake: [] as Cell[],
+      dir: { c: 1, r: 0 },
+      queue: [] as { c: number; r: number }[],
+      food: { c: 0, r: 0 } as Cell,
+      score: 0,
+      step: 120,
+      next: 0,
+      deadAt: 0,
+      // Tablero: solo celdas enteras visibles, lejos del degradado inferior y del HUD.
+      b: { c0: 0, c1: 0, r0: 0, r1: 0 },
+    };
+
+    const board = () => {
+      const { ox, oy } = offset();
+      const c0 = Math.ceil((0 - ox - GAP / 2) / CELL);
+      const c1 = Math.floor((w - ox - CELL + GAP / 2) / CELL);
+      const r0 = Math.ceil((0 - oy - GAP / 2) / CELL);
+      const r1 = Math.floor((h - 150 - oy - CELL + GAP / 2) / CELL);
+      game.b = { c0, c1, r0, r1 };
+    };
+
+    const placeFood = () => {
+      const { c0, c1, r0, r1 } = game.b;
+      for (let i = 0; i < 500; i++) {
+        const f = { c: c0 + Math.floor(Math.random() * (c1 - c0 + 1)), r: r0 + Math.floor(Math.random() * (r1 - r0 + 1)) };
+        if (!game.snake.some((s) => s.c === f.c && s.r === f.r)) return (game.food = f);
+      }
+    };
+
+    const setScore = () => (scoreEl.textContent = String(game.score));
+
+    const startGame = () => {
+      board();
+      const { c0, c1, r0, r1 } = game.b;
+      const mc = Math.floor((c0 + c1) / 2);
+      const mr = Math.floor((r0 + r1) / 2);
+      game.snake = [{ c: mc, r: mr }, { c: mc - 1, r: mr }, { c: mc - 2, r: mr }];
+      game.dir = { c: 1, r: 0 };
+      game.queue = [];
+      game.score = 0;
+      game.step = 120;
+      game.over = false;
+      game.on = true;
+      game.next = performance.now() + 300;
+      placeFood();
+      setScore();
+      msgEl.textContent = hud.dataset.hint ?? "";
+      section.dataset.playing = "";
+      section.style.touchAction = "none";
+      hud.classList.replace("hidden", "flex");
+      start();
+    };
+
+    const quitGame = () => {
+      game.on = false;
+      delete section.dataset.playing;
+      section.style.touchAction = "";
+      hud.classList.replace("flex", "hidden");
+      if (reduce) {
+        stop();
+        draw(last);
+      }
+      (document.getElementById("snake-play") as HTMLButtonElement | null)?.focus({ preventScroll: true });
+    };
+
+    const turn = (c: number, r: number) => {
+      if (!game.on) return;
+      if (game.over) return startGame();
+      const prev = game.queue.at(-1) ?? game.dir;
+      if (prev.c === -c && prev.r === -r) return; // no se puede dar media vuelta
+      if (prev.c === c && prev.r === r) return;
+      if (game.queue.length < 3) game.queue.push({ c, r });
+    };
+
+    const tick = (t: number) => {
+      if (!game.on || game.over || t < game.next) return;
+      game.next = t + game.step;
+      if (game.queue.length) game.dir = game.queue.shift()!;
+      const head = game.snake[0];
+      const n = { c: head.c + game.dir.c, r: head.r + game.dir.r };
+      const { c0, c1, r0, r1 } = game.b;
+      // Las paredes dan la vuelta: más amable en pantallas chicas.
+      if (n.c < c0) n.c = c1;
+      if (n.c > c1) n.c = c0;
+      if (n.r < r0) n.r = r1;
+      if (n.r > r1) n.r = r0;
+      const ate = n.c === game.food.c && n.r === game.food.r;
+      const body = ate ? game.snake : game.snake.slice(0, -1);
+      if (body.some((s) => s.c === n.c && s.r === n.r)) {
+        game.over = true;
+        game.deadAt = t;
+        msgEl.textContent = hud.dataset.over ?? "";
+        return;
+      }
+      game.snake = [n, ...body];
+      if (ate) {
+        game.score++;
+        game.step = Math.max(65, game.step - 3);
+        setScore();
+        sparks.push({ c: n.c, r: n.r, born: t, life: 700, hue: 54 });
+        placeFood();
+      }
+    };
+
+    const drawGame = (t: number) => {
+      const { ox, oy } = offset();
+      const size = CELL - GAP;
+      const at = (p: Cell) => [ox + p.c * CELL + GAP / 2, oy + p.r * CELL + GAP / 2];
+      const len = game.snake.length;
+      const flash = game.over ? 0.55 + 0.45 * Math.sin((t - game.deadAt) / 90) : 1;
+      game.snake.forEach((p, i) => {
+        const [x, y] = at(p);
+        const k = 1 - i / Math.max(len, 8);
+        const hue = game.over ? 350 : 190 + (i / Math.max(len - 1, 1)) * 63;
+        ctx.fillStyle = `hsla(${hue}, 80%, 66%, ${(0.22 + k * 0.4) * flash})`;
+        ctx.fillRect(x, y, size, size);
+        ctx.strokeStyle = `hsla(${hue}, 80%, 72%, ${(0.4 + k * 0.6) * flash})`;
+        ctx.strokeRect(x + 0.5, y + 0.5, size - 1, size - 1);
+      });
+      const pulse = 0.5 + 0.5 * Math.sin(t / 220);
+      const [fx, fy] = at(game.food);
+      // La comida va en el amarillo de la paleta (--color-sun) para no confundirse con la cola violeta.
+      ctx.fillStyle = `hsla(54, 92%, 60%, ${0.2 + pulse * 0.25})`;
+      ctx.fillRect(fx, fy, size, size);
+      ctx.strokeStyle = `hsla(54, 92%, 64%, ${0.55 + pulse * 0.45})`;
+      ctx.strokeRect(fx + 0.5, fy + 0.5, size - 1, size - 1);
+    };
+
+    // ---------- Dibujo ----------
     const draw = (t: number) => {
       ctx.clearRect(0, 0, w, h);
-      const ox = (w % CELL) / 2 - CELL / 2;
-      const oy = (h % CELL) / 2 - CELL / 2;
+      const { ox, oy } = offset();
       const s = t / 1000;
       const diag = cols + rows;
       const sweep = ((s * 6) % (diag + 16)) - 8;
+      const playing = game.on;
 
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows; r++) {
           const x = ox + c * CELL + GAP / 2;
           const y = oy + r * CELL + GAP / 2;
           const size = CELL - GAP;
+          // Jugando, la retícula se queda quieta y tenue para que se lea la serpiente.
           const d = Math.abs(c + r - sweep);
-          const glow = d < 4 ? (1 - d / 4) ** 2 : 0;
-          ctx.strokeStyle = `rgba(237, 237, 237, ${0.07 + glow * 0.12})`;
+          const glow = !playing && d < 4 ? (1 - d / 4) ** 2 : 0;
+          let lit = 0;
+          if (pointer.on && !playing) {
+            const dp = Math.hypot(x + size / 2 - pointer.x, y + size / 2 - pointer.y);
+            if (dp < RADIUS) lit = (1 - dp / RADIUS) ** 2;
+          }
+          const inBoard = playing && c >= game.b.c0 && c <= game.b.c1 && r >= game.b.r0 && r <= game.b.r1;
+          const hue = hueAt(c);
+          ctx.strokeStyle =
+            lit > 0.02
+              ? `hsla(${hue}, 80%, 72%, ${0.1 + lit * 0.7})`
+              : `rgba(237, 237, 237, ${playing ? (inBoard ? 0.09 : 0.03) : 0.07 + glow * 0.12})`;
           ctx.lineWidth = 1;
           ctx.strokeRect(x + 0.5, y + 0.5, size - 1, size - 1);
-          if (glow > 0) {
-            const hue = 190 + (c / cols) * 63;
-            ctx.fillStyle = `hsla(${hue}, 80%, 66%, ${glow * 0.14})`;
+          if (glow > 0 || lit > 0) {
+            ctx.fillStyle = `hsla(${hue}, 80%, 66%, ${glow * 0.14 + lit * 0.22})`;
             ctx.fillRect(x, y, size, size);
           }
         }
@@ -74,10 +247,12 @@
         ctx.strokeRect(x + 0.5, y + 0.5, size - 1, size - 1);
       }
       sparks = sparks.filter((p) => t - p.born < p.life);
+
+      if (playing) drawGame(t);
     };
 
     const spawn = (t: number) => {
-      if (sparks.length < 22 && Math.random() < 0.2) {
+      if (!game.on && sparks.length < 22 && Math.random() < 0.2) {
         sparks.push({
           c: Math.floor(Math.random() * cols),
           r: Math.floor(Math.random() * rows),
@@ -90,6 +265,7 @@
 
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
+      tick(t);
       if (t - last < 33) return;
       last = t;
       spawn(t);
@@ -104,20 +280,102 @@
       raf = 0;
     };
 
+    // ---------- Entradas ----------
+    // El canvas no recibe eventos (pointer-events: none): se escucha en la sección del hero.
+    section.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" || game.on) return;
+      const box = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - box.left;
+      pointer.y = e.clientY - box.top;
+      pointer.on = true;
+      const { ox, oy } = offset();
+      const c = Math.floor((pointer.x - ox) / CELL);
+      const r = Math.floor((pointer.y - oy) / CELL);
+      if ((c !== pointer.c || r !== pointer.r) && !reduce) {
+        sparks.push({ c, r, born: performance.now(), life: 900, hue: hueAt(c) });
+        if (sparks.length > 60) sparks.shift();
+      }
+      pointer.c = c;
+      pointer.r = r;
+      if (reduce) draw(last);
+    });
+    section.addEventListener("pointerleave", () => {
+      pointer.on = false;
+      pointer.c = pointer.r = -1;
+      if (reduce) draw(last);
+    });
+
+    document.getElementById("snake-play")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      pointer.on = false;
+      startGame();
+    });
+
+    const KEYS: Record<string, [number, number]> = {
+      ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0],
+      w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0], W: [0, -1], S: [0, 1], A: [-1, 0], D: [1, 0],
+    };
+    addEventListener("keydown", (e) => {
+      if (!game.on) return;
+      if (e.key === "Escape") return quitGame();
+      if (game.over && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        return startGame();
+      }
+      const k = KEYS[e.key];
+      if (k) {
+        e.preventDefault(); // que las flechas no muevan la página
+        turn(k[0], k[1]);
+      }
+    });
+
+    // Deslizar en pantallas táctiles; tocar tras perder vuelve a empezar.
+    let touch: { x: number; y: number } | null = null;
+    section.addEventListener("pointerdown", (e) => {
+      if (!game.on || e.pointerType === "mouse") return;
+      touch = { x: e.clientX, y: e.clientY };
+    });
+    section.addEventListener("pointerup", (e) => {
+      if (!game.on) return;
+      if (e.pointerType === "mouse") {
+        if (game.over) startGame();
+        return;
+      }
+      if (!touch) return;
+      const dx = e.clientX - touch.x;
+      const dy = e.clientY - touch.y;
+      touch = null;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) {
+        if (game.over) startGame();
+        return;
+      }
+      Math.abs(dx) > Math.abs(dy) ? turn(Math.sign(dx), 0) : turn(0, Math.sign(dy));
+    });
+
     resize();
     draw(0);
     addEventListener("resize", () => {
       resize();
+      if (game.on) board();
       draw(last);
     });
 
-    if (!reduce) {
-      new IntersectionObserver(([e]) => {
-        visible = e.isIntersecting;
-        visible ? start() : stop();
-      }).observe(canvas);
-      document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-      start();
-    }
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      visible && (!reduce || game.on) ? start() : stop();
+    }).observe(canvas);
+    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : (!reduce || game.on) && start()));
+    if (!reduce) start();
   }
 </script>
+
+<style is:global>
+  /* Mientras se juega, el título y los botones del hero se apartan. */
+  section[data-playing] .hero-ui {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+  section[data-playing] .grid-vignette {
+    opacity: 0.35;
+  }
+</style>

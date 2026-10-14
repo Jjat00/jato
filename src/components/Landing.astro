@@ -45,26 +45,36 @@ const jsonLd = {
 
   <main>
     <section class="relative isolate flex min-h-[78dvh] flex-col items-center justify-center px-4 text-center sm:px-8">
-      <Grid />
-      <h1 class="rise text-5xl font-semibold leading-[0.95] tracking-tighter sm:text-7xl md:text-8xl" style="animation-delay: 80ms">
-        {t.h1[0]} <span class="grad">{t.h1[1]}</span>
-      </h1>
-      {t.sub && <p class="rise mt-7 max-w-xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">{t.sub}</p>}
-      <div class="rise mt-10 flex flex-wrap justify-center gap-3" style="animation-delay: 240ms">
-        <a href="#proyectos" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
-          {t.ctaPrimary} ↓
-        </a>
-        <a
-          href="https://github.com/Jjat00"
-          class="border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg backdrop-blur transition hover:border-dim"
-        >
-          {t.ctaSecondary} ↗
-        </a>
+      <Grid labels={t.snake} />
+      <div class="hero-ui flex flex-col items-center transition-opacity duration-300">
+        <h1 class="rise text-5xl font-semibold leading-[0.95] tracking-tighter sm:text-7xl md:text-8xl" style="animation-delay: 80ms">
+          {t.h1[0]} <span class="grad">{t.h1[1]}</span>
+        </h1>
+        {t.sub && <p class="rise mt-7 max-w-xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">{t.sub}</p>}
+        <div class="rise mt-10 flex flex-wrap justify-center gap-3" style="animation-delay: 240ms">
+          <a href="#proyectos" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
+            {t.ctaPrimary} ↓
+          </a>
+          <a
+            href="https://github.com/Jjat00"
+            class="border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg backdrop-blur transition hover:border-dim"
+          >
+            {t.ctaSecondary} ↗
+          </a>
+        </div>
       </div>
+      <button
+        id="snake-play"
+        type="button"
+        class="hero-ui rise absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 border border-line bg-panel/70 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted backdrop-blur transition hover:border-cyan hover:text-cyan"
+        style="animation-delay: 400ms"
+      >
+        <span class="text-cyan">▶</span> {t.snake.play}
+      </button>
     </section>
 
     <section id="proyectos" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
-      <div class="mb-6 flex flex-wrap items-end justify-between gap-2 border-b border-line pb-4">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-2">
         <h2 class="text-xl font-semibold tracking-tight">{t.listTitle}</h2>
         {t.listHint && <p class="font-mono text-xs text-dim">{t.listHint}</p>}
       </div>
