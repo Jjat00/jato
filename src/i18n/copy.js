@@ -27,7 +27,7 @@ const projects = [
     name: "Parkboard",
     status: "beta",
     route: "parkboard.jato.run",
-    href: "https://parkboard.jaimeaza.tech",
+    href: "https://parkboard.jato.run",
     repo: "https://github.com/Jjat00/parkboard",
     tags: "CLI · Next.js · Postgres",
     line: {
