@@ -16,7 +16,7 @@ const projects = [
     name: "HF Studio",
     status: "open",
     route: "hf-studio.jato.run",
-    href: "https://hf-studio-gold.vercel.app",
+    href: "https://hf-studio.jato.run",
     repo: "https://github.com/Jjat00/hf-studio",
     tags: "MCP · API · Next.js",
     line: {
@@ -46,7 +46,7 @@ const projects = [
     name: "Keyduelo",
     status: "lab",
     route: "keyduelo.jato.run",
-    href: "https://keyduelo.vercel.app/",
+    href: "https://keyduelo.jato.run",
     repo: "https://github.com/Jjat00/keyduelo",
     tags: "Durable Objects · WebSockets",
     line: {
@@ -60,8 +60,8 @@ const projects = [
     type: "CNAME",
     name: "Skills",
     status: "open",
-    route: "github.com/Jjat00/jjat-skills",
-    href: "https://github.com/Jjat00/jjat-skills",
+    route: "skills.jato.run",
+    href: "https://skills.jato.run",
     tags: "Claude Code · Codex",
     line: {
       es: "Habilidades para agentes: video, contenido y flujos de trabajo.",

@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "skills.jato.run" }],
+      "destination": "https://github.com/Jjat00/jjat-skills",
+      "permanent": false
+    }
+  ]
+}
