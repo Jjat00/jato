@@ -1,0 +1,109 @@
+---
+import Base from "../layouts/Base.astro";
+import Rings from "./Rings.astro";
+import { getCopy, getProjects } from "../i18n/copy.js";
+
+interface Props {
+  locale: "es" | "en";
+}
+
+const { locale } = Astro.props;
+const t = getCopy(locale);
+const projects = getProjects(locale);
+const year = new Date().getFullYear();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": "https://jato.run/#site", name: "jato", url: "https://jato.run", inLanguage: locale },
+    {
+      "@type": "ItemList",
+      name: t.listTitle,
+      itemListElement: projects.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: { "@type": "SoftwareApplication", name: p.name, description: p.line, url: p.href },
+      })),
+    },
+  ],
+};
+---
+
+<Base lang={locale} title={t.title} description={t.description}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
+    <a href={locale === "es" ? "/" : "/en/"} class="group flex items-baseline gap-0.5" aria-label="jato.run">
+      <span class="text-2xl font-semibold tracking-tight">jato</span>
+      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    </a>
+    <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
+      <a href={t.other.href} class="hover:text-fg" hreflang={t.other.label.toLowerCase()}>{t.other.label}</a>
+      <a href="https://github.com/Jjat00" class="hover:text-fg" rel="me">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="relative isolate flex min-h-[78dvh] flex-col items-center justify-center px-4 text-center sm:px-8">
+      <Rings />
+      <p class="rise mb-6 flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+        <span class="pulse relative inline-block size-1.5 rounded-full text-cyan" style="background: currentColor"></span>
+        {t.eyebrow(projects.length)}
+      </p>
+      <h1 class="rise text-5xl font-semibold leading-[0.95] tracking-tighter sm:text-7xl md:text-8xl" style="animation-delay: 80ms">
+        {t.h1[0]} {t.h1[1]} <span class="grad">{t.h1[2]}</span>
+      </h1>
+      <p class="rise mt-7 max-w-xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">{t.sub}</p>
+      <div class="rise mt-10 flex flex-wrap justify-center gap-3" style="animation-delay: 240ms">
+        <a href="#corre" class="rounded-lg bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
+          {t.ctaPrimary} ↓
+        </a>
+        <a
+          href="https://github.com/Jjat00"
+          class="rounded-lg border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg backdrop-blur transition hover:border-dim"
+        >
+          {t.ctaSecondary} ↗
+        </a>
+      </div>
+    </section>
+
+    <section id="corre" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-2 border-b border-line pb-4">
+        <h2 class="text-xl font-semibold tracking-tight">{t.listTitle}</h2>
+        <p class="font-mono text-xs text-dim">{t.listHint}</p>
+      </div>
+
+      <ul class="divide-y divide-line">
+        {
+          projects.map((p) => (
+            <li class="group relative">
+              <a
+                href={p.href}
+                class="grid grid-cols-1 gap-x-6 gap-y-2 rounded-lg px-3 py-5 transition-colors hover:bg-panel sm:grid-cols-[9.5rem_1fr_auto] sm:items-center"
+              >
+                <span class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest" style={`color: ${p.statusColor}`}>
+                  <span class={`relative inline-block size-1.5 rounded-full ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
+                  {p.statusLabel}
+                </span>
+                <span class="min-w-0">
+                  <span class="text-lg font-medium text-fg">{p.name}</span>
+                  <span class="ml-2 hidden font-mono text-[11px] text-dim md:inline">{p.tags}</span>
+                  <span class="mt-1 block text-sm text-muted">{p.line}</span>
+                </span>
+                <span class="font-mono text-xs text-dim transition-colors group-hover:text-fg">
+                  {p.route} <span class="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </span>
+              </a>
+              <span class="pointer-events-none absolute left-0 top-1/2 h-0 w-px -translate-y-1/2 bg-gradient-to-b from-cyan to-violet transition-all duration-300 group-hover:h-3/5" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 font-mono text-xs text-dim sm:px-8">
+    <span>{t.by} <a href="https://jaimeaza.tech" class="text-muted hover:text-fg" rel="author">Jaime Aza ↗</a></span>
+    <span>© {year} jato.run</span>
+  </footer>
+</Base>
