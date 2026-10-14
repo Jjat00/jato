@@ -73,32 +73,48 @@ const jsonLd = {
         <p class="font-mono text-xs text-dim">{t.listHint}</p>
       </div>
 
-      <ul class="divide-y divide-line">
-        {
-          projects.map((p) => (
-            <li class="group relative">
-              <a
-                href={p.href}
-                class="grid grid-cols-1 gap-x-6 gap-y-2 px-3 py-5 transition-colors hover:bg-panel sm:grid-cols-[9.5rem_1fr_auto] sm:items-center"
-              >
-                <span class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest" style={`color: ${p.statusColor}`}>
-                  <span class={`relative inline-block size-1.5 ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
-                  {p.statusLabel}
-                </span>
-                <span class="min-w-0">
-                  <span class="text-lg font-medium text-fg">{p.name}</span>
-                  <span class="ml-2 hidden font-mono text-[11px] text-dim md:inline">{p.tags}</span>
-                  <span class="mt-1 block text-sm text-muted">{p.line}</span>
-                </span>
-                <span class="font-mono text-xs text-dim transition-colors group-hover:text-fg">
-                  {p.route} <span class="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
-                </span>
-              </a>
-              <span class="pointer-events-none absolute left-0 top-1/2 h-0 w-px -translate-y-1/2 bg-gradient-to-b from-cyan to-violet transition-all duration-300 group-hover:h-3/5" />
-            </li>
-          ))
-        }
-      </ul>
+      <div class="border border-line bg-ink/60 font-mono text-xs">
+        <div class="hidden grid-cols-[minmax(0,15rem)_4.5rem_9rem_5.5rem_1fr] gap-x-6 border-b border-line px-4 py-2.5 uppercase tracking-widest text-dim md:grid">
+          {t.cols.map((c) => <span>{c}</span>)}
+          <span />
+        </div>
+        <ul class="divide-y divide-line">
+          {
+            projects.map((p) => (
+              <li class="group relative">
+                <a
+                  href={p.href}
+                  class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 px-4 py-4 transition-colors hover:bg-panel md:grid-cols-[minmax(0,15rem)_4.5rem_9rem_5.5rem_1fr] md:items-center"
+                >
+                  <span class="truncate text-sm">
+                    <span class="text-fg">{p.record}</span><span class="text-dim">.jato.run</span>
+                  </span>
+                  <span class="text-dim md:order-none">{p.type}</span>
+                  <span class="flex items-center gap-2 uppercase tracking-widest" style={`color: ${p.statusColor}`}>
+                    <span class={`relative inline-block size-1.5 ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
+                    {p.statusLabel}
+                  </span>
+                  <span class={p.login === "google" ? "text-fg" : "text-dim"}>
+                    {p.login === "google" && <span class="mr-1.5 inline-block size-1.5 bg-[conic-gradient(#ea4335_0_25%,#fbbc05_0_50%,#34a853_0_75%,#4285f4_0)]" />}
+                    {p.loginLabel}
+                  </span>
+                  <span class="col-span-2 flex items-center justify-between gap-4 font-sans text-sm text-muted md:col-span-1">
+                    <span><span class="text-fg">{p.name}</span> · {p.line}</span>
+                    <span class="font-mono text-dim transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg">↗</span>
+                  </span>
+                </a>
+                <span class="pointer-events-none absolute left-0 top-1/2 h-0 w-px -translate-y-1/2 bg-gradient-to-b from-cyan to-violet transition-all duration-300 group-hover:h-3/5" />
+              </li>
+            ))
+          }
+          <li class="flex items-center gap-3 px-4 py-4 text-dim">
+            <span class="inline-block size-3 border border-dashed border-dim" />
+            <span>*.jato.run</span>
+            <span class="text-line">·</span>
+            <span>{t.next}</span>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 
