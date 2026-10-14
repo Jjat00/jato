@@ -8,18 +8,11 @@ const STATUS = {
   lab: { color: "var(--color-dim)", es: "Experimento", en: "Experiment" },
 };
 
-const LOGIN = {
-  google: { es: "Google", en: "Google" },
-  open: { es: "abierto", en: "open" },
-  own: { es: "propio", en: "own" },
-};
-
 const projects = [
   {
     slug: "hf-studio",
     record: "hf-studio",
     type: "A",
-    login: "open",
     name: "HF Studio",
     status: "open",
     route: "hf-studio.jato.run",
@@ -35,7 +28,6 @@ const projects = [
     slug: "parkboard",
     record: "parkboard",
     type: "A",
-    login: "google",
     name: "Parkboard",
     status: "beta",
     route: "parkboard.jato.run",
@@ -51,7 +43,6 @@ const projects = [
     slug: "frostbyte",
     record: "frostbyte",
     type: "CNAME",
-    login: "own",
     name: "Frostbyte",
     status: "live",
     route: "frostbyte.com.co",
@@ -66,7 +57,6 @@ const projects = [
     slug: "keyduelo",
     record: "keyduelo",
     type: "A",
-    login: "open",
     name: "Keyduelo",
     status: "lab",
     route: "keyduelo.jato.run",
@@ -82,7 +72,6 @@ const projects = [
     slug: "skills",
     record: "skills",
     type: "CNAME",
-    login: "open",
     name: "Skills",
     status: "open",
     route: "github.com/Jjat00/jjat-skills",
@@ -100,16 +89,15 @@ const copy = {
     lang: "es",
     title: "jato · Mi zona",
     description:
-      "jato.run es la zona de Jaime Aza: un dominio para todos sus proyectos, cada uno en su subdominio y con un solo login de Google.",
+      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, Frostbyte, Keyduelo y sus skills para agentes.",
     eyebrow: (n) => `Zona jato.run · ${n} registros`,
     h1: ["Mi", "zona."],
-    sub: "Un dominio para todo lo que construyo. Cada proyecto es un registro: su subdominio, su estado y si pide entrar con Google.",
+    sub: "",
     ctaPrimary: "Ver la zona",
     ctaSecondary: "GitHub",
     listTitle: "Registros",
-    listHint: "Un registro por proyecto. Entra y úsalo.",
-    cols: ["registro", "tipo", "estado", "login"],
-    next: "el siguiente registro",
+    listHint: "",
+    cols: ["registro", "tipo", "estado"],
     code: "Código",
     by: "Un taller de",
     other: { label: "EN", href: "/en/" },
@@ -118,16 +106,15 @@ const copy = {
     lang: "en",
     title: "jato · My zone",
     description:
-      "jato.run is Jaime Aza's zone: one domain for all his projects, each on its own subdomain with a single Google sign-in.",
+      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, Frostbyte, Keyduelo and his agent skills.",
     eyebrow: (n) => `jato.run zone · ${n} records`,
     h1: ["My", "zone."],
-    sub: "One domain for everything I build. Every project is a record: its subdomain, its status and whether it asks you to sign in with Google.",
+    sub: "",
     ctaPrimary: "See the zone",
     ctaSecondary: "GitHub",
     listTitle: "Records",
-    listHint: "One record per project. Go in and use it.",
-    cols: ["record", "type", "status", "sign-in"],
-    next: "the next record",
+    listHint: "",
+    cols: ["record", "type", "status"],
     code: "Code",
     by: "A workshop by",
     other: { label: "ES", href: "/" },
@@ -136,4 +123,4 @@ const copy = {
 
 export const getCopy = (locale) => copy[locale];
 export const getProjects = (locale) =>
-  projects.map((p) => ({ ...p, line: p.line[locale], statusLabel: STATUS[p.status][locale], statusColor: STATUS[p.status].color, loginLabel: LOGIN[p.login][locale] }));
+  projects.map((p) => ({ ...p, line: p.line[locale], statusLabel: STATUS[p.status][locale], statusColor: STATUS[p.status].color }));
