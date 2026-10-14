@@ -110,6 +110,9 @@ const jsonLd = {
 
   <footer class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 font-mono text-xs text-dim sm:px-8">
     <span>{t.by} <a href="https://jaimeaza.tech" class="text-muted hover:text-fg" rel="author">Jaime Aza ↗</a></span>
-    <span>© {year} jato.run</span>
+    <span class="flex items-center gap-5">
+      {t.legal.map((l) => <a href={l.href} class="hover:text-fg">{l.label}</a>)}
+      <span>© {year} jato.run</span>
+    </span>
   </footer>
 </Base>

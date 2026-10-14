@@ -85,6 +85,7 @@ const copy = {
     cols: ["registro", "tipo", "estado"],
     code: "Código",
     by: "Un taller de",
+    legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
   },
   en: {
@@ -101,6 +102,7 @@ const copy = {
     cols: ["record", "type", "status"],
     code: "Code",
     by: "A workshop by",
+    legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },
   },
 };

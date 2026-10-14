@@ -28,3 +28,15 @@ body { background: var(--color-ink); color: var(--color-fg); font-family: var(--
 @media (prefers-reduced-motion: reduce) {
   .pulse::after, .rise { animation: none; }
 }
+
+/* Páginas legales */
+.legal { color: var(--color-muted); line-height: 1.75; }
+.legal h2 { margin-top: 2.75rem; margin-bottom: .75rem; color: var(--color-fg); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+.legal h3 { margin-top: 1.75rem; margin-bottom: .5rem; color: var(--color-fg); font-weight: 600; }
+.legal p, .legal ul { margin-top: .9rem; }
+.legal ul { list-style: none; padding-left: 0; }
+.legal li { position: relative; padding-left: 1.25rem; margin-top: .4rem; }
+.legal li::before { content: ""; position: absolute; left: 0; top: .7em; width: .375rem; height: .375rem; background: var(--color-cyan); }
+.legal strong { color: var(--color-fg); font-weight: 600; }
+.legal a { color: var(--color-fg); text-decoration: underline; text-decoration-color: var(--color-line); text-underline-offset: 3px; }
+.legal a:hover { text-decoration-color: var(--color-cyan); }
