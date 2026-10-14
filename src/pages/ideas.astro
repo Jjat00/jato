@@ -74,6 +74,55 @@ const ideas = [
     sub: "Lo que sale de este taller tiene número de versión, fecha y dirección.",
   },
 ];
+const apps = [
+  { n: "parkboard", st: "beta" },
+  { n: "hf-studio", st: "abierto" },
+  { n: "keyduelo", st: "lab" },
+  { n: "skills", st: "abierto" },
+];
+
+const round2 = [
+  {
+    id: "lanzador",
+    name: "El lanzador",
+    tie: "jato.run es la puerta de entrada: entras una vez con Google y ves tus proyectos como baldosas. Cada baldosa abre su subdominio, que ya te reconoce. Los proyectos nuevos aparecen como baldosas nuevas.",
+    eyebrow: "Una cuenta · todos los proyectos",
+    kind: "launcher",
+    h1: ["Entra una vez.", "Usa todo."],
+  },
+  {
+    id: "llave",
+    name: "Entrar con jato",
+    tie: "La marca es el login: cada proyecto muestra «Entrar con jato» y te manda a accounts.jato.run. La landing explica esa llave y lista dónde sirve.",
+    eyebrow: "accounts.jato.run",
+    kind: "key",
+    h1: ["Una llave", "para *.jato.run."],
+  },
+  {
+    id: "estado",
+    name: "Estado de todo",
+    tie: "jato.run como página de estado: cada subdominio con su historial en cuadros, al estilo de las contribuciones de GitHub. Muestra que todo está vivo, y sirve para ti cuando algo se cae.",
+    eyebrow: "4 en línea · 0 caídos",
+    kind: "status",
+    h1: ["Todo lo que tengo", "en línea."],
+  },
+  {
+    id: "zona",
+    name: "La zona DNS",
+    tie: "Honesto y técnico: la página es la zona del dominio, con un registro por proyecto, su estado y si pide login. Un proyecto nuevo es una línea más.",
+    eyebrow: "Zona jato.run",
+    kind: "zone",
+    h1: ["Mi zona.", ""],
+  },
+  {
+    id: "nacer",
+    name: "Cada idea nace con dominio y login",
+    tie: "La promesa es para ti: una idea nueva arranca con `x.jato.run` y el login ya resuelto, sin rehacer pantallas. La landing lo cuenta con un comando (y algún día existe de verdad).",
+    eyebrow: "jato new",
+    kind: "new",
+    h1: ["Cada idea nace", "con dominio y login."],
+  },
+];
 ---
 
 <Base lang="es" title="jato · propuestas de hero" description="Propuestas internas para el hero de jato.run">
@@ -183,6 +232,111 @@ const ideas = [
           <div class="p-5">
             <p class="flex items-baseline gap-3">
               <span class="font-mono text-xs text-dim">{String(i + 1).padStart(2, "0")}</span>
+              <span class="text-lg font-medium">{idea.name}</span>
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{idea.tie}</p>
+          </div>
+        </article>
+      ))
+    }
+  </main>
+
+  <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Ronda 2: jato como plataforma</h2>
+    <p class="mt-2 max-w-2xl text-muted">
+      jato.run no es una vitrina: es la casa de todos los proyectos. Cada uno tiene su subdominio y un solo login con Google sirve para todos. La landing es la puerta de entrada.
+    </p>
+  </section>
+
+  <main class="mx-auto grid max-w-6xl gap-6 px-4 pb-24 sm:px-8 lg:grid-cols-2">
+    {
+      round2.map((idea, i) => (
+        <article class="border border-line bg-panel">
+          <div class="tiles-bg relative flex aspect-[16/10] flex-col items-center justify-center overflow-hidden border-b border-line bg-ink px-6 text-center">
+            <p class="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+              <span class="inline-block size-1.5 bg-cyan" />
+              {idea.eyebrow}
+            </p>
+            <p class="text-2xl font-semibold leading-tight tracking-tighter sm:text-3xl">
+              {idea.h1[0]} <span class="grad">{idea.h1[1]}</span>
+            </p>
+
+            {idea.kind === "launcher" && (
+              <div class="mt-5 flex flex-col items-center gap-3">
+                <div class="grid grid-cols-5 gap-2">
+                  {apps.map((a) => (
+                    <span class="flex size-14 flex-col justify-between border border-line bg-panel p-1.5 text-left font-mono text-[8px]">
+                      <span class="size-2 bg-cyan/70" />
+                      <span class="text-fg">{a.n}</span>
+                    </span>
+                  ))}
+                  <span class="flex size-14 items-center justify-center border border-dashed border-line font-mono text-dim">+</span>
+                </div>
+                <span class="flex items-center gap-2 bg-fg px-3 py-1.5 text-xs font-medium text-ink">
+                  <span class="size-2.5 bg-[conic-gradient(#ea4335_0_25%,#fbbc05_0_50%,#34a853_0_75%,#4285f4_0)]" /> Continuar con Google
+                </span>
+              </div>
+            )}
+
+            {idea.kind === "key" && (
+              <div class="mt-5 flex items-center gap-4">
+                <div class="w-44 border border-line bg-panel p-3 text-left">
+                  <p class="font-mono text-[9px] text-dim">accounts.jato.run</p>
+                  <p class="mt-1 text-xs font-medium">Entrar con jato</p>
+                  <span class="mt-3 flex items-center justify-center gap-1.5 bg-fg py-1.5 text-[10px] font-medium text-ink">
+                    <span class="size-2 bg-[conic-gradient(#ea4335_0_25%,#fbbc05_0_50%,#34a853_0_75%,#4285f4_0)]" /> Google
+                  </span>
+                </div>
+                <div class="space-y-1 text-left font-mono text-[10px] text-muted">
+                  {apps.map((a) => <p><span class="text-cyan">✓</span> {a.n}.jato.run</p>)}
+                </div>
+              </div>
+            )}
+
+            {idea.kind === "status" && (
+              <div class="mt-5 space-y-1.5">
+                {apps.map((a, k) => (
+                  <div class="flex items-center gap-2">
+                    <span class="w-16 text-right font-mono text-[9px] text-muted">{a.n}</span>
+                    <span class="flex gap-0.5">
+                      {Array.from({ length: 30 }, (_, j) => (
+                        <span class={`h-3 w-1.5 ${(j * 7 + k * 3) % 23 === 0 ? "bg-sun/70" : "bg-cyan/50"}`} />
+                      ))}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {idea.kind === "zone" && (
+              <div class="mt-5 w-full max-w-sm border border-line bg-ink/90 text-left font-mono text-[10px]">
+                <div class="grid grid-cols-[1fr_auto_auto] gap-x-4 border-b border-line px-3 py-1.5 text-dim">
+                  <span>registro</span><span>estado</span><span>login</span>
+                </div>
+                {apps.map((a) => (
+                  <div class="grid grid-cols-[1fr_auto_auto] gap-x-4 px-3 py-1 text-muted">
+                    <span class="text-fg">{a.n}<span class="text-dim">.jato.run</span></span>
+                    <span class="text-cyan">{a.st}</span>
+                    <span>{a.n === "parkboard" || a.n === "hf-studio" ? "sí" : "no"}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {idea.kind === "new" && (
+              <div class="mt-5 w-full max-w-sm border border-line bg-ink/90 px-4 py-3 text-left font-mono text-[11px]">
+                <p><span class="text-cyan">$</span> jato new recetas</p>
+                <p class="text-dim">✓ recetas.jato.run</p>
+                <p class="text-dim">✓ login con Google (accounts.jato.run)</p>
+                <p class="text-dim">✓ baldosa en el lanzador</p>
+                <p class="text-fg">→ listo en https://recetas.jato.run<span class="caret ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 bg-fg" /></p>
+              </div>
+            )}
+          </div>
+
+          <div class="p-5">
+            <p class="flex items-baseline gap-3">
+              <span class="font-mono text-xs text-dim">{String(i + 9).padStart(2, "0")}</span>
               <span class="text-lg font-medium">{idea.name}</span>
             </p>
             <p class="mt-2 text-sm leading-relaxed text-muted">{idea.tie}</p>
