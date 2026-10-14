@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import Rings from "./Rings.astro";
+import Grid from "./Grid.astro";
 import { getCopy, getProjects } from "../i18n/copy.js";
 
 interface Props {
@@ -45,29 +45,29 @@ const jsonLd = {
 
   <main>
     <section class="relative isolate flex min-h-[78dvh] flex-col items-center justify-center px-4 text-center sm:px-8">
-      <Rings />
+      <Grid />
       <p class="rise mb-6 flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] text-muted">
-        <span class="pulse relative inline-block size-1.5 rounded-full text-cyan" style="background: currentColor"></span>
+        <span class="pulse relative inline-block size-1.5 text-cyan" style="background: currentColor"></span>
         {t.eyebrow(projects.length)}
       </p>
       <h1 class="rise text-5xl font-semibold leading-[0.95] tracking-tighter sm:text-7xl md:text-8xl" style="animation-delay: 80ms">
-        {t.h1[0]} {t.h1[1]} <span class="grad">{t.h1[2]}</span>
+        {t.h1[0]} <span class="grad">{t.h1[1]}</span>
       </h1>
       <p class="rise mt-7 max-w-xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">{t.sub}</p>
       <div class="rise mt-10 flex flex-wrap justify-center gap-3" style="animation-delay: 240ms">
-        <a href="#corre" class="rounded-lg bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
+        <a href="#proyectos" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
           {t.ctaPrimary} ↓
         </a>
         <a
           href="https://github.com/Jjat00"
-          class="rounded-lg border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg backdrop-blur transition hover:border-dim"
+          class="border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg backdrop-blur transition hover:border-dim"
         >
           {t.ctaSecondary} ↗
         </a>
       </div>
     </section>
 
-    <section id="corre" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
+    <section id="proyectos" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
       <div class="mb-6 flex flex-wrap items-end justify-between gap-2 border-b border-line pb-4">
         <h2 class="text-xl font-semibold tracking-tight">{t.listTitle}</h2>
         <p class="font-mono text-xs text-dim">{t.listHint}</p>
@@ -79,10 +79,10 @@ const jsonLd = {
             <li class="group relative">
               <a
                 href={p.href}
-                class="grid grid-cols-1 gap-x-6 gap-y-2 rounded-lg px-3 py-5 transition-colors hover:bg-panel sm:grid-cols-[9.5rem_1fr_auto] sm:items-center"
+                class="grid grid-cols-1 gap-x-6 gap-y-2 px-3 py-5 transition-colors hover:bg-panel sm:grid-cols-[9.5rem_1fr_auto] sm:items-center"
               >
                 <span class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest" style={`color: ${p.statusColor}`}>
-                  <span class={`relative inline-block size-1.5 rounded-full ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
+                  <span class={`relative inline-block size-1.5 ${p.status === "live" ? "pulse" : ""}`} style="background: currentColor" />
                   {p.statusLabel}
                 </span>
                 <span class="min-w-0">
