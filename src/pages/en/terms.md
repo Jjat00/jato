@@ -11,7 +11,7 @@ These terms govern the use of **jato.run** and of the apps published under a jat
 
 ## The Services
 
-jato.run brings together software projects of its own. Some apps are public and others are in private beta, available by invitation only. The Services are free and may change, pause or shut down at any time, with or without prior notice.
+jato.run brings together software projects of its own. The Services are free and may change, pause or shut down at any time, with or without prior notice.
 
 ## Your account
 

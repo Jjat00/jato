@@ -11,7 +11,7 @@ Estos términos regulan el uso de **jato.run** y de las aplicaciones publicadas 
 
 ## Los Servicios
 
-jato.run reúne proyectos de software propios. Algunas aplicaciones son públicas y otras están en beta privada, con acceso solo por invitación. Los Servicios se ofrecen gratis y pueden cambiar, pausarse o dejar de existir en cualquier momento, con o sin aviso previo.
+jato.run reúne proyectos de software propios. Los Servicios se ofrecen gratis y pueden cambiar, pausarse o dejar de existir en cualquier momento, con o sin aviso previo.
 
 ## Tu cuenta
 
