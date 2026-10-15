@@ -91,5 +91,6 @@ const copy = {
 };
 
 export const getCopy = (locale) => copy[locale];
+export const allProjects = projects;
 export const getProjects = (locale) =>
   projects.map((p) => ({ ...p, line: p.line[locale] }));
