@@ -2,8 +2,8 @@
 layout: ../layouts/Legal.astro
 lang: es
 title: Política de privacidad
-description: Cómo jato.run y las aplicaciones bajo *.jato.run tratan tus datos personales cuando inicias sesión con Google.
-updated: Última actualización · 14 de octubre de 2026
+description: Cómo jato.run y las aplicaciones bajo *.jato.run tratan tus datos personales cuando inicias sesión con Google o conectas tu cuenta de TikTok.
+updated: Última actualización · 28 de octubre de 2026
 other: { label: "EN", href: "/en/privacy/" }
 ---
 
@@ -28,6 +28,17 @@ Si inicias sesión con tu cuenta de Google, Google nos comparte, con tu autoriza
 
 No pedimos acceso a tu Gmail, tus contactos, tus archivos de Drive ni a ningún otro dato de tu cuenta de Google.
 
+### Al conectar tu cuenta de TikTok
+
+Algunas aplicaciones, como boost.jato.run, te permiten conectar tu cuenta de TikTok para publicar tus propios videos. Si la conectas, TikTok nos comparte, con tu autorización y solo con los permisos que aceptes:
+
+- tu información básica de perfil (nombre visible, foto e identificador),
+- las estadísticas públicas de tu perfil y de tus videos (seguidores, vistas, me gusta),
+- la lista de tus videos publicados,
+- el permiso para subir y publicar en tu cuenta los videos que tú eliges.
+
+Solo publicamos el video, el texto y la configuración de privacidad que tú defines en la aplicación. Nunca publicamos nada sin tu instrucción, ni leemos tus mensajes directos.
+
 ### Al usar una aplicación
 
 Cada aplicación guarda el contenido que tú mismo creas en ella para poder mostrártelo de nuevo, por ejemplo las tarjetas y proyectos que creas en Parkboard.
@@ -49,13 +60,18 @@ Para que los Servicios funcionen y sean seguros se registran datos técnicos bá
 
 El uso y la transferencia que hacen los Servicios de la información recibida de las API de Google se ajustan a la [Política de datos de usuario de los servicios de API de Google](https://developers.google.com/terms/api-services-user-data-policy), incluidos los requisitos de Uso Limitado. Los datos de Google solo se usan para iniciar sesión y mostrar tu nombre y foto dentro de los Servicios; no se usan para entrenar modelos de inteligencia artificial ni se transfieren a terceros, salvo a los proveedores que se indican abajo para prestar el servicio.
 
+## Uso de los datos de TikTok
+
+Los datos que recibimos de TikTok se usan solo para publicar el contenido que tú indicas y para mostrarte las estadísticas de tus publicaciones dentro de los Servicios. No se venden, no se usan para publicidad ni para entrenar modelos de inteligencia artificial. Puedes desconectar tu cuenta cuando quieras desde la aplicación o desde la configuración de TikTok (*Ajustes y privacidad → Seguridad → Apps y servicios*); al hacerlo borramos los tokens de acceso.
+
 ## Con quién los compartimos
 
 Para operar los Servicios nos apoyamos en proveedores que tratan los datos por cuenta nuestra y bajo sus propias medidas de seguridad:
 
 - **Clerk** (autenticación y gestión de sesiones),
 - **Vercel** (alojamiento de los sitios),
-- **Railway** (bases de datos y servidores de las aplicaciones).
+- **Railway** (bases de datos y servidores de las aplicaciones),
+- **Composio** (conexión segura con TikTok y otras redes sociales, y custodia de los tokens de acceso).
 
 Estos proveedores pueden almacenar datos fuera de Colombia, principalmente en Estados Unidos. Al usar los Servicios autorizas esa transferencia, que se hace con proveedores que ofrecen niveles adecuados de protección.
 

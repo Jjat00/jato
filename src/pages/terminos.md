@@ -3,7 +3,7 @@ layout: ../layouts/Legal.astro
 lang: es
 title: Términos y condiciones
 description: Condiciones de uso de jato.run y de las aplicaciones publicadas bajo *.jato.run.
-updated: Última actualización · 14 de octubre de 2026
+updated: Última actualización · 28 de octubre de 2026
 other: { label: "EN", href: "/en/terms/" }
 ---
 
@@ -39,7 +39,7 @@ El software, el diseño y las marcas de los Servicios pertenecen a Jaime Aza. Lo
 
 ## Servicios de terceros
 
-Los Servicios usan proveedores externos, como Google para iniciar sesión, y pueden enlazar a sitios de terceros. No somos responsables del contenido ni de las prácticas de esos terceros.
+Los Servicios usan proveedores externos, como Google para iniciar sesión o TikTok para publicar tus videos, y pueden enlazar a sitios de terceros. No somos responsables del contenido ni de las prácticas de esos terceros.
 
 ## Sin garantías
 

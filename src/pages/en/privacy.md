@@ -2,8 +2,8 @@
 layout: ../../layouts/Legal.astro
 lang: en
 title: Privacy Policy
-description: How jato.run and the apps under *.jato.run handle your personal data when you sign in with Google.
-updated: Last updated · October 14, 2026
+description: How jato.run and the apps under *.jato.run handle your personal data when you sign in with Google or connect your TikTok account.
+updated: Last updated · October 28, 2026
 other: { label: "ES", href: "/privacidad/" }
 ---
 
@@ -45,6 +45,12 @@ To keep the Services working and secure, basic technical data is logged, such as
 
 **We do not sell your data, we do not use it for advertising and we do not share it with third parties for their own purposes.**
 
+## Use of TikTok data
+
+Some apps, such as boost.jato.run, let you connect your TikTok account to publish your own videos. If you connect it, TikTok shares with us, with your authorization and only for the scopes you accept: your basic profile information (display name, avatar and ID), public statistics of your profile and videos (followers, views, likes), the list of your published videos, and permission to upload and publish the videos you choose.
+
+We only publish the video, caption and privacy setting you define in the app. We never post anything without your instruction and we do not read your direct messages. TikTok data is used only to publish the content you request and to show you your post statistics inside the Services; it is not sold, not used for advertising and not used to train artificial intelligence models. You can disconnect your account at any time from the app or from TikTok settings (*Settings and privacy → Security → Apps and services*); when you do, we delete the access tokens.
+
 ## Use of Google data
 
 The Services' use and transfer of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements. Google data is used only to sign you in and to show your name and picture inside the Services; it is not used to train artificial intelligence models and is not transferred to third parties, except to the providers listed below in order to run the service.
@@ -55,7 +61,8 @@ We rely on providers that process data on our behalf and under their own securit
 
 - **Clerk** (authentication and session management),
 - **Vercel** (website hosting),
-- **Railway** (databases and app servers).
+- **Railway** (databases and app servers),
+- **Composio** (secure connection to TikTok and other social networks, and custody of access tokens).
 
 These providers may store data outside Colombia, mainly in the United States. By using the Services you authorize that transfer, which is made to providers that offer adequate levels of protection.
 

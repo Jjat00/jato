@@ -3,7 +3,7 @@ layout: ../../layouts/Legal.astro
 lang: en
 title: Terms of Service
 description: Terms of use for jato.run and the apps published under *.jato.run.
-updated: Last updated · October 14, 2026
+updated: Last updated · October 28, 2026
 other: { label: "ES", href: "/terminos/" }
 ---
 
@@ -39,7 +39,7 @@ The software, design and marks of the Services belong to Jaime Aza. Open source 
 
 ## Third-party services
 
-The Services use external providers, such as Google for sign-in, and may link to third-party sites. We are not responsible for the content or practices of those third parties.
+The Services use external providers, such as Google for sign-in or TikTok to publish your videos, and may link to third-party sites. We are not responsible for the content or practices of those third parties.
 
 ## No warranties
 
