@@ -5,11 +5,13 @@ interface Props {
   lang: "es" | "en";
   title: string;
   description: string;
+  /** Ruta propia de la página; sin ella es la portada del idioma (con sus alternates). */
+  path?: string;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, path: own } = Astro.props;
 const site = "https://jato.run";
-const path = lang === "es" ? "/" : "/en/";
+const path = own ?? (lang === "es" ? "/" : "/en/");
 ---
 
 <!doctype html>
@@ -20,9 +22,9 @@ const path = lang === "es" ? "/" : "/en/";
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={site + path} />
-    <link rel="alternate" hreflang="es" href={site + "/"} />
-    <link rel="alternate" hreflang="en" href={site + "/en/"} />
-    <link rel="alternate" hreflang="x-default" href={site + "/"} />
+    {!own && <link rel="alternate" hreflang="es" href={site + "/"} />}
+    {!own && <link rel="alternate" hreflang="en" href={site + "/en/"} />}
+    {!own && <link rel="alternate" hreflang="x-default" href={site + "/"} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={site + path} />

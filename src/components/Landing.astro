@@ -38,6 +38,7 @@ const jsonLd = {
       <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
     </a>
     <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
+      {locale === "es" && <a href="/workflow/" class="hover:text-fg">Workflow</a>}
       <a href={t.other.href} class="hover:text-fg" hreflang={t.other.label.toLowerCase()}>{t.other.label}</a>
       <a href="https://github.com/Jjat00" class="hover:text-fg" rel="me">GitHub ↗</a>
       <a href="https://github.com/Jjat00/jato" class="hover:text-fg" title={t.starTitle}>{t.star}</a>

@@ -1,0 +1,306 @@
+---
+// /workflow: el paso a paso del flujo de trabajo con agentes que cuenta el reel
+// «¿Qué herramientas uso en mi día a día como developer?». Cada herramienta propia
+// con repo público lleva su enlace a GitHub y la invitación a darle una estrella.
+import Base from "../layouts/Base.astro";
+
+const GH = "https://github.com/Jjat00";
+
+// Repos propios y públicos que aparecen en la página (las estrellas se leen al compilar).
+const repos = {
+  "hf-studio": { name: "HF Studio", repo: `${GH}/hf-studio`, site: "https://hf-studio.jato.run", line: "Estudio de imagen, video y audio con IA, manejado por agentes vía MCP." },
+  parkboard: { name: "Parkboard", repo: `${GH}/parkboard`, site: "https://parkboard.jato.run", line: "El lienzo donde los agentes parquean lo que queda para después." },
+  grabador: { name: "grabador", repo: `${GH}/grabador`, site: null, line: "Grabador de pantalla con CLI y MCP: las tomas del reel las grabó el agente." },
+  "jjat-skills": { name: "Skills", repo: `${GH}/jjat-skills`, site: "https://skills.jato.run", line: "Recetas para agentes: video, contenido y flujos de trabajo." },
+};
+
+const stars: Record<string, number | null> = {};
+await Promise.all(
+  Object.keys(repos).map(async (slug) => {
+    try {
+      const r = await fetch(`https://api.github.com/repos/Jjat00/${slug}`, { headers: { Accept: "application/vnd.github+json" } });
+      stars[slug] = r.ok ? (await r.json()).stargazers_count : null;
+    } catch {
+      stars[slug] = null;
+    }
+  }),
+);
+
+type Tool = { name: string; what: string; own?: keyof typeof repos; href?: string };
+type Step = { id: string; kicker: string; title: string; body: string; tools: Tool[] };
+
+const steps: Step[] = [
+  {
+    id: "base",
+    kicker: "La base",
+    title: "Linux por defecto",
+    body: "Todo corre en Linux: los agentes, las CLIs, los renders y los servidores locales. Es el sistema que los agentes conocen mejor y donde cualquier comando funciona igual que en producción.",
+    tools: [{ name: "Linux", what: "Ubuntu, con zsh." }],
+  },
+  {
+    id: "terminal",
+    kicker: "La terminal",
+    title: "Una terminal llena de agentes",
+    body: "No trabajo en un editor: trabajo en una terminal hecha para agentes. Cada panel tiene su agente y cada agente trabaja en su propio worktree, una copia del repo con su rama, para que no se pisen entre ellos.",
+    tools: [
+      { name: "Herdr", what: "Terminal para agentes: paneles, sesiones y control por CLI.", href: "https://herdr.dev" },
+      { name: "git worktree", what: "Una copia del repo por agente." },
+    ],
+  },
+  {
+    id: "agentes",
+    kicker: "Los agentes",
+    title: "Claude Code construye, Codex revisa",
+    body: "Claude Code es el que más trabaja: lee el código, corre comandos y construye, con un CLAUDE.md en cada repo con las reglas que no se negocian. Antes de guardar, Codex revisa lo que hizo. Dos modelos distintos se equivocan en cosas distintas: lo que uno no ve, el otro lo encuentra. Y cuando Claude necesita una imagen, se la pide a Codex.",
+    tools: [
+      { name: "Claude Code", what: "El que construye.", href: "https://www.anthropic.com/claude-code" },
+      { name: "Codex", what: "El que revisa y genera imágenes.", href: "https://github.com/openai/codex" },
+      { name: "CLAUDE.md", what: "Las reglas de cada repo." },
+    ],
+  },
+  {
+    id: "skills",
+    kicker: "Lo que sabe el agente",
+    title: "Skills y subagentes",
+    body: "Las skills son recetas escritas que el agente lee cuando las necesita: el reel salió de una. Y si la tarea es grande, el agente la reparte en subagentes, cada uno con su contexto: las escenas del reel las armaron veinte a la vez.",
+    tools: [
+      { name: "Skills", what: "Mis recetas para agentes, listas para instalar.", own: "jjat-skills" },
+      { name: "Subagentes", what: "Tareas en paralelo con contexto aislado." },
+    ],
+  },
+  {
+    id: "conexiones",
+    kicker: "Las manos del agente",
+    title: "MCP, Composio y la terminal",
+    body: "Para tocar el mundo, el agente usa MCP, un enchufe estándar entre la IA y otros programas: despliega en Vercel y lee logs en Railway. Para lo que no tiene enchufe propio está Composio, con más de mil apps detrás de una sola conexión. Pero muchas veces ni hace falta MCP: el agente usa la terminal con comandos que ya sabe usar. Por eso a mis propias herramientas les hago su CLI: si tiene comando, el agente la puede usar.",
+    tools: [
+      { name: "MCP", what: "Vercel, Railway, Supabase y mis propios servidores.", href: "https://modelcontextprotocol.io" },
+      { name: "Composio", what: "Más de mil apps con una sola conexión.", href: "https://composio.dev" },
+      { name: "gh · vercel · railway · docker", what: "CLIs que el agente ya sabe usar." },
+      { name: "park", what: "La CLI de Parkboard.", own: "parkboard" },
+      { name: "boost", what: "Mi app para programar publicaciones (privada)." },
+    ],
+  },
+  {
+    id: "web",
+    kicker: "La web",
+    title: "Leer páginas y hacer clic",
+    body: "Firecrawl lee páginas y las devuelve limpias para el agente. agent-browser abre un navegador de verdad y hace clic como una persona. Y grabador graba la pantalla por CLI o por MCP: todas las tomas del reel las grabó el agente solo.",
+    tools: [
+      { name: "Firecrawl", what: "Lee páginas para el agente.", href: "https://firecrawl.dev" },
+      { name: "agent-browser", what: "Un navegador real que el agente controla.", href: "https://github.com/vercel-labs/agent-browser" },
+      { name: "grabador", what: "Graba la pantalla por CLI o MCP.", own: "grabador" },
+    ],
+  },
+  {
+    id: "video",
+    kicker: "Imagen, voz y video",
+    title: "El video también es código",
+    body: "Para imagen y video uso HF Studio: pido un modelo y lo corre en el proveedor más barato que lo tenga. La voz sale de ElevenLabs. Y el video se programa: HyperFrames lo arma con HTML, ManimGX dibuja las gráficas y Blender hace las tomas en 3D.",
+    tools: [
+      { name: "HF Studio", what: "El mismo modelo, por el proveedor más barato.", own: "hf-studio" },
+      { name: "ElevenLabs", what: "La voz.", href: "https://elevenlabs.io" },
+      { name: "HyperFrames", what: "Video hecho con HTML.", href: "https://hyperframes.heygen.com" },
+      { name: "ManimGX", what: "Gráficas y fórmulas animadas.", href: "https://manimgx.academa.ai" },
+      { name: "Blender", what: "Tomas en 3D.", href: "https://www.blender.org" },
+    ],
+  },
+  {
+    id: "infra",
+    kicker: "Dónde vive todo",
+    title: "GitHub e infraestructura",
+    body: "Todo vive en GitHub: el agente hace los commits, abre los pull requests y revisa los checks. Lo que se ve va a Vercel; lo que trabaja por detrás, servidores y crons, va a Railway. Las bases, siempre Postgres, con pgvector para buscar por significado, en Neon o Supabase; los archivos, en Vercel Blob o Cloudflare R2. Los logins, con Clerk o Google. Y el agente configura hasta los dominios en Cloudflare.",
+    tools: [
+      { name: "GitHub", what: "Commits, pull requests y checks.", href: GH },
+      { name: "Vercel", what: "Lo que se ve, y Vercel Blob.", href: "https://vercel.com" },
+      { name: "Railway", what: "Servidores y crons.", href: "https://railway.com" },
+      { name: "Postgres + pgvector", what: "En Neon o Supabase." },
+      { name: "Cloudflare", what: "Dominios, DNS y R2.", href: "https://www.cloudflare.com" },
+      { name: "Clerk · Google", what: "Los logins.", href: "https://clerk.com" },
+    ],
+  },
+  {
+    id: "memoria",
+    kicker: "Memoria y pendientes",
+    title: "Nada se pierde entre sesiones",
+    body: "Lo que aprendo va a Obsidian, mi segundo cerebro: un hook se lo pasa al agente al arrancar y, al terminar, el agente escribe lo que aprendió. Lo pendiente va a Parkboard: si digo «luego lo vemos», el agente crea la tarjeta, y Autopilot toma algunas tarjetas y abre el pull request solo. Y boost deja listo cada reel para que salga a su hora.",
+    tools: [
+      { name: "Obsidian", what: "El segundo cerebro, con un hook al arrancar.", href: "https://obsidian.md" },
+      { name: "Parkboard", what: "Pendientes de los agentes y Autopilot.", own: "parkboard" },
+      { name: "boost", what: "Programa las publicaciones (privada)." },
+    ],
+  },
+];
+
+const title = "Mi flujo de trabajo con agentes · jato";
+const description =
+  "Paso a paso de las herramientas que uso a diario como developer: Herdr, Claude Code y Codex, skills, MCP, CLIs, HF Studio, grabador, Parkboard y más, con enlaces a GitHub.";
+const year = new Date().getFullYear();
+const ownSlugs = Object.keys(repos) as (keyof typeof repos)[];
+const fmt = (n: number | null) => (n == null ? "" : n.toLocaleString("es-CO"));
+const hasStars = (n: number | null | undefined) => typeof n === "number" && n > 0;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Mi flujo de trabajo con agentes de IA",
+  description,
+  url: "https://jato.run/workflow/",
+  inLanguage: "es",
+  author: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
+  step: steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.title, text: s.body, url: `https://jato.run/workflow/#${s.id}` })),
+};
+---
+
+<Base lang="es" title={title} description={description} path="/workflow/">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
+    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jato.run">
+      <span class="text-2xl font-semibold tracking-tight">jato</span>
+      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    </a>
+    <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
+      <a href="/#proyectos" class="hidden hover:text-fg sm:inline">Proyectos</a>
+      <a href="#repos" class="hover:text-fg">★ Estrellas</a>
+      <a href={GH} class="hover:text-fg" rel="me">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-8 sm:pt-16">
+      <p class="rise font-mono text-xs uppercase tracking-widest text-cyan">Flujo de trabajo · día a día</p>
+      <h1 class="rise mt-5 max-w-4xl text-4xl font-semibold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl" style="animation-delay: 80ms">
+        No es un editor. Es una terminal <span class="grad">llena de agentes.</span>
+      </h1>
+      <p class="rise mt-7 max-w-2xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">
+        Las herramientas que uso a diario como developer, en el orden en que encajan: de la terminal a los agentes, de ahí a todo lo demás. Las que son mías tienen el código abierto en GitHub.
+      </p>
+      <div class="rise mt-10 flex flex-wrap gap-3" style="animation-delay: 240ms">
+        <a href="#base" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">Ver el paso a paso ↓</a>
+        <a href="#repos" class="border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg transition hover:border-sun hover:text-sun">
+          ★ Dale una estrella a mis repos
+        </a>
+      </div>
+
+      <ol class="rise mt-14 grid grid-cols-2 border-l border-t border-line font-mono text-xs sm:grid-cols-3 lg:grid-cols-5" style="animation-delay: 320ms">
+        {
+          steps.map((s, i) => (
+            <li class="border-b border-r border-line bg-ink">
+              <a href={`#${s.id}`} class="flex h-full items-baseline gap-3 px-4 py-3 text-muted transition-colors hover:bg-panel hover:text-fg">
+                <span class="text-dim">{String(i + 1).padStart(2, "0")}</span>
+                <span>{s.kicker}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 pb-8 sm:px-8">
+      <ol class="border-t border-line">
+        {
+          steps.map((s, i) => (
+            <li id={s.id} class="grid scroll-mt-8 gap-6 border-b border-line py-12 md:grid-cols-[10rem_1fr] md:gap-10">
+              <div class="font-mono text-xs uppercase tracking-widest">
+                <span class="block text-4xl font-semibold tracking-tighter text-fg md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+                <span class="mt-2 block text-cyan">{s.kicker}</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{s.title}</h2>
+                <p class="mt-4 max-w-3xl leading-relaxed text-muted">{s.body}</p>
+                <ul class="mt-7 grid border-l border-t border-line sm:grid-cols-2">
+                  {s.tools.map((t) => {
+                    const own = t.own ? repos[t.own] : null;
+                    return (
+                      <li class={`flex flex-col justify-between gap-4 border-b border-r border-line bg-ink p-4 ${own ? "relative" : ""}`}>
+                        {own && <span class="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-cyan to-violet" />}
+                        <div>
+                          <p class="flex items-center gap-2 font-medium text-fg">
+                            {t.href ? (
+                              <a href={t.href} target="_blank" rel="noopener" class="hover:text-cyan">
+                                {t.name} <span class="font-mono text-xs text-dim">↗</span>
+                              </a>
+                            ) : (
+                              <span>{t.name}</span>
+                            )}
+                            {own && <span class="border border-line px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-cyan">mía · open source</span>}
+                          </p>
+                          <p class="mt-1 text-sm text-muted">{t.what}</p>
+                        </div>
+                        {own && t.own && (
+                          <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <a href={own.repo} target="_blank" rel="noopener" class="border border-line px-3 py-2 text-fg transition hover:border-dim">
+                              GitHub ↗
+                            </a>
+                            <a href={own.repo} target="_blank" rel="noopener" class="border border-sun/40 px-3 py-2 text-sun transition hover:border-sun hover:bg-sun hover:text-ink">
+                              ★ Dale una estrella{hasStars(stars[t.own]) && ` · ${fmt(stars[t.own])}`}
+                            </a>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+      <p class="font-mono text-xs uppercase tracking-widest text-cyan">La idea central</p>
+      <p class="mt-5 max-w-4xl text-3xl font-semibold leading-tight tracking-tighter sm:text-5xl">
+        Casi nada de esto lo abro yo. Le hablo al agente y él usa las herramientas. Lo que importa no es cuántas tienes, sino <span class="grad">que tu agente pueda usarlas.</span>
+      </p>
+    </section>
+
+    <section id="repos" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
+      <div class="border border-line bg-panel/40 p-6 sm:p-10">
+        <p class="font-mono text-xs uppercase tracking-widest text-sun">★ Open source</p>
+        <h2 class="mt-4 text-2xl font-semibold tracking-tight sm:text-4xl">Si algo de esto te sirve, dale una estrella</h2>
+        <p class="mt-4 max-w-2xl text-muted">
+          Son las herramientas mías del flujo, con el código abierto. Una estrella en GitHub ayuda a que más gente las encuentre y me dice qué vale la pena seguir mejorando.
+        </p>
+        <ul class="mt-8 grid border-l border-t border-line sm:grid-cols-2">
+          {
+            ownSlugs.map((slug) => {
+              const r = repos[slug];
+              return (
+                <li class="flex flex-col justify-between gap-5 border-b border-r border-line bg-ink p-5">
+                  <div>
+                    <p class="flex items-baseline justify-between gap-3">
+                      <span class="text-lg font-semibold text-fg">{r.name}</span>
+                      <span class="font-mono text-xs text-dim">Jjat00/{slug}</span>
+                    </p>
+                    <p class="mt-2 text-sm text-muted">{r.line}</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2 font-mono text-xs">
+                    <a href={r.repo} target="_blank" rel="noopener" class="bg-sun px-4 py-2.5 font-medium text-ink transition hover:bg-white">
+                      ★ Dale una estrella{hasStars(stars[slug]) && ` · ${fmt(stars[slug])}`}
+                    </a>
+                    {r.site && (
+                      <a href={r.site} target="_blank" rel="noopener" class="border border-line px-4 py-2.5 text-fg transition hover:border-dim">
+                        Probarla ↗
+                      </a>
+                    )}
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 font-mono text-xs text-dim sm:px-8">
+    <span>Un taller de <a href="https://jaimeaza.tech" class="text-muted hover:text-fg" rel="author">Jaime Aza ↗</a></span>
+    <span class="flex items-center gap-5">
+      <a href="/privacidad/" class="hover:text-fg">Privacidad</a>
+      <a href="/terminos/" class="hover:text-fg">Términos</a>
+      <span>© {year} jato.run</span>
+    </span>
+  </footer>
+</Base>
