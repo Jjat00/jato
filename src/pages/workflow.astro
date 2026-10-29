@@ -230,6 +230,11 @@ const jsonLd = {
                         </div>
                         {own && t.own && (
                           <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            {own.site && (
+                              <a href={own.site} target="_blank" rel="noopener" class="border border-line px-3 py-2 text-fg transition hover:border-cyan hover:text-cyan">
+                                {new URL(own.site).host} ↗
+                              </a>
+                            )}
                             <a href={own.repo} target="_blank" rel="noopener" class="border border-line px-3 py-2 text-fg transition hover:border-dim">
                               GitHub ↗
                             </a>
