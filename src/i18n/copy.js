@@ -27,6 +27,17 @@ const projects = [
     },
   },
   {
+    slug: "boost",
+    name: "boost",
+    route: "boost.jato.run",
+    href: "https://boost.jato.run",
+    tags: "CLI · Instagram · TikTok",
+    line: {
+      es: "Programa y mide tus posts de Instagram y TikTok, solo o en equipo.",
+      en: "Schedule and measure your Instagram and TikTok posts, alone or as a team.",
+    },
+  },
+  {
     slug: "keyduelo",
     name: "Keyduelo",
     route: "keyduelo.jato.run",
@@ -57,7 +68,7 @@ const copy = {
     lang: "es",
     title: "jato · Mi zona",
     description:
-      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, Keyduelo y sus skills para agentes.",
+      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, boost, Keyduelo y sus skills para agentes.",
     h1: ["Mi", "zona."],
     sub: "",
     ctaPrimary: "Ver la zona",
@@ -77,7 +88,7 @@ const copy = {
     lang: "en",
     title: "jato · My zone",
     description:
-      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, Keyduelo and his agent skills.",
+      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, boost, Keyduelo and his agent skills.",
     h1: ["My", "zone."],
     sub: "",
     ctaPrimary: "See the zone",
