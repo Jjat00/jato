@@ -1,0 +1,243 @@
+---
+// /servicios: lo que hago por encargo (videos explicadores, agentes de IA y desarrollo web o de apps)
+// y cómo contactarme. Es el destino del link en bio de Instagram. Sin precios: todo se cotiza.
+import Base from "../layouts/Base.astro";
+
+const WA = "573164277879";
+const MAIL = "contacto@jato.run";
+const IG = "https://www.instagram.com/jaimejjat/";
+const wa = (text: string) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+
+type Example = { name: string; what: string; href: string };
+type Service = {
+  id: string;
+  kicker: string;
+  title: string;
+  body: string;
+  forWho: string;
+  includes: string[];
+  examples: Example[];
+  ask: string;
+};
+
+const services: Service[] = [
+  {
+    id: "videos",
+    kicker: "Videos explicadores",
+    title: "Tu pitch, tu producto o tu historia, contados en un video",
+    body: "Videos de 1 a 3 minutos con narración, subtítulos, gráficas y animación, en el mismo estilo de mis explicadores. Tomo un tema complejo y lo dejo claro para quien no lo conoce.",
+    forWho: "Startups que se presentan ante inversionistas, lanzamientos de producto y negocios que necesitan explicar lo que hacen.",
+    includes: ["Guion trabajado contigo", "Voz, subtítulos y animación", "Formato vertical y horizontal", "Rondas de ajustes"],
+    examples: [{ name: "Explicadores en @jaimejjat", what: "Más de un millón de vistas al mes en Instagram.", href: IG }],
+    ask: "Hola Jaime, quiero cotizar un video explicador.",
+  },
+  {
+    id: "agentes",
+    kicker: "Agentes de IA",
+    title: "Agentes que trabajan para tu negocio",
+    body: "Agentes que atienden por WhatsApp, toman pedidos, responden con la información real de tu negocio y se conectan con tus sistemas. Pensados para producción, con pruebas y seguimiento de lo que responden.",
+    forWho: "Negocios que reciben muchos mensajes, procesos repetitivos y equipos que quieren usar IA sin montar todo desde cero.",
+    includes: ["Diagnóstico del proceso", "Agente conectado a tus datos y herramientas", "WhatsApp, web o interno", "Pruebas y monitoreo"],
+    examples: [
+      { name: "Frostbyte", what: "Pedidos por WhatsApp de un bar y su cocina.", href: "https://frostbyte.com.co" },
+      { name: "Tresqu", what: "Finanzas personales con agentes, por WhatsApp y web.", href: "https://tresqu.com" },
+    ],
+    ask: "Hola Jaime, quiero cotizar un agente de IA para mi negocio.",
+  },
+  {
+    id: "desarrollo",
+    kicker: "Desarrollo web y apps",
+    title: "De la idea al producto en producción",
+    body: "Landings, plataformas web y apps, del diseño al despliegue. Construyo rápido con agentes y entrego algo que funciona, con su dominio, su login y su base de datos.",
+    forWho: "Startups que necesitan su MVP, negocios que quieren su sitio o su sistema propio y equipos que necesitan una mano extra.",
+    includes: ["Diseño y desarrollo", "Backend, base de datos y login", "Despliegue y dominio", "Código fuente para ti"],
+    examples: [
+      { name: "HF Studio", what: "Estudio de video, imagen y audio con IA.", href: "https://hf-studio.jato.run" },
+      { name: "boost", what: "Programa y mide posts de Instagram y TikTok.", href: "https://boost.jato.run" },
+      { name: "Parkboard", what: "Tablero de pendientes para agentes.", href: "https://parkboard.jato.run" },
+    ],
+    ask: "Hola Jaime, quiero cotizar un desarrollo web o una app.",
+  },
+];
+
+const process = [
+  { title: "Me escribes", body: "Por WhatsApp o correo, con lo que necesitas y para cuándo." },
+  { title: "Hablamos", body: "Una llamada corta para entender el objetivo y el alcance." },
+  { title: "Cotización", body: "Te envío propuesta, tiempos y precio. Sin compromiso." },
+  { title: "Entrega", body: "Avances en el camino y ajustes hasta que quede bien." },
+];
+
+const title = "Servicios · Videos, agentes de IA y desarrollo · jato";
+const description =
+  "Videos explicadores a pedido, agentes de IA para negocios y desarrollo web o de apps, por Jaime Aza. Escríbeme por WhatsApp o correo y te envío una cotización.";
+const year = new Date().getFullYear();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "jato.run · Jaime Aza",
+  url: "https://jato.run/servicios/",
+  description,
+  email: MAIL,
+  telephone: "+57 316 427 7879",
+  areaServed: "Latinoamérica",
+  founder: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech", sameAs: [IG, "https://github.com/Jjat00"] },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios",
+    itemListElement: services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.kicker, description: s.body } })),
+  },
+};
+---
+
+<Base lang="es" title={title} description={description} path="/servicios/">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
+    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jato.run">
+      <span class="text-2xl font-semibold tracking-tight">jato</span>
+      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    </a>
+    <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
+      <a href="/#proyectos" class="hidden hover:text-fg sm:inline">Proyectos</a>
+      <a href="/workflow/" class="hidden hover:text-fg sm:inline">Workflow</a>
+      <a href="#contacto" class="hover:text-fg">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-8 sm:pt-16">
+      <p class="rise font-mono text-xs uppercase tracking-widest text-cyan">Servicios · Jaime Aza</p>
+      <h1 class="rise mt-5 max-w-4xl text-4xl font-semibold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl" style="animation-delay: 80ms">
+        Lo explico, lo automatizo <span class="grad">y lo construyo.</span>
+      </h1>
+      <p class="rise mt-7 max-w-2xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">
+        Hago videos explicadores, agentes de IA y software a medida para startups y negocios. Cuéntame qué necesitas y te envío una cotización.
+      </p>
+      <div class="rise mt-10 flex flex-wrap gap-3" style="animation-delay: 240ms">
+        <a href={wa("Hola Jaime, quiero cotizar un proyecto.")} target="_blank" rel="noopener" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
+          Cotizar por WhatsApp ↗
+        </a>
+        <a href={`mailto:${MAIL}`} class="border border-line bg-panel/60 px-5 py-3 text-sm font-medium text-fg transition hover:border-cyan hover:text-cyan">
+          {MAIL}
+        </a>
+      </div>
+
+      <ol class="rise mt-14 grid border-l border-t border-line font-mono text-xs sm:grid-cols-3" style="animation-delay: 320ms">
+        {
+          services.map((s, i) => (
+            <li class="border-b border-r border-line bg-ink">
+              <a href={`#${s.id}`} class="flex h-full items-baseline gap-3 px-4 py-3 text-muted transition-colors hover:bg-panel hover:text-fg">
+                <span class="text-dim">{String(i + 1).padStart(2, "0")}</span>
+                <span>{s.kicker}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 pb-8 sm:px-8">
+      <ol class="border-t border-line">
+        {
+          services.map((s, i) => (
+            <li id={s.id} class="grid scroll-mt-8 gap-6 border-b border-line py-12 md:grid-cols-[10rem_1fr] md:gap-10">
+              <div class="font-mono text-xs uppercase tracking-widest">
+                <span class="block text-4xl font-semibold tracking-tighter text-fg md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+                <span class="mt-2 block text-cyan">{s.kicker}</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{s.title}</h2>
+                <p class="mt-4 max-w-3xl leading-relaxed text-muted">{s.body}</p>
+                <p class="mt-4 max-w-3xl leading-relaxed text-muted">
+                  <span class="font-mono text-xs uppercase tracking-widest text-fg">Ideal para · </span>
+                  {s.forWho}
+                </p>
+
+                <ul class="mt-7 grid border-l border-t border-line sm:grid-cols-2">
+                  {s.includes.map((x) => (
+                    <li class="flex items-center gap-3 border-b border-r border-line bg-ink px-4 py-3 text-sm text-fg">
+                      <span class="h-1.5 w-1.5 shrink-0 bg-cyan" />
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+
+                <p class="mt-7 font-mono text-xs uppercase tracking-widest text-dim">Ejemplos</p>
+                <ul class="mt-3 grid border-l border-t border-line sm:grid-cols-2">
+                  {s.examples.map((e) => (
+                    <li class="relative border-b border-r border-line bg-ink">
+                      <span class="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-cyan to-violet" />
+                      <a href={e.href} target="_blank" rel="noopener" class="block p-4 transition-colors hover:bg-panel">
+                        <span class="font-medium text-fg">
+                          {e.name} <span class="font-mono text-xs text-dim">↗</span>
+                        </span>
+                        <span class="mt-1 block text-sm text-muted">{e.what}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                <a href={wa(s.ask)} target="_blank" rel="noopener" class="mt-7 inline-block border border-line px-4 py-2.5 font-mono text-xs text-fg transition hover:border-cyan hover:text-cyan">
+                  Cotizar {s.kicker.toLowerCase()} ↗
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+      <p class="font-mono text-xs uppercase tracking-widest text-cyan">Cómo trabajamos</p>
+      <ol class="mt-8 grid border-l border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+        {
+          process.map((p, i) => (
+            <li class="border-b border-r border-line bg-ink p-5">
+              <span class="font-mono text-xs text-dim">{String(i + 1).padStart(2, "0")}</span>
+              <p class="mt-2 text-lg font-semibold text-fg">{p.title}</p>
+              <p class="mt-1 text-sm text-muted">{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="contacto" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-24 sm:px-8">
+      <div class="border border-line bg-panel/40 p-6 sm:p-10">
+        <p class="font-mono text-xs uppercase tracking-widest text-cyan">Contacto</p>
+        <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">¿Tienes un proyecto? <span class="grad">Hablemos.</span></h2>
+        <p class="mt-3 max-w-2xl text-muted">Cuéntame qué necesitas y para cuándo, y te envío una cotización.</p>
+        <ul class="mt-8 grid border-l border-t border-line sm:grid-cols-3">
+          <li class="border-b border-r border-line bg-ink">
+            <a href={wa("Hola Jaime, quiero cotizar un proyecto.")} target="_blank" rel="noopener" class="block p-5 transition-colors hover:bg-panel">
+              <span class="font-mono text-xs uppercase tracking-widest text-dim">WhatsApp</span>
+              <span class="mt-2 block font-medium text-fg">+57 316 427 7879 ↗</span>
+            </a>
+          </li>
+          <li class="border-b border-r border-line bg-ink">
+            <a href={`mailto:${MAIL}`} class="block p-5 transition-colors hover:bg-panel">
+              <span class="font-mono text-xs uppercase tracking-widest text-dim">Correo</span>
+              <span class="mt-2 block break-all font-medium text-fg">{MAIL}</span>
+            </a>
+          </li>
+          <li class="border-b border-r border-line bg-ink">
+            <a href={IG} target="_blank" rel="noopener" class="block p-5 transition-colors hover:bg-panel">
+              <span class="font-mono text-xs uppercase tracking-widest text-dim">Instagram</span>
+              <span class="mt-2 block font-medium text-fg">@jaimejjat ↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 font-mono text-xs text-dim sm:px-8">
+    <span>Un taller de <a href="https://jaimeaza.tech" class="text-muted hover:text-fg" rel="author">Jaime Aza ↗</a></span>
+    <span class="flex items-center gap-5">
+      <a href="/privacidad/" class="hover:text-fg">Privacidad</a>
+      <a href="/terminos/" class="hover:text-fg">Términos</a>
+      <span>© {year} jato.run</span>
+    </span>
+  </footer>
+</Base>
