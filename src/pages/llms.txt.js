@@ -20,7 +20,7 @@ export const GET = () => {
     "",
     "## Services",
     "",
-    `- [Servicios](${SITE}/servicios/): what Jaime does on request (in Spanish): explainer videos (pitch decks, products, company stories), AI agents for businesses (WhatsApp, orders, integrations) and web or app development. No public prices; quotes via WhatsApp (+57 316 427 7879) or contacto@jato.run.`,
+    `- [Servicios](${SITE}/servicios/): what Jaime does on request (in Spanish): explainer videos (pitch decks, products, company stories), AI content for brands (ads, product shots, 3D), AI agents for businesses (WhatsApp, orders, integrations), web or app development and AI workshops for teams. No public prices; quotes via WhatsApp (+57 316 427 7879) or contacto@jato.run.`,
     "",
     "## Workflow",
     "",

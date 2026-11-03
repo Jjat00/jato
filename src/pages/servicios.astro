@@ -32,6 +32,19 @@ const services: Service[] = [
     ask: "Hola Jaime, quiero cotizar un video explicador.",
   },
   {
+    id: "contenido",
+    kicker: "Contenido con IA",
+    title: "Anuncios, fotos de producto y reels hechos con IA",
+    body: "Piezas para redes y campañas sin necesidad de sesión de fotos ni rodaje: anuncios en video, fotos de producto, animaciones en 3D y carruseles. Uso los mejores modelos de imagen y video, y cuido que tu producto y tu marca se vean como son.",
+    forWho: "Marcas y negocios que necesitan contenido constante para Instagram, TikTok o anuncios pagados.",
+    includes: ["Guiones y ángulos de venta", "Fotos y videos de producto con IA", "Animación 3D de producto", "Formatos para cada red"],
+    examples: [
+      { name: "Reels en @jaimejjat", what: "Carruseles y reels hechos con este mismo flujo.", href: IG },
+      { name: "HF Studio", what: "Mi estudio de imagen, video y audio con IA.", href: "https://hf-studio.jato.run" },
+    ],
+    ask: "Hola Jaime, quiero cotizar contenido con IA para mi marca.",
+  },
+  {
     id: "agentes",
     kicker: "Agentes de IA",
     title: "Agentes que trabajan para tu negocio",
@@ -58,6 +71,19 @@ const services: Service[] = [
     ],
     ask: "Hola Jaime, quiero cotizar un desarrollo web o una app.",
   },
+  {
+    id: "talleres",
+    kicker: "Talleres de IA",
+    title: "Tu equipo trabajando con agentes de IA",
+    body: "Talleres prácticos y acompañamiento para que tu equipo use IA en su día a día: agentes como Claude Code y Codex, automatizaciones y flujos que se quedan funcionando después del taller.",
+    forWho: "Equipos de desarrollo, emprendedores y empresas que quieren adoptar IA con un método y no a prueba y error.",
+    includes: ["Diagnóstico de cómo trabajan hoy", "Taller práctico, en vivo o virtual", "Flujos y skills listos para usar", "Seguimiento posterior"],
+    examples: [
+      { name: "Mi flujo de trabajo", what: "El paso a paso de cómo trabajo con agentes.", href: "/workflow/" },
+      { name: "Skills", what: "Habilidades para agentes, de código abierto.", href: "https://skills.jato.run" },
+    ],
+    ask: "Hola Jaime, quiero cotizar un taller de IA para mi equipo.",
+  },
 ];
 
 const process = [
@@ -67,9 +93,9 @@ const process = [
   { title: "Entrega", body: "Avances en el camino y ajustes hasta que quede bien." },
 ];
 
-const title = "Servicios · Videos, agentes de IA y desarrollo · jato";
+const title = "Servicios · Videos, contenido con IA, agentes y desarrollo · jato";
 const description =
-  "Videos explicadores a pedido, agentes de IA para negocios y desarrollo web o de apps, por Jaime Aza. Escríbeme por WhatsApp o correo y te envío una cotización.";
+  "Videos explicadores, contenido con IA, agentes de IA, desarrollo web o de apps y talleres de IA, por Jaime Aza. Escríbeme por WhatsApp o correo y te envío una cotización.";
 const year = new Date().getFullYear();
 
 const jsonLd = {
@@ -112,7 +138,7 @@ const jsonLd = {
         Lo explico, lo automatizo <span class="grad">y lo construyo.</span>
       </h1>
       <p class="rise mt-7 max-w-2xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">
-        Hago videos explicadores, agentes de IA y software a medida para startups y negocios. Cuéntame qué necesitas y te envío una cotización.
+        Hago videos explicadores, contenido con IA, agentes y software a medida para startups y negocios, y enseño a equipos a trabajar con IA. Cuéntame qué necesitas y te envío una cotización.
       </p>
       <div class="rise mt-10 flex flex-wrap gap-3" style="animation-delay: 240ms">
         <a href={wa("Hola Jaime, quiero cotizar un proyecto.")} target="_blank" rel="noopener" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">
@@ -123,7 +149,7 @@ const jsonLd = {
         </a>
       </div>
 
-      <ol class="rise mt-14 grid border-l border-t border-line font-mono text-xs sm:grid-cols-3" style="animation-delay: 320ms">
+      <ol class="rise mt-14 grid border-l border-t border-line font-mono text-xs sm:grid-cols-3 lg:grid-cols-5" style="animation-delay: 320ms">
         {
           services.map((s, i) => (
             <li class="border-b border-r border-line bg-ink">
