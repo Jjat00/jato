@@ -1,0 +1,252 @@
+---
+// /guia-ia: el recurso que se manda por DM a quien comenta «IA» en el reel
+// «Las cinco horas». Pasos verificados en la ayuda oficial de Claude, OpenAI y Composio.
+import Base from "../layouts/Base.astro";
+
+type Source = { label: string; href: string };
+type Block = { id: string; kicker: string; title: string; intro: string; steps?: string[]; can?: string[]; note?: string; sources: Source[] };
+
+const VERIFIED = "6 de noviembre de 2026";
+
+const blocks: Block[] = [
+  {
+    id: "claude",
+    kicker: "Claude",
+    title: "Conecta Gmail, Google Calendar y Google Drive a Claude",
+    intro: "Funciona en la web, en la app de escritorio y en el celular. Los conectores del directorio están disponibles en todos los planes, incluido el gratis.",
+    steps: [
+      "Abre un chat en claude.ai y toca el botón «+» abajo a la izquierda (o escribe «/»).",
+      "Entra a «Connectors» y activa Gmail, Google Calendar o Google Drive.",
+      "La primera vez, Claude te manda a Google para que autorices el acceso. Revisa los permisos y acepta.",
+      "También puedes hacerlo desde Customize › Connectors, con el «+» que abre el directorio completo.",
+      "Si usas Claude en un plan de equipo (Team o Enterprise), primero el administrador activa el conector en Organization settings › Connectors.",
+    ],
+    can: [
+      "Gmail: busca y lee correos, crea borradores y puede enviar o responder; por defecto te pide aprobación antes de enviar.",
+      "Calendar: ve tu agenda, busca huecos libres entre varias personas y crea, mueve o borra eventos con invitados.",
+      "Drive: busca y lee Docs, Sheets, Slides y PDF, y guarda ahí los archivos que crea.",
+    ],
+    note: "Límites: Gmail ve que hay adjuntos, pero no lee lo que tienen adentro, y en bandejas muy grandes puede ir más lento.",
+    sources: [
+      { label: "Claude · Google Workspace connectors", href: "https://support.claude.com/en/articles/10166901-use-google-workspace-connectors" },
+      { label: "Claude · Conectores del directorio", href: "https://support.claude.com/en/articles/11176164-pre-built-web-connectors-using-remote-mcp" },
+    ],
+  },
+  {
+    id: "chatgpt",
+    kicker: "ChatGPT",
+    title: "Conecta Gmail, Calendar y Drive a ChatGPT",
+    intro: "En ChatGPT las conexiones ahora se llaman «Plugins» (antes «Apps» o «Connectors»). Qué plugins puedes instalar depende de tu plan y tu país.",
+    steps: [
+      "Abre Settings › Plugins (o «Plugins» en la barra lateral).",
+      "Elige Gmail, Google Calendar o Google Drive y toca «Connect».",
+      "Inicia sesión con tu cuenta de Google y revisa los permisos.",
+      "En el chat, llama la app con «@» (por ejemplo «@Gmail») o elígela desde el «+».",
+      "Desde Settings › Plugins puedes desconectarla cuando quieras.",
+    ],
+    can: [
+      "Gmail: busca y resume correos, y redacta respuestas. Enviar desde el chat existe en la web para planes de pago, y siempre lo confirmas tú.",
+      "Calendar: consulta tu agenda, incluso varios calendarios a la vez.",
+      "Drive: busca archivos y lee o resume Docs, Sheets y Slides.",
+    ],
+    note: "En los permisos de cada app, deja «Always ask» o «Allow read actions». Evita «Allow all actions»: ejecuta sin preguntarte.",
+    sources: [
+      { label: "OpenAI · Connected apps (Plugins)", href: "https://help.openai.com/en/articles/11487775-connected-apps-in-chatgpt" },
+      { label: "OpenAI · Google Drive", href: "https://help.openai.com/en/articles/10929079" },
+      { label: "OpenAI · Release notes", href: "https://help.openai.com/en/articles/6825453-chatgpt-release-notes" },
+    ],
+  },
+  {
+    id: "composio",
+    kicker: "Composio",
+    title: "Más de mil apps con una sola conexión",
+    intro: "Composio es un puente entre tu IA y más de mil apps: Gmail, Slack, Notion, HubSpot, Sheets, WhatsApp y muchas más. Lo conectas una vez y, cuando la IA necesita una app nueva, te manda un enlace para autorizarla. Es lo que yo uso para lo que no tiene conector propio. Tiene plan gratis: si llegas al límite, se detiene; no te cobra.",
+    steps: [
+      "En Claude: Customize › Connectors › Add custom connector. Nombre «Composio» y URL https://connect.composio.dev/mcp. En el plan gratis de Claude solo cabe un conector personalizado, así que úsalo para este.",
+      "O más fácil: entra a composio.dev/claude y toca «Add the Composio connector»; abre Claude con todo listo.",
+      "En ChatGPT: Settings › Plugins y busca «Composio». Si tu plan permite servidores propios, también puedes agregarlo con «+ › Add custom MCP server» y la misma URL.",
+      "Pídele algo que use una app («crea una tarea en Notion con este correo»). La primera vez te da un enlace para autorizar esa app; lo abres, aceptas y listo.",
+    ],
+    sources: [
+      { label: "Composio · Claude", href: "https://composio.dev/claude" },
+      { label: "Composio · Connect", href: "https://docs.composio.dev/docs/composio-connect" },
+      { label: "Composio · Precios", href: "https://composio.dev/pricing" },
+      { label: "OpenAI · Servidores MCP propios", href: "https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt" },
+    ],
+  },
+  {
+    id: "otras",
+    kicker: "Otras conexiones",
+    title: "Las que más sirven en un negocio",
+    intro: "El directorio de Claude tiene más de mil conectores. Estos son los que más le sirven a un negocio y tienen el sello de verificados: Notion (notas y tareas), Slack (el chat del equipo), Canva (diseños), Asana y monday.com (proyectos), HubSpot (clientes y ventas), Shopify (tu tienda) y Microsoft 365 (si tu correo es Outlook). Lo que no esté ahí, normalmente lo tiene Composio.",
+    sources: [{ label: "Directorio de conectores de Claude", href: "https://claude.com/connectors" }],
+  },
+];
+
+const prompts = [
+  { text: "Resume los correos sin responder de hoy y deja un borrador de respuesta para cada uno.", needs: "Gmail" },
+  { text: "Agenda una reunión de 30 minutos el martes con ana@cliente.com en un hueco libre de los dos e invítala.", needs: "Calendar (en Claude)" },
+  { text: "Busca en mi Drive la última cotización para [cliente] y dime el precio, el plazo y las condiciones.", needs: "Drive" },
+  { text: "Revisa mi agenda de mañana y prepárame un resumen de cada reunión con los últimos correos de cada persona.", needs: "Calendar + Gmail" },
+  { text: "Toma este correo del proveedor y crea una tarea en Notion con fecha límite.", needs: "Gmail + Notion o Composio" },
+];
+
+const cuidados = [
+  "Revisa antes de enviar, compartir o borrar. Deja que la IA te pida aprobación.",
+  "Lee la pantalla de permisos antes de aceptar, sobre todo con la cuenta del trabajo.",
+  "No conectes cuentas de otros (un socio, un cliente) sin su permiso.",
+  "Un correo o documento puede traer instrucciones escondidas para la IA: no la dejes actuar sola sobre lo que no conoces.",
+  "En ChatGPT, si no quieres que tus datos ayuden a entrenar, apaga «Improve the model for everyone» en Settings › Data controls.",
+];
+
+const title = "Guía: conecta tu IA a tu trabajo · jato";
+const description =
+  "Cómo conectar Claude o ChatGPT a Gmail, Google Calendar, Drive y más de mil apps con Composio, paso a paso, con tareas que puedes delegar desde hoy.";
+const year = new Date().getFullYear();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Conecta Claude o ChatGPT a tus herramientas de trabajo",
+  description,
+  url: "https://jato.run/guia-ia/",
+  inLanguage: "es",
+  author: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
+  step: blocks.map((b, i) => ({ "@type": "HowToStep", position: i + 1, name: b.title, text: b.intro, url: `https://jato.run/guia-ia/#${b.id}` })),
+};
+---
+
+<Base lang="es" title={title} description={description} path="/guia-ia/">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
+    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jato.run">
+      <span class="text-2xl font-semibold tracking-tight">jato</span>
+      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    </a>
+    <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
+      <a href="#tareas" class="hover:text-fg">Tareas</a>
+      <a href="/servicios/" class="hover:text-fg">Servicios</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-8 sm:pt-16">
+      <p class="rise font-mono text-xs uppercase tracking-widest text-cyan">Guía · Claude y ChatGPT</p>
+      <h1 class="rise mt-5 max-w-4xl text-4xl font-semibold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl" style="animation-delay: 80ms">
+        Deja de solo chatear. <span class="grad">Conecta tu IA a tu trabajo.</span>
+      </h1>
+      <p class="rise mt-7 max-w-2xl text-base text-muted sm:text-lg" style="animation-delay: 160ms">
+        Si solo chateas, la IA te da un borrador y tú lo llevas a donde va. Cuando le conectas tu correo, tu agenda y tus documentos, lee, busca y arma el trabajo donde tiene que estar. Entre más conexiones tiene, más le puedes delegar.
+      </p>
+      <p class="rise mt-4 font-mono text-xs text-dim" style="animation-delay: 200ms">Pasos verificados en la ayuda oficial el {VERIFIED}. Los menús cambian seguido: si algo no está igual, busca el nombre parecido.</p>
+
+      <ol class="rise mt-12 grid grid-cols-2 border-l border-t border-line font-mono text-xs sm:grid-cols-3 lg:grid-cols-6" style="animation-delay: 280ms">
+        {
+          [...blocks.map((b) => ({ id: b.id, k: b.kicker })), { id: "tareas", k: "Qué delegar" }, { id: "cuidado", k: "Con cuidado" }].map((s, i) => (
+            <li class="border-b border-r border-line bg-ink">
+              <a href={`#${s.id}`} class="flex h-full items-baseline gap-3 px-4 py-3 text-muted transition-colors hover:bg-panel hover:text-fg">
+                <span class="text-dim">{String(i + 1).padStart(2, "0")}</span>
+                <span>{s.k}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 pb-8 sm:px-8">
+      <ol class="border-t border-line">
+        {
+          blocks.map((b, i) => (
+            <li id={b.id} class="grid scroll-mt-8 gap-6 border-b border-line py-12 md:grid-cols-[10rem_1fr] md:gap-10">
+              <div class="font-mono text-xs uppercase tracking-widest">
+                <span class="block text-4xl font-semibold tracking-tighter text-fg md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+                <span class="mt-2 block text-cyan">{b.kicker}</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{b.title}</h2>
+                <p class="mt-4 max-w-3xl leading-relaxed text-muted">{b.intro}</p>
+                {b.steps && (
+                  <ol class="mt-7 max-w-3xl border-l border-t border-line">
+                    {b.steps.map((s, j) => (
+                      <li class="flex gap-4 border-b border-r border-line bg-ink p-4 text-sm leading-relaxed text-fg">
+                        <span class="font-mono text-xs text-cyan">{String(j + 1).padStart(2, "0")}</span>
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {b.can && (
+                  <>
+                    <p class="mt-8 font-mono text-xs uppercase tracking-widest text-muted">Qué puede hacer</p>
+                    <ul class="mt-3 grid max-w-3xl border-l border-t border-line">
+                      {b.can.map((c) => (
+                        <li class="border-b border-r border-line bg-ink p-4 text-sm leading-relaxed text-muted">{c}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {b.note && <p class="mt-5 max-w-3xl border-l-2 border-sun/60 pl-4 text-sm text-muted">{b.note}</p>}
+                <p class="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-dim">
+                  <span>Fuentes:</span>
+                  {b.sources.map((s) => (
+                    <a href={s.href} target="_blank" rel="noopener" class="hover:text-cyan">
+                      {s.label} ↗
+                    </a>
+                  ))}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="tareas" class="mx-auto max-w-6xl scroll-mt-8 px-4 py-16 sm:px-8">
+      <p class="font-mono text-xs uppercase tracking-widest text-cyan">05 · Qué delegar desde hoy</p>
+      <h2 class="mt-4 text-2xl font-semibold tracking-tight sm:text-4xl">Copia una de estas y pruébala</h2>
+      <ul class="mt-8 grid border-l border-t border-line md:grid-cols-2">
+        {
+          prompts.map((p) => (
+            <li class="flex flex-col justify-between gap-4 border-b border-r border-line bg-ink p-5">
+              <p class="font-mono text-sm leading-relaxed text-fg">«{p.text}»</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-dim">Necesita: {p.needs}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="cuidado" class="mx-auto max-w-6xl scroll-mt-8 px-4 pb-16 sm:px-8">
+      <p class="font-mono text-xs uppercase tracking-widest text-sun">06 · Con cuidado</p>
+      <h2 class="mt-4 text-2xl font-semibold tracking-tight sm:text-4xl">Delegar no es soltar</h2>
+      <ul class="mt-8 grid max-w-4xl border-l border-t border-line">
+        {cuidados.map((c) => <li class="border-b border-r border-line bg-ink p-4 text-sm leading-relaxed text-muted">{c}</li>)}
+      </ul>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 pb-24 sm:px-8">
+      <div class="flex flex-col items-start justify-between gap-6 border border-line p-6 sm:flex-row sm:items-center sm:p-10">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-cyan">¿Lo quieres hecho para tu negocio?</p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Conecto la IA a las herramientas de tu equipo</h2>
+          <p class="mt-3 max-w-2xl text-muted">Agentes que contestan WhatsApp, flujos que trabajan solos y talleres para que tu equipo use la IA en serio.</p>
+        </div>
+        <div class="flex shrink-0 flex-wrap gap-3">
+          <a href="/servicios/" class="bg-fg px-5 py-3 text-sm font-medium text-ink transition hover:bg-white">Ver servicios</a>
+          <a href="https://wa.me/573164277879" target="_blank" rel="noopener" class="border border-line px-5 py-3 text-sm font-medium text-fg transition hover:border-cyan hover:text-cyan">WhatsApp ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 font-mono text-xs text-dim sm:px-8">
+    <span>Un taller de <a href="https://jaimeaza.tech" class="text-muted hover:text-fg" rel="author">Jaime Aza ↗</a></span>
+    <span class="flex items-center gap-5">
+      <a href="/privacidad/" class="hover:text-fg">Privacidad</a>
+      <a href="/terminos/" class="hover:text-fg">Términos</a>
+      <span>© {year} jato.run</span>
+    </span>
+  </footer>
+</Base>
