@@ -1,4 +1,5 @@
 ---
+import Logo from "./Logo.astro";
 import Base from "../layouts/Base.astro";
 import Hero3D from "./Hero3D.astro";
 import Trail from "./Trail.astro";
@@ -53,8 +54,8 @@ const jsonLd = {
 
   <header class="absolute inset-x-0 top-0 z-20">
     <div class="mx-auto flex max-w-[92rem] items-center justify-between px-5 py-5 sm:px-8">
-      <a href={home} class="flex items-baseline text-2xl font-semibold tracking-tight" aria-label="Jjato">
-        Jjato
+      <a href={home} class="flex items-center" aria-label="Jjato">
+        <Logo class="h-8 w-auto" />
       </a>
       <nav class="flex items-center gap-6 text-sm text-muted min-[1800px]:gap-8 min-[1800px]:text-base">
         {t.nav.map((n) => <a href={n.href} class="hidden transition-colors hover:text-fg md:inline">{n.label}</a>)}

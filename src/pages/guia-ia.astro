@@ -1,4 +1,5 @@
 ---
+import Logo from "../components/Logo.astro";
 // /guia-ia: el recurso que se manda por DM a quien comenta «IA» en el reel
 // «Las cinco horas». Pasos verificados en la ayuda oficial de Claude, OpenAI y Composio.
 import Base from "../layouts/Base.astro";
@@ -121,7 +122,7 @@ const jsonLd = {
 
   <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
     <a href="/" class="group flex items-baseline gap-0.5" aria-label="Jjato">
-      <span class="text-2xl font-semibold tracking-tight">Jjato</span>
+      <Logo class="h-7 w-auto self-center" />
     </a>
     <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
       <a href="#tareas" class="hover:text-fg">Tareas</a>
