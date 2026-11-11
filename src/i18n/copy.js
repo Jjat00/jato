@@ -63,46 +63,138 @@ const projects = [
   },
 ];
 
+const WA = "573164277879";
+const MAIL = "contacto@jato.run";
+const IG = "https://www.instagram.com/jaimejjat/";
+const wa = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+
+const snake = {
+  es: { play: "jugar", score: "puntos", hint: "flechas, WASD o desliza · Esc para salir", hintTouch: "usa las flechas o desliza el dedo", over: "fin · Enter o toca para jugar otra vez", quit: "salir", dirs: ["arriba", "izquierda", "abajo", "derecha"] },
+  en: { play: "play", score: "score", hint: "arrows, WASD or swipe · Esc to quit", hintTouch: "use the arrows or swipe", over: "game over · Enter or tap to play again", quit: "quit", dirs: ["up", "left", "down", "right"] },
+};
+
 const copy = {
   es: {
     lang: "es",
-    title: "jato · Mi zona",
+    title: "jato.run · Agentes de IA, software y contenido en producción",
     description:
-      "jato.run: los proyectos de Jaime Aza. HF Studio, Parkboard, boost, Keyduelo y sus skills para agentes.",
-    h1: ["Mi", "zona."],
-    sub: "",
-    ctaPrimary: "Ver la zona",
-    ctaSecondary: "GitHub",
-    star: "★ Estrella",
+      "jato.run es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
+    nav: [
+      { label: "Servicios", href: "#servicios" },
+      { label: "En producción", href: "#casos" },
+      { label: "Productos", href: "#proyectos" },
+    ],
+    h1: "Ponemos la IA a trabajar.",
+    sub: "Somos un estudio de producto. Construimos agentes de IA, software y contenido que ya están en producción.",
+    ctaPrimary: { label: "Hablemos", href: wa("Hola, quiero hablar con jato.run sobre un proyecto.") },
+    ctaSecondary: { label: "Qué hacemos", href: "#servicios" },
+    hero3d: "Cubo de 27 bloques que se arma y gira",
+    services: {
+      title: "Qué hacemos",
+      lead: "Cinco formas de trabajar con nosotros. Todo se cotiza según lo que necesites.",
+      more: { label: "Ver los servicios en detalle", href: "/servicios/" },
+      items: [
+        { name: "Agentes de IA", line: "Atienden por WhatsApp, toman pedidos y responden con los datos reales de tu negocio.", href: "/servicios/#agentes" },
+        { name: "Desarrollo web y apps", line: "De la idea al producto en producción, con su dominio, su login y su base de datos.", href: "/servicios/#desarrollo" },
+        { name: "Videos explicadores", line: "Tu producto o tu pitch en un video de 1 a 3 minutos, con narración y animación.", href: "/servicios/#videos" },
+        { name: "Contenido con IA", line: "Anuncios, fotos de producto y reels, sin sesión de fotos ni rodaje.", href: "/servicios/#contenido" },
+        { name: "Talleres de IA", line: "Tu equipo trabajando con agentes, con flujos que siguen funcionando después del taller.", href: "/servicios/#talleres" },
+      ],
+    },
+    cases: {
+      title: "En producción",
+      lead: "Lo que construimos lo usan personas reales todos los días.",
+      visit: "Visitar",
+      items: [
+        { name: "Frostbyte", kind: "Agente de IA para un bar y su cocina", body: "Los clientes piden por WhatsApp y un agente los atiende: conoce la carta, los precios y si el local está abierto. El equipo edita la carta y revisa las ventas desde su propio panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
+        { name: "Tresqu", kind: "Finanzas personales con agentes", body: "Registras un gasto con un mensaje o con la foto de la factura, por WhatsApp o en la web, y el agente te responde con tus propios números.", href: "https://tresqu.com", shot: "/media/tresqu.webp" },
+        { name: "Explicadores", kind: "Videos que explican software e ingeniería", body: "Una serie de videos cortos, con datos reales y animación, que suma más de un millón de vistas al mes en Instagram. Con el mismo método hacemos los videos de nuestros clientes.", href: IG, shot: "/media/explicadores.webp", cta: "Ver en Instagram" },
+      ],
+    },
+    listTitle: "Nuestros productos",
+    listLead: "También construimos nuestras propias herramientas, varias de código abierto.",
+    process: {
+      title: "Cómo trabajamos",
+      steps: [
+        { title: "Nos escribes", body: "Por WhatsApp o correo, con lo que necesitas y para cuándo." },
+        { title: "Hablamos", body: "Una llamada corta para entender el objetivo y el alcance." },
+        { title: "Cotizamos", body: "Te enviamos propuesta, tiempos y precio. Sin compromiso." },
+        { title: "Entregamos", body: "Con avances en el camino y ajustes hasta que quede bien." },
+      ],
+    },
+    contact: {
+      title: "Cuéntanos qué necesitas.",
+      body: "Respondemos con una propuesta, tiempos y precio.",
+      wa: { label: "Escribir por WhatsApp", href: wa("Hola, quiero cotizar un proyecto con jato.run.") },
+      mail: { label: MAIL, href: `mailto:${MAIL}` },
+    },
+    star: "Estrella en GitHub",
     starTitle: "Dale una estrella a jato.run en GitHub",
-    listTitle: "Proyectos",
-    listHint: "",
-    cols: ["proyecto", "descripción"],
-    code: "Código",
-    by: "Un taller de",
+    by: "Fundado por",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
-    snake: { play: "jugar", score: "puntos", hint: "flechas, WASD o desliza · Esc para salir", hintTouch: "usa las flechas o desliza el dedo", over: "fin · Enter o toca para jugar otra vez", quit: "salir", dirs: ["arriba", "izquierda", "abajo", "derecha"] },
+    snake: snake.es,
   },
   en: {
     lang: "en",
-    title: "jato · My zone",
+    title: "jato.run · AI agents, software and content in production",
     description:
-      "jato.run: Jaime Aza's projects. HF Studio, Parkboard, boost, Keyduelo and his agent skills.",
-    h1: ["My", "zone."],
-    sub: "",
-    ctaPrimary: "See the zone",
-    ctaSecondary: "GitHub",
-    star: "★ Star",
+      "jato.run is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
+    nav: [
+      { label: "Services", href: "#servicios" },
+      { label: "In production", href: "#casos" },
+      { label: "Products", href: "#proyectos" },
+    ],
+    h1: "We put AI to work.",
+    sub: "We are a product studio. We build AI agents, software and content that already run in production.",
+    ctaPrimary: { label: "Let's talk", href: wa("Hi, I'd like to talk to jato.run about a project.") },
+    ctaSecondary: { label: "What we do", href: "#servicios" },
+    hero3d: "A cube of 27 blocks assembling and turning",
+    services: {
+      title: "What we do",
+      lead: "Five ways to work with us. Everything is quoted for what you need.",
+      more: null,
+      items: [
+        { name: "AI agents", line: "They answer on WhatsApp, take orders and reply with your business's real data.", href: wa("Hi, I'd like a quote for an AI agent.") },
+        { name: "Web and app development", line: "From idea to a product in production, with its domain, login and database.", href: wa("Hi, I'd like a quote for a web or app build.") },
+        { name: "Explainer videos", line: "Your product or pitch in a 1 to 3 minute video, with narration and animation.", href: wa("Hi, I'd like a quote for an explainer video.") },
+        { name: "AI content", line: "Ads, product photos and reels, with no photo shoot and no filming.", href: wa("Hi, I'd like a quote for AI content.") },
+        { name: "AI workshops", line: "Your team working with agents, with workflows that keep running after the workshop.", href: wa("Hi, I'd like a quote for an AI workshop.") },
+      ],
+    },
+    cases: {
+      title: "In production",
+      lead: "Real people use what we build every day.",
+      visit: "Visit",
+      items: [
+        { name: "Frostbyte", kind: "An AI agent for a bar and its kitchen", body: "Customers order on WhatsApp and an agent serves them: it knows the menu, the prices and whether the place is open. The team edits the menu and reviews sales from their own panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
+        { name: "Tresqu", kind: "Personal finance with agents", body: "You log an expense with a message or a photo of the receipt, on WhatsApp or the web, and the agent answers with your own numbers.", href: "https://tresqu.com", shot: "/media/tresqu.webp" },
+        { name: "Explainers", kind: "Videos that explain software and engineering", body: "A series of short videos, with real data and animation, with over a million views a month on Instagram. We make our clients' videos with the same method.", href: IG, shot: "/media/explicadores.webp", cta: "Watch on Instagram" },
+      ],
+    },
+    listTitle: "Our products",
+    listLead: "We also build our own tools, several of them open source.",
+    process: {
+      title: "How we work",
+      steps: [
+        { title: "You write to us", body: "On WhatsApp or by email, with what you need and by when." },
+        { title: "We talk", body: "A short call to understand the goal and the scope." },
+        { title: "We quote", body: "We send a proposal, timeline and price. No commitment." },
+        { title: "We deliver", body: "With progress along the way and changes until it's right." },
+      ],
+    },
+    contact: {
+      title: "Tell us what you need.",
+      body: "We reply with a proposal, timeline and price.",
+      wa: { label: "Message us on WhatsApp", href: wa("Hi, I'd like a quote for a project with jato.run.") },
+      mail: { label: MAIL, href: `mailto:${MAIL}` },
+    },
+    star: "Star on GitHub",
     starTitle: "Star jato.run on GitHub",
-    listTitle: "Projects",
-    listHint: "",
-    cols: ["project", "description"],
-    code: "Code",
-    by: "A workshop by",
+    by: "Founded by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },
-    snake: { play: "play", score: "score", hint: "arrows, WASD or swipe · Esc to quit", hintTouch: "use the arrows or swipe", over: "game over · Enter or tap to play again", quit: "quit", dirs: ["up", "left", "down", "right"] },
+    snake: snake.en,
   },
 };
 

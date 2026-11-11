@@ -1,0 +1,205 @@
+---
+// Pieza 3D del hero: un cubo de 27 bloques que se arma al cargar, gira despacio y deja pasar
+// una onda de luz cian a violeta. Sigue al cursor, y un clic o toque lo desarma y lo vuelve a armar.
+// three.js se carga aparte (import dinámico) para no frenar el primer pintado.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<canvas id="hero3d" class="absolute inset-0 -z-10 h-full w-full" role="img" aria-label={label}></canvas>
+
+<script>
+  const canvas = document.getElementById("hero3d") as HTMLCanvasElement | null;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const light = matchMedia("(prefers-color-scheme: light)");
+
+  async function start(canvas: HTMLCanvasElement) {
+    const THREE = await import("three");
+    const { RoundedBoxGeometry } = await import("three/addons/geometries/RoundedBoxGeometry.js");
+    const hero = canvas.parentElement!;
+
+    let renderer: import("three").WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+    } catch {
+      return; // sin WebGL queda el fondo y el texto
+    }
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+
+    // Entorno propio para los reflejos: una caja con paneles de luz cian, violeta y blanca.
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    function buildEnv(isLight: boolean) {
+      const env = new THREE.Scene();
+      env.background = new THREE.Color(isLight ? 0x1c1c22 : 0x060608);
+      const panel = (color: number, intensity: number, pos: [number, number, number], size: [number, number]) => {
+        const m = new THREE.Mesh(
+          new THREE.PlaneGeometry(size[0], size[1]),
+          new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(intensity), side: THREE.DoubleSide }),
+        );
+        m.position.set(...pos);
+        m.lookAt(0, 0, 0);
+        env.add(m);
+      };
+      panel(0x68ddfd, 9, [-6, 1, 3], [3, 8]);
+      panel(0x9e8cfc, 10, [6, -1, 3], [3, 8]);
+      panel(0xffffff, isLight ? 6 : 4, [0, 7, 2], [6, 2]);
+      panel(0x9e8cfc, 4, [-2, -6, 3], [5, 2]);
+      const tex = pmrem.fromScene(env, 0.035).texture;
+      env.traverse((o) => {
+        const mesh = o as import("three").Mesh;
+        if (mesh.isMesh) {
+          mesh.geometry.dispose();
+          (mesh.material as import("three").Material).dispose();
+        }
+      });
+      return tex;
+    }
+
+    const cyan = new THREE.Color(0x68ddfd);
+    const violet = new THREE.Color(0x9e8cfc);
+    const N = 3;
+    const SIZE = 0.62;
+    const GAP = 0.085;
+    const STEP = SIZE + GAP;
+    const geo = new RoundedBoxGeometry(SIZE, SIZE, SIZE, 4, 0.045); // bisel mínimo: atrapa la luz en las aristas
+    const group = new THREE.Group();
+    scene.add(group);
+
+    type Cube = {
+      mesh: import("three").Mesh;
+      mat: import("three").MeshPhysicalMaterial;
+      home: import("three").Vector3;
+      from: import("three").Vector3;
+      spin: import("three").Vector3;
+      delay: number;
+      tint: import("three").Color;
+      diag: number;
+    };
+    const cubes: Cube[] = [];
+    // Semilla fija: la entrada es igual en cada visita.
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+    for (let x = 0; x < N; x++)
+      for (let y = 0; y < N; y++)
+        for (let z = 0; z < N; z++) {
+          const mat = new THREE.MeshPhysicalMaterial({ metalness: 0.75, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.1 });
+          const mesh = new THREE.Mesh(geo, mat);
+          const home = new THREE.Vector3((x - 1) * STEP, (y - 1) * STEP, (z - 1) * STEP);
+          const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize();
+          const from = home.clone().add(dir.multiplyScalar(4 + rnd() * 3.5));
+          const diag = (x + (N - 1 - y) + z) / (3 * (N - 1));
+          cubes.push({
+            mesh,
+            mat,
+            home,
+            from,
+            spin: new THREE.Vector3(rnd() * 5 - 2.5, rnd() * 5 - 2.5, rnd() * 5 - 2.5),
+            delay: diag * 0.55 + rnd() * 0.15,
+            tint: cyan.clone().lerp(violet, x / (N - 1) * 0.6 + z / (N - 1) * 0.4),
+            diag,
+          });
+          group.add(mesh);
+        }
+
+    // Tres luces: blanca arriba, cian a la izquierda y violeta a la derecha. Cada cara toma un tono distinto.
+    const key = new THREE.DirectionalLight(0xffffff, 1.6);
+    key.position.set(2, 6, 5);
+    const left = new THREE.DirectionalLight(0x68ddfd, 7);
+    left.position.set(-6, 0.5, 3);
+    const right = new THREE.DirectionalLight(0x9e8cfc, 8);
+    right.position.set(6, -1, 4);
+    scene.add(key, left, right);
+
+    function applyTheme() {
+      const isLight = light.matches;
+      scene.environment?.dispose();
+      scene.environment = buildEnv(isLight);
+      renderer.toneMappingExposure = isLight ? 1.05 : 1.15;
+      for (const c of cubes) {
+        c.mat.color.set(isLight ? 0x14141a : 0x1b1b24);
+        c.mat.envMapIntensity = isLight ? 1.0 : 1.2;
+        c.mat.emissive.copy(c.tint);
+      }
+    }
+    applyTheme();
+    light.addEventListener("change", applyTheme);
+
+    // El cubo ocupa una fracción fija del hero: siempre queda centrado y deja sitio al texto.
+    function resize() {
+      const w = hero.clientWidth;
+      const h = hero.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      const extent = 3.9; // diámetro del cubo girado
+      const target = Math.min(0.36 * h, 0.72 * w) / h; // fracción de alto visible
+      camera.position.set(0, 0, extent / target / (2 * Math.tan((camera.fov * Math.PI) / 360)));
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    new ResizeObserver(resize).observe(hero);
+
+    const ease = (t: number) => 1 - Math.pow(1 - t, 4);
+    const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+    addEventListener("pointermove", (e) => {
+      pointer.tx = (e.clientX / innerWidth) * 2 - 1;
+      pointer.ty = (e.clientY / innerHeight) * 2 - 1;
+    }, { passive: true });
+
+    let burst = -10; // instante del último clic
+    let clock = 0;
+    canvas.addEventListener("pointerdown", () => (burst = clock));
+
+    const tmp = new THREE.Vector3();
+    function frame(t: number, still = false) {
+      clock = t;
+      pointer.x += (pointer.tx - pointer.x) * 0.05;
+      pointer.y += (pointer.ty - pointer.y) * 0.05;
+      group.rotation.set(0.52 + pointer.y * 0.28, 0.72 + (still ? 0 : t * 0.16) + pointer.x * 0.4, 0);
+
+      const sinceBurst = t - burst;
+      const blown = sinceBurst < 1.6 ? Math.sin(Math.min(sinceBurst / 1.6, 1) * Math.PI) : 0;
+      const breathe = still ? 0 : (Math.sin(t * 0.7) + 1) * 0.035;
+      const sweep = still ? 0.5 : (t * 0.22) % 1.6 - 0.3; // onda diagonal de luz
+
+      for (const c of cubes) {
+        const k = still ? 1 : ease(Math.min(Math.max((t - 0.15 - c.delay) / 1.5, 0), 1));
+        const lit = Math.max(0, 1 - Math.abs(c.diag - sweep) / 0.22);
+        const push = 1 + breathe + lit * 0.06 + blown * (0.9 + c.delay);
+        tmp.copy(c.home).multiplyScalar(push);
+        c.mesh.position.lerpVectors(c.from, tmp, k);
+        c.mesh.rotation.set(c.spin.x * (1 - k) + blown * c.spin.x * 0.25, c.spin.y * (1 - k) + blown * c.spin.y * 0.25, c.spin.z * (1 - k));
+        c.mesh.scale.setScalar(0.4 + 0.6 * k);
+        c.mat.emissiveIntensity = lit * lit * (light.matches ? 0.7 : 0.9);
+      }
+      renderer.render(scene, camera);
+    }
+
+    let raf = 0;
+    let visible = true;
+    const t0 = performance.now();
+    const loop = () => {
+      frame((performance.now() - t0) / 1000);
+      raf = requestAnimationFrame(loop);
+    };
+    function sync() {
+      cancelAnimationFrame(raf);
+      if (reduce.matches) frame(10, true);
+      else if (visible && !document.hidden) loop();
+    }
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }).observe(canvas);
+    document.addEventListener("visibilitychange", sync);
+    reduce.addEventListener("change", sync);
+    light.addEventListener("change", () => reduce.matches && frame(10, true));
+    sync();
+    canvas.dataset.ready = "1";
+  }
+
+  if (canvas) start(canvas);
+</script>

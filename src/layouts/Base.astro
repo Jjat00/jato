@@ -28,7 +28,8 @@ const path = own ?? (lang === "es" ? "/" : "/en/");
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={site + path} />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="jato.run for language models" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
