@@ -138,7 +138,7 @@ const { label } = Astro.props;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       const extent = 3.9; // diámetro del cubo girado
-      const target = Math.min(0.36 * h, 0.72 * w) / h; // fracción de alto visible
+      const target = Math.min(0.32 * h, 0.6 * w) / h; // fracción de alto visible
       camera.position.set(0, 0, extent / target / (2 * Math.tan((camera.fov * Math.PI) / 360)));
       camera.updateProjectionMatrix();
     }
