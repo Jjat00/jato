@@ -1,4 +1,4 @@
-# jjato
+# Jjato
 
 Landing de [jjato.com](https://jjato.com): los proyectos de Jaime Aza que viven bajo `*.jjato.com`.
 

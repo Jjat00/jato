@@ -8,9 +8,9 @@ export const GET = () => {
     (p) => `- [${p.name}](${p.href}/llms.txt): ${p.line.en} (${p.tags}). Site: ${p.href}${p.repo ? `. Code: ${p.repo}` : ""}`,
   );
   const body = [
-    "# jjato",
+    "# Jjato",
     "",
-    "> jjato is Jaime Aza's workshop: tools for working with AI agents (Claude Code, Codex and others) and a few experiments. Each project lives on its own subdomain and has its own llms.txt with the details.",
+    "> Jjato is Jaime Aza's workshop: tools for working with AI agents (Claude Code, Codex and others) and a few experiments. Each project lives on its own subdomain and has its own llms.txt with the details.",
     "",
     "Author: Jaime Aza, AI Engineer (https://jaimeaza.tech, https://github.com/Jjat00). The site is in Spanish (/) and English (/en/).",
     "",

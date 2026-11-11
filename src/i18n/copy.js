@@ -64,9 +64,9 @@ const snake = {
 const copy = {
   es: {
     lang: "es",
-    title: "jjato · Agentes de IA, software y contenido en producción",
+    title: "Jjato · Agentes de IA, software y contenido en producción",
     description:
-      "jjato es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
+      "Jjato es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
     nav: [
       { label: "Servicios", href: "#servicios" },
       { label: "En producción", href: "#casos" },
@@ -74,7 +74,7 @@ const copy = {
     ],
     h1: "Ponemos la IA a trabajar.",
     sub: "Somos un estudio de producto. Construimos agentes de IA, software y contenido que ya están en producción.",
-    ctaPrimary: { label: "Hablemos", href: wa("Hola, quiero hablar con jjato sobre un proyecto.") },
+    ctaPrimary: { label: "Hablemos", href: wa("Hola, quiero hablar con Jjato sobre un proyecto.") },
     ctaSecondary: { label: "Qué hacemos", href: "#servicios" },
     hero3d: "Cubo de 27 bloques que se arma y gira",
     services: {
@@ -122,7 +122,7 @@ const copy = {
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Estrella en GitHub",
-    starTitle: "Dale una estrella a jjato en GitHub",
+    starTitle: "Dale una estrella a Jjato en GitHub",
     by: "Fundado por",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
@@ -130,9 +130,9 @@ const copy = {
   },
   en: {
     lang: "en",
-    title: "jjato · AI agents, software and content in production",
+    title: "Jjato · AI agents, software and content in production",
     description:
-      "jjato is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
+      "Jjato is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
     nav: [
       { label: "Services", href: "#servicios" },
       { label: "In production", href: "#casos" },
@@ -140,7 +140,7 @@ const copy = {
     ],
     h1: "We put AI to work.",
     sub: "We are a product studio. We build AI agents, software and content that already run in production.",
-    ctaPrimary: { label: "Let's talk", href: wa("Hi, I'd like to talk to jjato about a project.") },
+    ctaPrimary: { label: "Let's talk", href: wa("Hi, I'd like to talk to Jjato about a project.") },
     ctaSecondary: { label: "What we do", href: "#servicios" },
     hero3d: "A cube of 27 blocks assembling and turning",
     services: {
@@ -188,7 +188,7 @@ const copy = {
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Star on GitHub",
-    starTitle: "Star jjato on GitHub",
+    starTitle: "Star Jjato on GitHub",
     by: "Founded by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },
