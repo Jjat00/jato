@@ -106,9 +106,14 @@ const copy = {
       lead: "Lo que construimos lo usan personas reales todos los días.",
       visit: "Visitar",
       items: [
-        { name: "Frostbyte", kind: "Agente de IA para un bar y su cocina", body: "Los clientes piden por WhatsApp y un agente los atiende: conoce la carta, los precios y si el local está abierto. El equipo edita la carta y revisa las ventas desde su propio panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
+        { name: "Frostbyte", kind: "Agente de IA para un establecimiento de bebidas frías", body: "Los clientes piden por WhatsApp y un agente los atiende: conoce la carta, los precios y si el local está abierto. El equipo edita la carta y revisa las ventas desde su propio panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
         { name: "Tresqu", kind: "Finanzas personales con agentes", body: "Registras un gasto con un mensaje o con la foto de la factura, por WhatsApp o en la web, y el agente te responde con tus propios números.", href: "https://tresqu.com", shot: "/media/tresqu.webp" },
-        { name: "Explicadores", kind: "Videos que explican software e ingeniería", body: "Una serie de videos cortos, con datos reales y animación, que suma más de un millón de vistas al mes en Instagram. Con el mismo método hacemos los videos de nuestros clientes.", href: IG, shot: "/media/explicadores.webp", cta: "Ver en Instagram" },
+        { name: "Explicadores", kind: "Videos que explican software e ingeniería", body: "Una serie de videos cortos, con datos reales y animación, que suma más de un millón de vistas al mes en Instagram. Con el mismo método hacemos los videos de nuestros clientes.", href: IG, cta: "Ver en Instagram", examples: [
+          { img: "/media/explicador-tesla.webp", href: "https://www.instagram.com/p/DekTznlOpD6/", title: "La física del Tesla volador", detail: "Fricción, succión, empuje y gas real, con un modelo 3D y las cifras del evento." },
+          { img: "/media/explicador-vision.webp", href: "https://www.instagram.com/p/DeX3l3DuzQq/", title: "Visión por computadora", detail: "YOLOv8 sigue el balón cuadro a cuadro y ResNet-50 clasifica fotos reales." },
+          { img: "/media/explicador-vectores.webp", href: "https://www.instagram.com/p/Deffq3XPXmS/", title: "Bases de datos vectoriales", detail: "Embeddings en 1024 dimensiones y similitud medida entre palabras." },
+          { img: "/media/explicador-llms.webp", href: "https://www.instagram.com/p/DevIXIXtH8z/", title: "Historia de los LLM", detail: "De la neurona de 1943 al razonamiento de 2026, con la ecuación de cada era." },
+        ] },
       ],
     },
     listTitle: "Nuestros productos",
@@ -167,9 +172,14 @@ const copy = {
       lead: "Real people use what we build every day.",
       visit: "Visit",
       items: [
-        { name: "Frostbyte", kind: "An AI agent for a bar and its kitchen", body: "Customers order on WhatsApp and an agent serves them: it knows the menu, the prices and whether the place is open. The team edits the menu and reviews sales from their own panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
+        { name: "Frostbyte", kind: "An AI agent for a cold drinks shop", body: "Customers order on WhatsApp and an agent serves them: it knows the menu, the prices and whether the place is open. The team edits the menu and reviews sales from their own panel.", href: "https://frostbyte.com.co", shot: "/media/frostbyte.webp" },
         { name: "Tresqu", kind: "Personal finance with agents", body: "You log an expense with a message or a photo of the receipt, on WhatsApp or the web, and the agent answers with your own numbers.", href: "https://tresqu.com", shot: "/media/tresqu.webp" },
-        { name: "Explainers", kind: "Videos that explain software and engineering", body: "A series of short videos, with real data and animation, with over a million views a month on Instagram. We make our clients' videos with the same method.", href: IG, shot: "/media/explicadores.webp", cta: "Watch on Instagram" },
+        { name: "Explainers", kind: "Videos that explain software and engineering", body: "A series of short videos, with real data and animation, with over a million views a month on Instagram. We make our clients' videos with the same method.", href: IG, cta: "Watch on Instagram", examples: [
+          { img: "/media/explicador-tesla.webp", href: "https://www.instagram.com/p/DekTznlOpD6/", title: "The physics of the flying Tesla", detail: "Friction, suction, thrust and real gas, with a 3D model and the event's figures." },
+          { img: "/media/explicador-vision.webp", href: "https://www.instagram.com/p/DeX3l3DuzQq/", title: "Computer vision", detail: "YOLOv8 tracks the ball frame by frame and ResNet-50 classifies real photos." },
+          { img: "/media/explicador-vectores.webp", href: "https://www.instagram.com/p/Deffq3XPXmS/", title: "Vector databases", detail: "Embeddings in 1024 dimensions and similarity measured between words." },
+          { img: "/media/explicador-llms.webp", href: "https://www.instagram.com/p/DevIXIXtH8z/", title: "A history of LLMs", detail: "From the 1943 neuron to 2026 reasoning, with each era's equation." },
+        ] },
       ],
     },
     listTitle: "Our products",
