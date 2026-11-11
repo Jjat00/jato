@@ -174,10 +174,10 @@ const jsonLd = {
           <h2 class="display md:col-span-7">{t.listTitle}</h2>
           <p class="self-end text-lg text-muted md:col-span-5">{t.listLead}</p>
         </div>
-        <ul class="mt-14 grid gap-x-8 gap-y-12 sm:mt-20 sm:grid-cols-2 lg:grid-cols-6">
+        <ul class="mt-14 grid gap-x-8 gap-y-12 sm:mt-20 sm:grid-cols-2">
           {
-            projects.map((p, i) => (
-              <li class={i < 2 ? "lg:col-span-3" : "lg:col-span-2"} data-reveal>
+            projects.map((p) => (
+              <li data-reveal>
                 <a href={p.href} target="_blank" rel="noopener" class="group block">
                   <span class="shot block overflow-hidden bg-ink">
                     <img src={`/media/${p.slug}.webp`} alt="" width="1280" height="720" loading="lazy" decoding="async" class="aspect-[16/9] w-full object-cover object-top" />

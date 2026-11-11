@@ -38,18 +38,6 @@ const projects = [
     },
   },
   {
-    slug: "keyduelo",
-    name: "Keyduelo",
-    route: "keyduelo.jato.run",
-    href: "https://keyduelo.jato.run",
-    repo: "https://github.com/Jjat00/keyduelo",
-    tags: "Durable Objects · WebSockets",
-    line: {
-      es: "Carreras de tipeo multijugador, en tiempo real y en el edge.",
-      en: "Real-time multiplayer typing races on the edge.",
-    },
-  },
-  {
     slug: "skills",
     name: "Skills",
     route: "skills.jato.run",
