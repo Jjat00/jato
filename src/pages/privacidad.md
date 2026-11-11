@@ -2,16 +2,16 @@
 layout: ../layouts/Legal.astro
 lang: es
 title: Política de privacidad
-description: Cómo jato.run y las aplicaciones bajo *.jato.run tratan tus datos personales cuando inicias sesión con Google o conectas tu cuenta de TikTok.
+description: Cómo jjato.com y las aplicaciones bajo *.jjato.com tratan tus datos personales cuando inicias sesión con Google o conectas tu cuenta de TikTok.
 updated: Última actualización · 28 de octubre de 2026
 other: { label: "EN", href: "/en/privacy/" }
 ---
 
-Esta política explica qué datos personales recogemos cuando usas **jato.run** o cualquier aplicación publicada bajo un subdominio de jato.run (por ejemplo, parkboard.jato.run), para qué los usamos y qué derechos tienes sobre ellos. Llamamos «los Servicios» a jato.run y a esas aplicaciones.
+Esta política explica qué datos personales recogemos cuando usas **jjato.com** o cualquier aplicación publicada bajo un subdominio de jjato.com (por ejemplo, parkboard.jjato.com), para qué los usamos y qué derechos tienes sobre ellos. Llamamos «los Servicios» a jjato.com y a esas aplicaciones.
 
 ## Quién es el responsable
 
-El responsable del tratamiento es **Jaime Aza**, persona natural residente en Colombia, que desarrolla y opera los Servicios. Para cualquier asunto sobre tus datos puedes escribir a [contacto@jato.run](mailto:contacto@jato.run).
+El responsable del tratamiento es **Jaime Aza**, persona natural residente en Colombia, que desarrolla y opera los Servicios. Para cualquier asunto sobre tus datos puedes escribir a [contacto@jjato.com](mailto:contacto@jjato.com).
 
 Tratamos los datos conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013 de Colombia, sobre protección de datos personales.
 
@@ -30,7 +30,7 @@ No pedimos acceso a tu Gmail, tus contactos, tus archivos de Drive ni a ningún 
 
 ### Al conectar tu cuenta de TikTok
 
-Algunas aplicaciones, como boost.jato.run, te permiten conectar tu cuenta de TikTok para publicar tus propios videos. Si la conectas, TikTok nos comparte, con tu autorización y solo con los permisos que aceptes:
+Algunas aplicaciones, como boost.jjato.com, te permiten conectar tu cuenta de TikTok para publicar tus propios videos. Si la conectas, TikTok nos comparte, con tu autorización y solo con los permisos que aceptes:
 
 - tu información básica de perfil (nombre visible, foto e identificador),
 - las estadísticas públicas de tu perfil y de tus videos (seguidores, vistas, me gusta),
@@ -91,7 +91,7 @@ Como titular de los datos tienes derecho a:
 - revocar la autorización y pedir que eliminemos tus datos,
 - presentar quejas ante la Superintendencia de Industria y Comercio.
 
-Para ejercerlos, escribe a [contacto@jato.run](mailto:contacto@jato.run) desde el correo de tu cuenta. Responderemos las consultas en un máximo de 10 días hábiles y los reclamos en un máximo de 15 días hábiles, como indica la ley.
+Para ejercerlos, escribe a [contacto@jjato.com](mailto:contacto@jjato.com) desde el correo de tu cuenta. Responderemos las consultas en un máximo de 10 días hábiles y los reclamos en un máximo de 15 días hábiles, como indica la ley.
 
 También puedes quitar el acceso de los Servicios a tu cuenta de Google en cualquier momento desde [la configuración de seguridad de Google](https://myaccount.google.com/permissions).
 
@@ -109,4 +109,4 @@ Si cambiamos esta política, publicaremos la nueva versión en esta página con 
 
 ## Contacto
 
-Jaime Aza · [contacto@jato.run](mailto:contacto@jato.run) · [jato.run](https://jato.run)
+Jaime Aza · [contacto@jjato.com](mailto:contacto@jjato.com) · [jjato.com](https://jjato.com)

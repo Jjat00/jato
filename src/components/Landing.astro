@@ -18,14 +18,14 @@ const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "WebSite", "@id": "https://jato.run/#site", name: "jato.run", url: "https://jato.run", inLanguage: locale },
+    { "@type": "WebSite", "@id": "https://jjato.com/#site", name: "jjato", url: "https://jjato.com", inLanguage: locale },
     {
       "@type": "Organization",
-      "@id": "https://jato.run/#org",
-      name: "jato.run",
-      url: "https://jato.run",
+      "@id": "https://jjato.com/#org",
+      name: "jjato",
+      url: "https://jjato.com",
       description: t.description,
-      email: "contacto@jato.run",
+      email: "contacto@jjato.com",
       founder: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
       sameAs: ["https://github.com/Jjat00", "https://www.instagram.com/jaimejjat/"],
       hasOfferCatalog: {
@@ -53,8 +53,8 @@ const jsonLd = {
 
   <header class="absolute inset-x-0 top-0 z-20">
     <div class="mx-auto flex max-w-[92rem] items-center justify-between px-5 py-5 sm:px-8">
-      <a href={home} class="flex items-baseline text-2xl font-semibold tracking-tight" aria-label="jato.run">
-        jato<span class="text-muted">.run</span>
+      <a href={home} class="flex items-baseline text-2xl font-semibold tracking-tight" aria-label="jjato">
+        jjato
       </a>
       <nav class="flex items-center gap-6 text-sm text-muted min-[1800px]:gap-8 min-[1800px]:text-base">
         {t.nav.map((n) => <a href={n.href} class="hidden transition-colors hover:text-fg md:inline">{n.label}</a>)}
@@ -236,10 +236,10 @@ const jsonLd = {
           <a href="https://github.com/Jjat00/jato" class="transition-colors hover:text-fg" title={t.starTitle} target="_blank" rel="noopener">★ {t.star}</a>
           <a href="https://www.instagram.com/jaimejjat/" class="transition-colors hover:text-fg" target="_blank" rel="noopener me">Instagram</a>
           {t.legal.map((l) => <a href={l.href} class="transition-colors hover:text-fg">{l.label}</a>)}
-          <span>© {year} jato.run</span>
+          <span>© {year} jjato</span>
         </span>
       </div>
-      <p class="wordmark mt-10 font-semibold" aria-hidden="true">jato.run</p>
+      <p class="wordmark mt-10 font-semibold" aria-hidden="true">jjato</p>
     </div>
   </footer>
 

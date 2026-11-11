@@ -2,16 +2,16 @@
 layout: ../../layouts/Legal.astro
 lang: en
 title: Privacy Policy
-description: How jato.run and the apps under *.jato.run handle your personal data when you sign in with Google or connect your TikTok account.
+description: How jjato.com and the apps under *.jjato.com handle your personal data when you sign in with Google or connect your TikTok account.
 updated: Last updated · October 28, 2026
 other: { label: "ES", href: "/privacidad/" }
 ---
 
-This policy explains what personal data we collect when you use **jato.run** or any app published under a jato.run subdomain (for example, parkboard.jato.run), what we use it for and what rights you have over it. We call jato.run and those apps "the Services".
+This policy explains what personal data we collect when you use **jjato.com** or any app published under a jjato.com subdomain (for example, parkboard.jjato.com), what we use it for and what rights you have over it. We call jjato.com and those apps "the Services".
 
 ## Who is responsible
 
-The data controller is **Jaime Aza**, an individual based in Colombia who builds and operates the Services. For anything about your data, write to [contacto@jato.run](mailto:contacto@jato.run).
+The data controller is **Jaime Aza**, an individual based in Colombia who builds and operates the Services. For anything about your data, write to [contacto@jjato.com](mailto:contacto@jjato.com).
 
 We process data in accordance with Colombia's Law 1581 of 2012 and Decree 1377 of 2013 on personal data protection.
 
@@ -47,7 +47,7 @@ To keep the Services working and secure, basic technical data is logged, such as
 
 ## Use of TikTok data
 
-Some apps, such as boost.jato.run, let you connect your TikTok account to publish your own videos. If you connect it, TikTok shares with us, with your authorization and only for the scopes you accept: your basic profile information (display name, avatar and ID), public statistics of your profile and videos (followers, views, likes), the list of your published videos, and permission to upload and publish the videos you choose.
+Some apps, such as boost.jjato.com, let you connect your TikTok account to publish your own videos. If you connect it, TikTok shares with us, with your authorization and only for the scopes you accept: your basic profile information (display name, avatar and ID), public statistics of your profile and videos (followers, views, likes), the list of your published videos, and permission to upload and publish the videos you choose.
 
 We only publish the video, caption and privacy setting you define in the app. We never post anything without your instruction and we do not read your direct messages. TikTok data is used only to publish the content you request and to show you your post statistics inside the Services; it is not sold, not used for advertising and not used to train artificial intelligence models. You can disconnect your account at any time from the app or from TikTok settings (*Settings and privacy → Security → Apps and services*); when you do, we delete the access tokens.
 
@@ -82,7 +82,7 @@ As the data subject you have the right to:
 - withdraw your consent and ask us to delete your data,
 - file complaints with Colombia's Superintendence of Industry and Commerce.
 
-To exercise them, write to [contacto@jato.run](mailto:contacto@jato.run) from your account's email. We will answer inquiries within 10 business days and claims within 15 business days, as required by law.
+To exercise them, write to [contacto@jjato.com](mailto:contacto@jjato.com) from your account's email. We will answer inquiries within 10 business days and claims within 15 business days, as required by law.
 
 You can also remove the Services' access to your Google account at any time from [Google's security settings](https://myaccount.google.com/permissions).
 
@@ -100,4 +100,4 @@ If we change this policy, we will publish the new version on this page with its 
 
 ## Contact
 
-Jaime Aza · [contacto@jato.run](mailto:contacto@jato.run) · [jato.run](https://jato.run)
+Jaime Aza · [contacto@jjato.com](mailto:contacto@jjato.com) · [jjato.com](https://jjato.com)

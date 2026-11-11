@@ -8,10 +8,10 @@ const GH = "https://github.com/Jjat00";
 
 // Repos propios y públicos que aparecen en la página (las estrellas se leen al compilar).
 const repos = {
-  "hf-studio": { name: "HF Studio", repo: `${GH}/hf-studio`, site: "https://hf-studio.jato.run", line: "Estudio de imagen, video y audio con IA, manejado por agentes vía MCP." },
-  parkboard: { name: "Parkboard", repo: `${GH}/parkboard`, site: "https://parkboard.jato.run", line: "El lienzo donde los agentes parquean lo que queda para después." },
+  "hf-studio": { name: "HF Studio", repo: `${GH}/hf-studio`, site: "https://hf-studio.jjato.com", line: "Estudio de imagen, video y audio con IA, manejado por agentes vía MCP." },
+  parkboard: { name: "Parkboard", repo: `${GH}/parkboard`, site: "https://parkboard.jjato.com", line: "El lienzo donde los agentes parquean lo que queda para después." },
   grabador: { name: "grabador", repo: `${GH}/grabador`, site: null, line: "Grabador de pantalla con CLI y MCP: las tomas del reel las grabó el agente." },
-  "jjat-skills": { name: "Skills", repo: `${GH}/jjat-skills`, site: "https://skills.jato.run", line: "Recetas para agentes: video, contenido y flujos de trabajo." },
+  "jjat-skills": { name: "Skills", repo: `${GH}/jjat-skills`, site: "https://skills.jjato.com", line: "Recetas para agentes: video, contenido y flujos de trabajo." },
 };
 
 const stars: Record<string, number | null> = {};
@@ -132,7 +132,7 @@ const steps: Step[] = [
   },
 ];
 
-const title = "Mi flujo de trabajo con agentes · jato";
+const title = "Mi flujo de trabajo con agentes · jjato";
 const description =
   "Paso a paso de las herramientas que uso a diario como developer: Herdr, Claude Code y Codex, skills, MCP, CLIs, HF Studio, grabador, Parkboard y más, con enlaces a GitHub.";
 const year = new Date().getFullYear();
@@ -145,10 +145,10 @@ const jsonLd = {
   "@type": "HowTo",
   name: "Mi flujo de trabajo con agentes de IA",
   description,
-  url: "https://jato.run/workflow/",
+  url: "https://jjato.com/workflow/",
   inLanguage: "es",
   author: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
-  step: steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.title, text: s.body, url: `https://jato.run/workflow/#${s.id}` })),
+  step: steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.title, text: s.body, url: `https://jjato.com/workflow/#${s.id}` })),
 };
 ---
 
@@ -156,9 +156,8 @@ const jsonLd = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
   <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
-    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jato.run">
-      <span class="text-2xl font-semibold tracking-tight">jato</span>
-      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jjato">
+      <span class="text-2xl font-semibold tracking-tight">jjato</span>
     </a>
     <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
       <a href="/#proyectos" class="hidden hover:text-fg sm:inline">Proyectos</a>
@@ -317,7 +316,7 @@ const jsonLd = {
     <span class="flex items-center gap-5">
       <a href="/privacidad/" class="hover:text-fg">Privacidad</a>
       <a href="/terminos/" class="hover:text-fg">Términos</a>
-      <span>© {year} jato.run</span>
+      <span>© {year} jjato</span>
     </span>
   </footer>
 </Base>

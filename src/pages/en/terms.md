@@ -2,20 +2,20 @@
 layout: ../../layouts/Legal.astro
 lang: en
 title: Terms of Service
-description: Terms of use for jato.run and the apps published under *.jato.run.
+description: Terms of use for jjato.com and the apps published under *.jjato.com.
 updated: Last updated · October 28, 2026
 other: { label: "ES", href: "/terminos/" }
 ---
 
-These terms govern the use of **jato.run** and of the apps published under a jato.run subdomain, such as parkboard.jato.run ("the Services"). The Services are built and operated by **Jaime Aza**, an individual based in Colombia. By creating an account or using the Services you accept these terms. If you do not agree, do not use them.
+These terms govern the use of **jjato.com** and of the apps published under a jjato.com subdomain, such as parkboard.jjato.com ("the Services"). The Services are built and operated by **Jaime Aza**, an individual based in Colombia. By creating an account or using the Services you accept these terms. If you do not agree, do not use them.
 
 ## The Services
 
-jato.run brings together software projects of its own. The Services are free and may change, pause or shut down at any time, with or without prior notice.
+jjato.com brings together software projects of its own. The Services are free and may change, pause or shut down at any time, with or without prior notice.
 
 ## Your account
 
-- Some apps require you to sign in with your Google account. The same account may work across several jato.run apps.
+- Some apps require you to sign in with your Google account. The same account may work across several jjato.com apps.
 - You are responsible for what is done from your account and for keeping access to your Google account secure.
 - You must be at least 18 years old to create an account.
 - We may suspend or close an account that breaks these terms or puts the Services at risk.
@@ -59,4 +59,4 @@ These terms are governed by the laws of the Republic of Colombia. Any dispute wi
 
 ## Contact
 
-Jaime Aza · [contacto@jato.run](mailto:contacto@jato.run) · [jato.run](https://jato.run)
+Jaime Aza · [contacto@jjato.com](mailto:contacto@jjato.com) · [jjato.com](https://jjato.com)

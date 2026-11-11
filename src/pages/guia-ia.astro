@@ -99,7 +99,7 @@ const cuidados = [
   "En ChatGPT, si no quieres que tus datos ayuden a entrenar, apaga «Improve the model for everyone» en Settings › Data controls.",
 ];
 
-const title = "Guía: conecta tu IA a tu trabajo · jato";
+const title = "Guía: conecta tu IA a tu trabajo · jjato";
 const description =
   "Cómo conectar Claude o ChatGPT a Gmail, Google Calendar, Drive y más de mil apps con Composio, paso a paso, con tareas que puedes delegar desde hoy.";
 const year = new Date().getFullYear();
@@ -109,10 +109,10 @@ const jsonLd = {
   "@type": "HowTo",
   name: "Conecta Claude o ChatGPT a tus herramientas de trabajo",
   description,
-  url: "https://jato.run/guia-ia/",
+  url: "https://jjato.com/guia-ia/",
   inLanguage: "es",
   author: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
-  step: blocks.map((b, i) => ({ "@type": "HowToStep", position: i + 1, name: b.title, text: b.intro, url: `https://jato.run/guia-ia/#${b.id}` })),
+  step: blocks.map((b, i) => ({ "@type": "HowToStep", position: i + 1, name: b.title, text: b.intro, url: `https://jjato.com/guia-ia/#${b.id}` })),
 };
 ---
 
@@ -120,9 +120,8 @@ const jsonLd = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
   <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-8">
-    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jato.run">
-      <span class="text-2xl font-semibold tracking-tight">jato</span>
-      <span class="font-mono text-sm text-dim transition-colors group-hover:text-muted">.run</span>
+    <a href="/" class="group flex items-baseline gap-0.5" aria-label="jjato">
+      <span class="text-2xl font-semibold tracking-tight">jjato</span>
     </a>
     <nav class="flex items-center gap-5 font-mono text-xs uppercase tracking-widest text-muted">
       <a href="#tareas" class="hover:text-fg">Tareas</a>
@@ -246,7 +245,7 @@ const jsonLd = {
     <span class="flex items-center gap-5">
       <a href="/privacidad/" class="hover:text-fg">Privacidad</a>
       <a href="/terminos/" class="hover:text-fg">Términos</a>
-      <span>© {year} jato.run</span>
+      <span>© {year} jjato</span>
     </span>
   </footer>
 </Base>

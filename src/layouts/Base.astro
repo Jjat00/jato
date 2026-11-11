@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { lang, title, description, path: own } = Astro.props;
-const site = "https://jato.run";
+const site = "https://jjato.com";
 const path = own ?? (lang === "es" ? "/" : "/en/");
 ---
 
@@ -31,7 +31,7 @@ const path = own ?? (lang === "es" ? "/" : "/en/");
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="jato.run for language models" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="jjato.com for language models" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

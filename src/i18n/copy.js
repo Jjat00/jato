@@ -5,8 +5,8 @@ const projects = [
   {
     slug: "hf-studio",
     name: "HF Studio",
-    route: "hf-studio.jato.run",
-    href: "https://hf-studio.jato.run",
+    route: "hf-studio.jjato.com",
+    href: "https://hf-studio.jjato.com",
     repo: "https://github.com/Jjat00/hf-studio",
     tags: "MCP · API · Next.js",
     line: {
@@ -17,8 +17,8 @@ const projects = [
   {
     slug: "parkboard",
     name: "Parkboard",
-    route: "parkboard.jato.run",
-    href: "https://parkboard.jato.run",
+    route: "parkboard.jjato.com",
+    href: "https://parkboard.jjato.com",
     repo: "https://github.com/Jjat00/parkboard",
     tags: "CLI · Next.js · Postgres",
     line: {
@@ -29,8 +29,8 @@ const projects = [
   {
     slug: "boost",
     name: "boost",
-    route: "boost.jato.run",
-    href: "https://boost.jato.run",
+    route: "boost.jjato.com",
+    href: "https://boost.jjato.com",
     tags: "CLI · Instagram · TikTok",
     line: {
       es: "Programa y mide tus posts de Instagram y TikTok, solo o en equipo.",
@@ -40,8 +40,8 @@ const projects = [
   {
     slug: "skills",
     name: "Skills",
-    route: "skills.jato.run",
-    href: "https://skills.jato.run",
+    route: "skills.jjato.com",
+    href: "https://skills.jjato.com",
     repo: "https://github.com/Jjat00/jjat-skills",
     tags: "Claude Code · Codex",
     line: {
@@ -52,7 +52,7 @@ const projects = [
 ];
 
 const WA = "573164277879";
-const MAIL = "contacto@jato.run";
+const MAIL = "contacto@jjato.com";
 const IG = "https://www.instagram.com/jaimejjat/";
 const wa = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
 
@@ -64,9 +64,9 @@ const snake = {
 const copy = {
   es: {
     lang: "es",
-    title: "jato.run · Agentes de IA, software y contenido en producción",
+    title: "jjato · Agentes de IA, software y contenido en producción",
     description:
-      "jato.run es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
+      "jjato es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
     nav: [
       { label: "Servicios", href: "#servicios" },
       { label: "En producción", href: "#casos" },
@@ -74,7 +74,7 @@ const copy = {
     ],
     h1: "Ponemos la IA a trabajar.",
     sub: "Somos un estudio de producto. Construimos agentes de IA, software y contenido que ya están en producción.",
-    ctaPrimary: { label: "Hablemos", href: wa("Hola, quiero hablar con jato.run sobre un proyecto.") },
+    ctaPrimary: { label: "Hablemos", href: wa("Hola, quiero hablar con jjato sobre un proyecto.") },
     ctaSecondary: { label: "Qué hacemos", href: "#servicios" },
     hero3d: "Cubo de 27 bloques que se arma y gira",
     services: {
@@ -118,11 +118,11 @@ const copy = {
     contact: {
       title: "Cuéntanos qué necesitas.",
       body: "Respondemos con una propuesta, tiempos y precio.",
-      wa: { label: "Escribir por WhatsApp", href: wa("Hola, quiero cotizar un proyecto con jato.run.") },
+      wa: { label: "Escribir por WhatsApp", href: wa("Hola, quiero cotizar un proyecto con jjato.") },
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Estrella en GitHub",
-    starTitle: "Dale una estrella a jato.run en GitHub",
+    starTitle: "Dale una estrella a jjato en GitHub",
     by: "Fundado por",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
@@ -130,9 +130,9 @@ const copy = {
   },
   en: {
     lang: "en",
-    title: "jato.run · AI agents, software and content in production",
+    title: "jjato · AI agents, software and content in production",
     description:
-      "jato.run is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
+      "jjato is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
     nav: [
       { label: "Services", href: "#servicios" },
       { label: "In production", href: "#casos" },
@@ -140,7 +140,7 @@ const copy = {
     ],
     h1: "We put AI to work.",
     sub: "We are a product studio. We build AI agents, software and content that already run in production.",
-    ctaPrimary: { label: "Let's talk", href: wa("Hi, I'd like to talk to jato.run about a project.") },
+    ctaPrimary: { label: "Let's talk", href: wa("Hi, I'd like to talk to jjato about a project.") },
     ctaSecondary: { label: "What we do", href: "#servicios" },
     hero3d: "A cube of 27 blocks assembling and turning",
     services: {
@@ -184,11 +184,11 @@ const copy = {
     contact: {
       title: "Tell us what you need.",
       body: "We reply with a proposal, timeline and price.",
-      wa: { label: "Message us on WhatsApp", href: wa("Hi, I'd like a quote for a project with jato.run.") },
+      wa: { label: "Message us on WhatsApp", href: wa("Hi, I'd like a quote for a project with jjato.") },
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Star on GitHub",
-    starTitle: "Star jato.run on GitHub",
+    starTitle: "Star jjato on GitHub",
     by: "Founded by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },

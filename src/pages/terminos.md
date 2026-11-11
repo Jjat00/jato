@@ -2,20 +2,20 @@
 layout: ../layouts/Legal.astro
 lang: es
 title: Términos y condiciones
-description: Condiciones de uso de jato.run y de las aplicaciones publicadas bajo *.jato.run.
+description: Condiciones de uso de jjato.com y de las aplicaciones publicadas bajo *.jjato.com.
 updated: Última actualización · 28 de octubre de 2026
 other: { label: "EN", href: "/en/terms/" }
 ---
 
-Estos términos regulan el uso de **jato.run** y de las aplicaciones publicadas bajo un subdominio de jato.run, como parkboard.jato.run (en adelante, «los Servicios»). Los Servicios los desarrolla y opera **Jaime Aza**, persona natural residente en Colombia. Al crear una cuenta o usar los Servicios aceptas estos términos. Si no estás de acuerdo, no los uses.
+Estos términos regulan el uso de **jjato.com** y de las aplicaciones publicadas bajo un subdominio de jjato.com, como parkboard.jjato.com (en adelante, «los Servicios»). Los Servicios los desarrolla y opera **Jaime Aza**, persona natural residente en Colombia. Al crear una cuenta o usar los Servicios aceptas estos términos. Si no estás de acuerdo, no los uses.
 
 ## Los Servicios
 
-jato.run reúne proyectos de software propios. Los Servicios se ofrecen gratis y pueden cambiar, pausarse o dejar de existir en cualquier momento, con o sin aviso previo.
+jjato.com reúne proyectos de software propios. Los Servicios se ofrecen gratis y pueden cambiar, pausarse o dejar de existir en cualquier momento, con o sin aviso previo.
 
 ## Tu cuenta
 
-- Para algunas aplicaciones necesitas iniciar sesión con tu cuenta de Google. La misma cuenta puede servir para varias aplicaciones de jato.run.
+- Para algunas aplicaciones necesitas iniciar sesión con tu cuenta de Google. La misma cuenta puede servir para varias aplicaciones de jjato.com.
 - Eres responsable de lo que se haga desde tu cuenta y de mantener seguro el acceso a tu cuenta de Google.
 - Debes ser mayor de 18 años para crear una cuenta.
 - Podemos suspender o cerrar una cuenta que incumpla estos términos o que ponga en riesgo los Servicios.
@@ -59,4 +59,4 @@ Estos términos se rigen por las leyes de la República de Colombia. Cualquier c
 
 ## Contacto
 
-Jaime Aza · [contacto@jato.run](mailto:contacto@jato.run) · [jato.run](https://jato.run)
+Jaime Aza · [contacto@jjato.com](mailto:contacto@jjato.com) · [jjato.com](https://jjato.com)
