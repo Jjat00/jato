@@ -1,0 +1,159 @@
+---
+// Línea de luz que recorre la portada al hacer scroll: baja por un margen, cruza en cada cambio
+// de sección y sigue por el otro. Trazo en ángulos rectos, con el degradado cian a violeta de la marca.
+// El recorrido se calcula con la posición real de las secciones, así que se adapta a cualquier pantalla.
+---
+
+<div class="trail" aria-hidden="true">
+  <svg>
+    <defs>
+      <linearGradient id="trail-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1000">
+        <stop offset="0" class="trail-c" />
+        <stop offset="0.5" class="trail-v" />
+        <stop offset="1" class="trail-c" />
+      </linearGradient>
+    </defs>
+    <path class="trail-track" fill="none"></path>
+    <path class="trail-halo" fill="none" stroke="url(#trail-grad)"></path>
+    <path class="trail-line" fill="none" stroke="url(#trail-grad)"></path>
+  </svg>
+  <span class="trail-head"></span>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".trail");
+  const main = root?.parentElement;
+  if (root && main) {
+    const svg = root.querySelector("svg")!;
+    const grad = root.querySelector("linearGradient")!;
+    const paths = [...root.querySelectorAll<SVGPathElement>("path")];
+    const [, halo, line] = paths;
+    const head = root.querySelector<HTMLElement>(".trail-head")!;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+
+    type Seg = { vertical: boolean; y0: number; y1: number; len: number };
+    let segs: Seg[] = [];
+    let total = 0;
+    let current = 0;
+    let target = 0;
+    let raf = 0;
+
+    function build() {
+      const sections = [...main!.querySelectorAll<HTMLElement>(":scope > section")];
+      if (sections.length < 3) return;
+      const W = main!.clientWidth;
+      const H = main!.scrollHeight;
+      const top = (el: HTMLElement) => el.offsetTop;
+      // Margen: a mitad del padding lateral del contenido, para no pisar texto.
+      const inner = sections[1].firstElementChild as HTMLElement;
+      const box = inner.getBoundingClientRect();
+      const pad = parseFloat(getComputedStyle(inner).paddingLeft);
+      const left = Math.max(box.left + pad / 2, 8);
+      const right = Math.min(box.right - pad / 2, W - 8);
+
+      // Sale del centro del hero, y en cada frontera de sección cruza al otro margen.
+      const pts: [number, number][] = [[W / 2, top(sections[1]) - 22]];
+      let x = W / 2;
+      for (let i = 1; i < sections.length; i++) {
+        const y = top(sections[i]);
+        const nx = i % 2 === 1 ? left : right;
+        pts.push([x, y], [nx, y]);
+        x = nx;
+      }
+      const last = sections[sections.length - 1];
+      pts.push([x, top(last) + Math.min(last.offsetHeight * 0.5, 260)]);
+
+      svg.setAttribute("width", String(W));
+      svg.setAttribute("height", String(H));
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      grad.setAttribute("y2", String(Math.max(innerHeight * 1.6, 900)));
+      grad.setAttribute("spreadMethod", "reflect");
+      const d = pts.map(([px, py], i) => `${i ? "L" : "M"}${px.toFixed(1)} ${py.toFixed(1)}`).join(" ");
+      paths.forEach((p) => p.setAttribute("d", d));
+
+      segs = [];
+      total = 0;
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1];
+        const [x1, y1] = pts[i];
+        const len = Math.abs(x1 - x0) + Math.abs(y1 - y0);
+        segs.push({ vertical: x0 === x1, y0, y1, len });
+        total += len;
+      }
+      for (const p of [halo, line]) p.style.strokeDasharray = `${total}`;
+      update(true);
+    }
+
+    // Largo de línea encendido cuando la punta va a la altura y.
+    function lengthAt(y: number) {
+      let acc = 0;
+      for (const s of segs) {
+        if (s.vertical) {
+          if (y >= s.y1) acc += s.len;
+          else return acc + Math.max(0, y - s.y0);
+        } else {
+          if (y >= s.y0) acc += s.len;
+          else return acc;
+        }
+      }
+      return acc;
+    }
+
+    function paint() {
+      for (const p of [halo, line]) p.style.strokeDashoffset = `${total - current}`;
+      const lit = current > 1;
+      head.style.opacity = lit ? "1" : "0";
+      if (lit) {
+        const pt = line.getPointAtLength(current);
+        head.style.transform = `translate(${pt.x}px, ${pt.y}px)`;
+      }
+    }
+
+    function tick() {
+      current += (target - current) * 0.11;
+      if (Math.abs(target - current) < 0.6) current = target;
+      paint();
+      raf = current === target ? 0 : requestAnimationFrame(tick);
+    }
+
+    function update(jump = false) {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const p = max > 0 ? scrollY / max : 1;
+      const offset = main!.getBoundingClientRect().top + scrollY;
+      // La punta va a ~60 % de la pantalla y llega al final junto con el scroll.
+      const y = scrollY - offset + innerHeight * (0.6 + 0.4 * p);
+      target = reduce.matches ? total : lengthAt(y);
+      if (jump || reduce.matches) {
+        current = target;
+        paint();
+      } else if (!raf) raf = requestAnimationFrame(tick);
+    }
+
+    addEventListener("scroll", () => update(), { passive: true });
+    new ResizeObserver(() => build()).observe(main);
+    reduce.addEventListener("change", () => update(true));
+    build();
+  }
+</script>
+
+<style is:global>
+  .trail { position: absolute; inset: 0; z-index: 5; pointer-events: none; overflow: hidden; }
+  .trail svg { display: block; overflow: visible; }
+  .trail-c { stop-color: var(--color-cyan); }
+  .trail-v { stop-color: var(--color-violet); }
+  .trail-track { stroke: color-mix(in srgb, var(--color-fg) 9%, transparent); stroke-width: 1; }
+  .trail-line { stroke-width: 2; stroke-linecap: square; stroke-linejoin: miter; }
+  .trail-halo { stroke-width: 10; stroke-linecap: square; stroke-linejoin: miter; opacity: 0.2; }
+  /* Punta: un cuadro encendido, como las baldosas de la marca */
+  .trail-head {
+    position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; opacity: 0;
+    background: var(--brand-violet);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-violet) 30%, transparent), 0 0 22px 6px color-mix(in srgb, var(--brand-cyan) 55%, transparent), 0 0 60px 14px color-mix(in srgb, var(--brand-violet) 35%, transparent);
+    transition: opacity 0.3s;
+    will-change: transform;
+  }
+  @media (prefers-color-scheme: light) {
+    .trail-halo { opacity: 0.16; }
+    .trail-head { background: var(--color-violet); }
+  }
+</style>

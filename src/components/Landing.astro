@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Hero3D from "./Hero3D.astro";
+import Trail from "./Trail.astro";
 import { getCopy, getProjects } from "../i18n/copy.js";
 
 interface Props {
@@ -63,7 +64,7 @@ const jsonLd = {
     </div>
   </header>
 
-  <main>
+  <main class="relative">
     <section class="hero relative isolate grid overflow-hidden px-5 text-center sm:px-8">
       <div class="hero-bg" aria-hidden="true">
         <div class="hero-grid"></div>
@@ -224,6 +225,7 @@ const jsonLd = {
         </div>
       </div>
     </section>
+    <Trail />
   </main>
 
   <footer class="overflow-hidden">
