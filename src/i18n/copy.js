@@ -123,8 +123,6 @@ const copy = {
         { q: "¿Hacen agentes de IA para WhatsApp?", a: "Sí, y ya están en producción. En Frostbyte el agente toma pedidos por WhatsApp con la carta, los precios y el horario reales del local. En Tresqu registras un gasto con un mensaje o con la foto de la factura y el agente te responde con tus propios números." },
         { q: "¿Cuánto cuesta trabajar con Jjato?", a: "No hay precios fijos: cada proyecto se cotiza. Nos escribes por WhatsApp o a contacto@jjato.com, hacemos una llamada corta y te enviamos una propuesta con tiempos y precio, sin compromiso." },
         { q: "¿Trabajan con empresas fuera de Colombia?", a: "Sí. Trabajamos en remoto con negocios de Colombia y del resto de Latinoamérica, en español o en inglés." },
-        { q: "¿Con qué tecnología trabajan?", a: "Modelos de IA como Claude y los de OpenAI, agentes conectados por MCP, Next.js y Astro en la web, Postgres como base de datos, y despliegue en Vercel y Railway." },
-        { q: "¿Jjato es lo mismo que jato.run?", a: "Sí. Hasta noviembre de 2026 el estudio se llamaba jato.run. Ahora es Jjato y su sitio es jjato.com; las apps viven en subdominios como parkboard.jjato.com y hf-studio.jjato.com." },
       ],
     },
     contact: {
@@ -201,8 +199,6 @@ const copy = {
         { q: "Do you build AI agents for WhatsApp?", a: "Yes, and they are already in production. At Frostbyte the agent takes orders on WhatsApp with the shop's real menu, prices and opening hours. With Tresqu you log an expense with a message or a photo of the receipt and the agent answers with your own numbers." },
         { q: "How much does it cost to work with Jjato?", a: "There are no fixed prices: every project is quoted. Write to us on WhatsApp or at contacto@jjato.com, we have a short call and send you a proposal with timeline and price, with no commitment." },
         { q: "Do you work with companies outside Colombia?", a: "Yes. We work remotely with businesses in Colombia and the rest of Latin America, in Spanish or English." },
-        { q: "What technology do you use?", a: "AI models such as Claude and OpenAI's, agents connected over MCP, Next.js and Astro on the web, Postgres for data, and deployments on Vercel and Railway." },
-        { q: "Is Jjato the same as jato.run?", a: "Yes. Until November 2026 the studio was called jato.run. It is now Jjato and its site is jjato.com; the apps live on subdomains such as parkboard.jjato.com and hf-studio.jjato.com." },
       ],
     },
     contact: {
