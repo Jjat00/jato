@@ -7,6 +7,6 @@ export default defineConfig({
   devToolbar: { enabled: false },
   output: "static",
   i18n: { locales: ["es", "en"], defaultLocale: "es", routing: { prefixDefaultLocale: false } },
-  integrations: [sitemap({ i18n: { defaultLocale: "es", locales: { es: "es", en: "en" } } })],
+  integrations: [sitemap({ i18n: { defaultLocale: "es", locales: { es: "es", en: "en" } }, lastmod: new Date(), changefreq: "weekly" })],
   vite: { plugins: [tailwindcss()] },
 });

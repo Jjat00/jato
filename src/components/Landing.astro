@@ -17,24 +17,70 @@ const year = new Date().getFullYear();
 const home = locale === "es" ? "/" : "/en/";
 const ext = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {});
 
+const SITE = "https://jjato.com";
+const ORG = `${SITE}/#org`;
+const FOUNDER = "https://jaimeaza.tech/#person";
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "WebSite", "@id": "https://jjato.com/#site", name: "Jjato", url: "https://jjato.com", inLanguage: locale },
     {
-      "@type": "Organization",
-      "@id": "https://jjato.com/#org",
+      "@type": "WebSite",
+      "@id": `${SITE}/#site`,
       name: "Jjato",
-      url: "https://jjato.com",
+      alternateName: ["jjato", "jjato.com", "jato.run"],
+      url: `${SITE}/`,
+      inLanguage: ["es", "en"],
+      publisher: { "@id": ORG },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE}${home}#page`,
+      url: `${SITE}${home}`,
+      name: t.title,
       description: t.description,
+      inLanguage: locale,
+      isPartOf: { "@id": `${SITE}/#site` },
+      about: { "@id": ORG },
+      primaryImageOfPage: `${SITE}/og.png`,
+    },
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": ORG,
+      name: "Jjato",
+      legalName: "Jjato",
+      alternateName: ["jjato", "JJATO", "Jjato studio", "jato.run"],
+      url: `${SITE}/`,
+      logo: { "@type": "ImageObject", url: `${SITE}/marca/jjato-icono-512.png`, width: 512, height: 512 },
+      image: `${SITE}/og.png`,
+      description: t.description,
+      slogan: t.h1,
+      foundingDate: "2026",
+      foundingLocation: { "@type": "Place", name: "Colombia" },
+      address: { "@type": "PostalAddress", addressCountry: "CO" },
+      areaServed: [{ "@type": "Country", name: "Colombia" }, { "@type": "Place", name: "Latin America" }],
       email: "contacto@jjato.com",
-      founder: { "@type": "Person", name: "Jaime Aza", url: "https://jaimeaza.tech" },
-      sameAs: ["https://github.com/Jjat00", "https://www.instagram.com/jaimejjat/"],
+      telephone: "+57 316 427 7879",
+      contactPoint: { "@type": "ContactPoint", contactType: "sales", email: "contacto@jjato.com", telephone: "+57 316 427 7879", availableLanguage: ["Spanish", "English"], areaServed: "Latin America" },
+      priceRange: "$$",
+      knowsAbout: ["Artificial intelligence", "AI agents", "WhatsApp chatbots", "Model Context Protocol", "LLM applications", "Web development", "App development", "Explainer videos", "Generative AI content"],
+      founder: {
+        "@type": "Person",
+        "@id": FOUNDER,
+        name: "Jaime Aza",
+        jobTitle: "AI Engineer",
+        url: "https://jaimeaza.tech",
+        sameAs: ["https://github.com/Jjat00", "https://www.linkedin.com/in/jaimeaza/", "https://www.instagram.com/jaimejjat/", "https://www.tiktok.com/@jaimejjat", "https://x.com/JaimeJjat"],
+      },
+      sameAs: ["https://github.com/Jjat00/jato", "https://www.instagram.com/jaimejjat/"],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: t.services.title,
-        itemListElement: t.services.items.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.name, description: s.line } })),
+        itemListElement: t.services.items.map((s) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: s.name, description: s.line, provider: { "@id": ORG }, areaServed: "Latin America" },
+        })),
       },
+      owns: projects.map((p) => ({ "@id": `${p.href}/#app` })),
     },
     {
       "@type": "ItemList",
@@ -42,8 +88,24 @@ const jsonLd = {
       itemListElement: projects.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        item: { "@type": "SoftwareApplication", name: p.name, description: p.line, url: p.href },
+        item: {
+          "@type": "SoftwareApplication",
+          "@id": `${p.href}/#app`,
+          name: p.name,
+          description: p.line,
+          url: p.href,
+          applicationCategory: "DeveloperApplication",
+          operatingSystem: "Web",
+          publisher: { "@id": ORG },
+          ...(p.repo ? { codeRepository: p.repo, isAccessibleForFree: true } : {}),
+        },
       })),
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE}${home}#faq`,
+      inLanguage: locale,
+      mainEntity: t.faq.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -212,6 +274,22 @@ const jsonLd = {
             ))
           }
         </ol>
+      </div>
+    </section>
+
+    <section id="preguntas" aria-labelledby="faq-title" class="border-t border-line">
+      <div class="mx-auto max-w-[92rem] px-5 py-24 sm:px-8 sm:py-32">
+        <h2 id="faq-title" class="display" data-reveal>{t.faq.title}</h2>
+        <dl class="mt-14 grid gap-x-12 gap-y-10 sm:mt-20 md:grid-cols-2">
+          {
+            t.faq.items.map((f) => (
+              <div data-reveal>
+                <dt class="text-xl font-semibold tracking-tight sm:text-2xl">{f.q}</dt>
+                <dd class="mt-3 max-w-[60ch] text-base leading-relaxed text-muted sm:text-lg">{f.a}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
     </section>
 

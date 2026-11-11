@@ -66,7 +66,7 @@ const copy = {
     lang: "es",
     title: "Jjato · Agentes de IA, software y contenido en producción",
     description:
-      "Jjato es un estudio de producto e IA. Construimos agentes de IA, software y contenido que ya trabajan en producción. Fundado por Jaime Aza.",
+      "Jjato es un estudio de producto e IA en Colombia: agentes de IA para WhatsApp, desarrollo web y apps, videos explicadores, contenido con IA y talleres. Fundado por Jaime Aza.",
     nav: [
       { label: "Servicios", href: "#servicios" },
       { label: "En producción", href: "#casos" },
@@ -115,10 +115,22 @@ const copy = {
         { title: "Entregamos", body: "Con avances en el camino y ajustes hasta que quede bien." },
       ],
     },
+    faq: {
+      title: "Preguntas frecuentes",
+      items: [
+        { q: "¿Qué es Jjato?", a: "Jjato (con doble J) es un estudio de producto e inteligencia artificial de Colombia, fundado en 2026 por Jaime Aza, AI Engineer. Construimos agentes de IA, software a medida y contenido con IA para negocios de Latinoamérica, y publicamos nuestras propias herramientas en jjato.com." },
+        { q: "¿Qué servicios ofrece Jjato?", a: "Cinco: agentes de IA que atienden por WhatsApp y toman pedidos, desarrollo web y de apps, videos explicadores de 1 a 3 minutos, contenido con IA para redes y anuncios, y talleres de IA para equipos." },
+        { q: "¿Hacen agentes de IA para WhatsApp?", a: "Sí, y ya están en producción. En Frostbyte el agente toma pedidos por WhatsApp con la carta, los precios y el horario reales del local. En Tresqu registras un gasto con un mensaje o con la foto de la factura y el agente te responde con tus propios números." },
+        { q: "¿Cuánto cuesta trabajar con Jjato?", a: "No hay precios fijos: cada proyecto se cotiza. Nos escribes por WhatsApp o a contacto@jjato.com, hacemos una llamada corta y te enviamos una propuesta con tiempos y precio, sin compromiso." },
+        { q: "¿Trabajan con empresas fuera de Colombia?", a: "Sí. Trabajamos en remoto con negocios de Colombia y del resto de Latinoamérica, en español o en inglés." },
+        { q: "¿Con qué tecnología trabajan?", a: "Modelos de IA como Claude y los de OpenAI, agentes conectados por MCP, Next.js y Astro en la web, Postgres como base de datos, y despliegue en Vercel y Railway." },
+        { q: "¿Jjato es lo mismo que jato.run?", a: "Sí. Hasta noviembre de 2026 el estudio se llamaba jato.run. Ahora es Jjato y su sitio es jjato.com; las apps viven en subdominios como parkboard.jjato.com y hf-studio.jjato.com." },
+      ],
+    },
     contact: {
       title: "Cuéntanos qué necesitas.",
       body: "Respondemos con una propuesta, tiempos y precio.",
-      wa: { label: "Escribir por WhatsApp", href: wa("Hola, quiero cotizar un proyecto con jjato.") },
+      wa: { label: "Escribir por WhatsApp", href: wa("Hola, quiero cotizar un proyecto con Jjato.") },
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Estrella en GitHub",
@@ -132,7 +144,7 @@ const copy = {
     lang: "en",
     title: "Jjato · AI agents, software and content in production",
     description:
-      "Jjato is a product and AI studio. We build AI agents, software and content that already run in production. Founded by Jaime Aza.",
+      "Jjato is a product and AI studio from Colombia: WhatsApp AI agents, web and app development, explainer videos, AI content and workshops. Founded by Jaime Aza.",
     nav: [
       { label: "Services", href: "#servicios" },
       { label: "In production", href: "#casos" },
@@ -181,10 +193,22 @@ const copy = {
         { title: "We deliver", body: "With progress along the way and changes until it's right." },
       ],
     },
+    faq: {
+      title: "Frequently asked questions",
+      items: [
+        { q: "What is Jjato?", a: "Jjato (with a double J) is a product and AI studio from Colombia, founded in 2026 by Jaime Aza, an AI Engineer. We build AI agents, custom software and AI content for businesses in Latin America, and we publish our own tools at jjato.com." },
+        { q: "What services does Jjato offer?", a: "Five: AI agents that answer on WhatsApp and take orders, web and app development, 1 to 3 minute explainer videos, AI content for social media and ads, and AI workshops for teams." },
+        { q: "Do you build AI agents for WhatsApp?", a: "Yes, and they are already in production. At Frostbyte the agent takes orders on WhatsApp with the shop's real menu, prices and opening hours. With Tresqu you log an expense with a message or a photo of the receipt and the agent answers with your own numbers." },
+        { q: "How much does it cost to work with Jjato?", a: "There are no fixed prices: every project is quoted. Write to us on WhatsApp or at contacto@jjato.com, we have a short call and send you a proposal with timeline and price, with no commitment." },
+        { q: "Do you work with companies outside Colombia?", a: "Yes. We work remotely with businesses in Colombia and the rest of Latin America, in Spanish or English." },
+        { q: "What technology do you use?", a: "AI models such as Claude and OpenAI's, agents connected over MCP, Next.js and Astro on the web, Postgres for data, and deployments on Vercel and Railway." },
+        { q: "Is Jjato the same as jato.run?", a: "Yes. Until November 2026 the studio was called jato.run. It is now Jjato and its site is jjato.com; the apps live on subdomains such as parkboard.jjato.com and hf-studio.jjato.com." },
+      ],
+    },
     contact: {
       title: "Tell us what you need.",
       body: "We reply with a proposal, timeline and price.",
-      wa: { label: "Message us on WhatsApp", href: wa("Hi, I'd like a quote for a project with jjato.") },
+      wa: { label: "Message us on WhatsApp", href: wa("Hi, I'd like a quote for a project with Jjato.") },
       mail: { label: MAIL, href: `mailto:${MAIL}` },
     },
     star: "Star on GitHub",

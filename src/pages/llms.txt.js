@@ -1,35 +1,43 @@
-// Índice de jjato.com para modelos de lenguaje (https://llmstxt.org): cada proyecto con su propio llms.txt.
-import { allProjects } from "../i18n/copy.js";
+// Índice de jjato.com para modelos de lenguaje (https://llmstxt.org). El texto completo está en /llms-full.txt.
+import { allProjects, getCopy } from "../i18n/copy.js";
+import { services } from "../i18n/servicios.js";
 
 const SITE = "https://jjato.com";
 
 export const GET = () => {
-  const projects = allProjects.map(
-    (p) => `- [${p.name}](${p.href}/llms.txt): ${p.line.en} (${p.tags}). Site: ${p.href}${p.repo ? `. Code: ${p.repo}` : ""}`,
-  );
+  const en = getCopy("en");
   const body = [
     "# Jjato",
     "",
-    "> Jjato is Jaime Aza's workshop: tools for working with AI agents (Claude Code, Codex and others) and a few experiments. Each project lives on its own subdomain and has its own llms.txt with the details.",
+    "> Jjato (spelled with a double J; jjato.com) is a product and AI studio from Colombia, founded in 2026 by Jaime Aza, an AI Engineer. It builds AI agents (WhatsApp agents that take orders and answer with real business data), web and app development, explainer videos, AI content for brands, and AI workshops for teams, for businesses in Latin America. It also publishes its own tools for working with AI agents, several of them open source.",
     "",
-    "Author: Jaime Aza, AI Engineer (https://jaimeaza.tech, https://github.com/Jjat00). The site is in Spanish (/) and English (/en/).",
+    "Jjato was called jato.run until November 2026; jato.run now redirects here. It is not related to JATO Dynamics, the Jato VM or the jato hand mill. The site is in Spanish (/) and English (/en/). Full text of every page: https://jjato.com/llms-full.txt",
     "",
-    "## Projects",
-    "",
-    ...projects,
+    "Contact: contacto@jjato.com · WhatsApp +57 316 427 7879 · No public prices: every project is quoted after a short call.",
     "",
     "## Services",
     "",
-    `- [Servicios](${SITE}/servicios/): what Jaime does on request (in Spanish): explainer videos (pitch decks, products, company stories), AI content for brands (ads, product shots, 3D), AI agents for businesses (WhatsApp, orders, integrations), web or app development and AI workshops for teams. No public prices; quotes via WhatsApp (+57 316 427 7879) or contacto@jjato.com.`,
+    ...services.map((s) => `- [${s.kicker}](${SITE}/servicios/#${s.id}): ${s.body} For: ${s.forWho}`),
     "",
-    "## Workflow",
+    "## Work in production",
     "",
-    `- [Mi flujo de trabajo con agentes](${SITE}/workflow/): step by step (in Spanish) of the tools Jaime uses every day as a developer: Herdr, Claude Code and Codex, skills and subagents, MCP, Composio and CLIs, HF Studio, grabador, Parkboard and the infrastructure, with links to the open-source repos.`,
+    ...en.cases.items.map((c) => `- ${c.name} (${c.kind}): ${c.body} ${c.href}`),
     "",
-    "## Legal",
+    "## Products",
     "",
-    `- [Privacy](${SITE}/en/privacy/): covers jjato.com and every *.jjato.com app.`,
-    `- [Terms](${SITE}/en/terms/)`,
+    ...allProjects.map((p) => `- [${p.name}](${p.href}/llms.txt): ${p.line.en} (${p.tags}). Site: ${p.href}${p.repo ? `. Code: ${p.repo}` : ""}`),
+    "",
+    "## Pages",
+    "",
+    `- [Home (Spanish)](${SITE}/) · [Home (English)](${SITE}/en/): who Jjato is, services, work in production, products, how we work and FAQ.`,
+    `- [Servicios](${SITE}/servicios/): each service in detail, with what it includes and who it is for (Spanish).`,
+    `- [Mi flujo de trabajo con agentes](${SITE}/workflow/): the tools Jaime uses every day as a developer, step by step (Spanish).`,
+    `- [Guía: conecta tu IA a tu trabajo](${SITE}/guia-ia/): how to connect an AI assistant to your own tools (Spanish).`,
+    `- [Privacy](${SITE}/en/privacy/) · [Terms](${SITE}/en/terms/): cover jjato.com and every *.jjato.com app.`,
+    "",
+    "## Founder",
+    "",
+    "- Jaime Aza, AI Engineer: https://jaimeaza.tech · https://github.com/Jjat00 · https://www.linkedin.com/in/jaimeaza/",
     "",
   ].join("\n");
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
