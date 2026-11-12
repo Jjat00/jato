@@ -56,11 +56,6 @@ const MAIL = "contacto@jjato.com";
 const IG = "https://www.instagram.com/jaimejjat/";
 const wa = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
 
-const snake = {
-  es: { play: "jugar", score: "puntos", hint: "flechas, WASD o desliza · Esc para salir", hintTouch: "usa las flechas o desliza el dedo", over: "fin · Enter o toca para jugar otra vez", quit: "salir", dirs: ["arriba", "izquierda", "abajo", "derecha"] },
-  en: { play: "play", score: "score", hint: "arrows, WASD or swipe · Esc to quit", hintTouch: "use the arrows or swipe", over: "game over · Enter or tap to play again", quit: "quit", dirs: ["up", "left", "down", "right"] },
-};
-
 const copy = {
   es: {
     lang: "es",
@@ -134,7 +129,6 @@ const copy = {
     by: "Fundado por",
     legal: [{ label: "Privacidad", href: "/privacidad/" }, { label: "Términos", href: "/terminos/" }],
     other: { label: "EN", href: "/en/" },
-    snake: snake.es,
   },
   en: {
     lang: "en",
@@ -208,7 +202,6 @@ const copy = {
     by: "Founded by",
     legal: [{ label: "Privacy", href: "/en/privacy/" }, { label: "Terms", href: "/en/terms/" }],
     other: { label: "ES", href: "/" },
-    snake: snake.en,
   },
 };
 
